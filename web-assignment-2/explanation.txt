@@ -1,0 +1,708 @@
+================================================================================
+           CAMPUS RIDE SHARING BOARD - COMPLETE SOLUTION EXPLANATION
+================================================================================
+
+Hey! This file explains EVERYTHING about this project in the simplest way possible.
+Read section by section. No rush. Each section is short.
+
+
+================================================================================
+SECTION 1: WHAT EVEN IS THIS PROJECT?
+================================================================================
+
+This is a React app where university students can:
+  - Make an account (Register)
+  - Login / Logout
+  - See available rides
+  - Offer a ride to others (Post Ride)
+  - Book a seat on someone's ride
+  - Request a ride if they need one
+  - Search and filter rides
+  - View who is driving (Driver Profile)
+  - See their booked rides (My Bookings)
+  - Change their password
+
+There is NO backend / database. All data lives inside Redux (in memory).
+When you refresh the page, data resets to the default seed data.
+
+
+================================================================================
+SECTION 2: WHAT FOLDERS/FILES EXIST AND WHY?
+================================================================================
+
+Here is the folder structure inside frontend/src/:
+
+  src/
+  ├── main.jsx              <-- The VERY FIRST file that runs
+  ├── App.jsx               <-- Sets up all the pages/routes
+  ├── App.css               <-- Custom styles (hero banner, page header, cards)
+  ├── index.css             <-- Basic body styles (just margin/padding reset)
+  ├── store/
+  │   └── store.js          <-- Creates the Redux store (the big data box)
+  ├── slices/
+  │   ├── userSlice.js      <-- Handles user data (login, register, etc.)
+  │   └── rideSlice.js      <-- Handles ride data (rides, bookings, requests)
+  ├── components/
+  │   └── Navbar.jsx        <-- The dark navigation bar at the top
+  └── pages/
+      ├── Dashboard.jsx     <-- Homepage (hero banner + ride cards)
+      ├── Login.jsx         <-- Login form page
+      ├── Register.jsx      <-- Register form page
+      ├── AllRides.jsx      <-- Browse all rides + search/filter
+      ├── RideDetails.jsx   <-- Full details of ONE ride
+      ├── PostRide.jsx      <-- Form to offer a new ride
+      ├── RequestRide.jsx   <-- Form to request a ride
+      ├── MyBookings.jsx    <-- Shows rides you booked
+      ├── ChangePassword.jsx<-- Form to change your password
+      └── UserProfile.jsx   <-- Shows a driver's profile info
+
+
+OTHER FILES/FOLDERS YOU MIGHT SEE:
+
+  frontend/index.html       <-- The single HTML page. We added Bootstrap CDN here.
+  frontend/package.json     <-- Lists all packages (react, redux, router, etc.)
+  frontend/node_modules/    <-- All installed packages live here. DONT TOUCH THIS.
+  frontend/dist/            <-- Auto-generated when you run "npm run build".
+                                This is the production build. DONT TOUCH THIS.
+                                You never edit files in dist/. Its auto-generated.
+
+
+================================================================================
+SECTION 3: WHAT PACKAGES DID WE INSTALL AND WHY?
+================================================================================
+
+We installed 3 extra packages using:
+  npm install react-router-dom @reduxjs/toolkit react-redux
+
+  1. react-router-dom
+     WHY: So we can have multiple pages (like /login, /rides, /post-ride).
+     Without this, React is just ONE page. This package lets us create routes.
+
+  2. @reduxjs/toolkit
+     WHY: This is Redux Toolkit. It lets us store ALL app data in one central
+     place called "the store". Instead of passing data between components
+     manually, any component can just grab what it needs from the store.
+
+  3. react-redux
+     WHY: This connects React with Redux. It gives us two important hooks:
+       - useSelector = READ data from the store
+       - useDispatch = SEND actions to UPDATE the store
+
+
+================================================================================
+SECTION 4: FILE-BY-FILE EXPLANATION
+================================================================================
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/index.html
+--------------------------------------------------------------------------------
+WHAT: The single HTML file of the entire app. React injects everything into
+      the <div id="root"></div> inside this file.
+
+WHAT WE CHANGED: Added two lines for Bootstrap 5 (same version as your
+previous assignment):
+  - Bootstrap CSS link in <head> (for styling classes like btn, card, container)
+  - Bootstrap JS script at bottom (for navbar hamburger toggle on mobile)
+
+THATS IT. Nothing else fancy here.
+
+
+--------------------------------------------------------------------------------
+FILE: src/main.jsx
+--------------------------------------------------------------------------------
+WHAT: This is the ENTRY POINT. The very first JavaScript that runs.
+
+WHAT IT DOES (line by line):
+  - Imports React stuff (StrictMode, createRoot)
+  - Imports Provider from react-redux (this wraps the whole app so every
+    component can access the Redux store)
+  - Imports the store we created
+  - Imports index.css (basic body styles)
+  - Imports App component
+  - Renders everything into the <div id="root"> from index.html
+
+WHY Provider?
+  Think of Provider like putting batteries in a remote control.
+  Without Provider, components CANNOT use useSelector or useDispatch.
+  Provider gives the entire app access to the Redux store.
+
+
+--------------------------------------------------------------------------------
+FILE: src/App.jsx
+--------------------------------------------------------------------------------
+WHAT: The main component. Sets up ALL the routes (pages) of the app.
+
+WHAT IT DOES:
+  - Wraps everything in <BrowserRouter> (enables page navigation)
+  - Shows <Navbar /> at the top of every page
+  - Defines ALL routes using <Routes> and <Route>:
+      /                 -->  Dashboard (homepage)
+      /login            -->  Login page
+      /register         -->  Register page
+      /rides            -->  All Rides page
+      /rides/:id        -->  Ride Details page (the :id is a variable, like /rides/3)
+      /post-ride        -->  Post a Ride form
+      /request-ride     -->  Request a Ride form
+      /my-bookings      -->  My Bookings page
+      /change-password  -->  Change Password form
+      /profile/:userId  -->  User Profile page (the :userId is a variable)
+  - Shows a <footer> at the bottom of every page
+
+IMPORTANT CONCEPT - ROUTES:
+  A Route means: "When the URL is THIS, show THIS component."
+  Example: <Route path="/login" element={<Login />} />
+  means when someone goes to localhost:5173/login, show the Login component.
+
+DYNAMIC ROUTES:
+  /rides/:id means the "id" part can be anything.
+  /rides/1, /rides/2, /rides/99 all match this route.
+  Inside the component, we use useParams() to grab that id value.
+
+
+--------------------------------------------------------------------------------
+FILE: src/App.css
+--------------------------------------------------------------------------------
+WHAT: Custom CSS styles. Very similar to your previous assignment's style.css.
+
+STYLES DEFINED:
+  .hero-banner   - Blue background (#0d6efd), white text, big padding.
+                   Used on the Dashboard homepage.
+  .page-header   - Same blue background but smaller padding.
+                   Used on all other pages (Login, Register, All Rides, etc.)
+  .card          - Light border, rounded corners.
+                   Used everywhere for forms and ride cards.
+  @media query   - Makes hero banner smaller on mobile screens.
+
+
+--------------------------------------------------------------------------------
+FILE: src/index.css
+--------------------------------------------------------------------------------
+WHAT: Very basic styles for the body and root div.
+
+  body   - Removes default margin and padding
+  #root  - Makes the root div a flex column with min-height 100vh.
+           This pushes the footer to the bottom of the page.
+
+
+================================================================================
+SECTION 5: REDUX STORE AND SLICES (THE DATA LAYER)
+================================================================================
+
+
+--------------------------------------------------------------------------------
+FILE: src/store/store.js
+--------------------------------------------------------------------------------
+WHAT: Creates the CENTRAL STORE. Think of it as a database for the app.
+
+WHAT IT DOES:
+  - Uses configureStore() from Redux Toolkit
+  - Registers two reducers:
+      user: userReducer  (handles all user-related state)
+      ride: rideReducer  (handles all ride-related state)
+  - Exports the store so main.jsx can use it in <Provider>
+
+THATS IT. Its only 10 lines. Very simple.
+
+HOW TO THINK ABOUT IT:
+  The store is like a filing cabinet with two drawers:
+    Drawer 1: "user" - has all user data
+    Drawer 2: "ride" - has all ride data
+
+
+--------------------------------------------------------------------------------
+FILE: src/slices/userSlice.js
+--------------------------------------------------------------------------------
+WHAT: Manages ALL user-related data and actions.
+
+INITIAL DATA (seed data so the app isnt empty):
+  3 pre-loaded users:
+    1. Ahmed Khan  - ahmed@umt.edu  - password: 123456 - phone: 0300-1234567
+    2. Sara Ali    - sara@umt.edu   - password: 123456 - phone: 0321-9876543
+    3. Usman Tariq - usman@umt.edu  - password: 123456 - phone: 0333-5556667
+
+  loggedInUser starts as null (nobody is logged in initially)
+
+ACTIONS (things that can happen to the data):
+
+  1. register(newUser)
+     WHAT: Adds a new user to the users array.
+     WHEN USED: When someone fills the Register form and clicks Register.
+
+  2. login(user)
+     WHAT: Sets loggedInUser to the found user object.
+     WHEN USED: When someone enters correct email+password on Login page.
+
+  3. logout()
+     WHAT: Sets loggedInUser back to null.
+     WHEN USED: When someone clicks the Logout button in navbar.
+
+  4. changePassword(newPassword)
+     WHAT: Finds the logged-in user in the array and updates their password.
+     WHEN USED: When someone fills the Change Password form.
+
+HOW createSlice WORKS:
+  createSlice is a function from Redux Toolkit. You give it:
+    - name: a label (like "user")
+    - initialState: the starting data
+    - reducers: an object of functions that change the data
+
+  It automatically creates ACTION CREATORS for each reducer.
+  We export them at the bottom: export const { register, login, logout, changePassword }
+
+
+--------------------------------------------------------------------------------
+FILE: src/slices/rideSlice.js
+--------------------------------------------------------------------------------
+WHAT: Manages ALL ride-related data and actions.
+
+INITIAL DATA (seed data):
+  6 pre-loaded rides with realistic campus data:
+    1. Ahmed: Main Gate UMT -> Johar Town (Car, 3 seats)
+    2. Sara: Hostel Gate UMT -> Model Town (Car, 2 seats)
+    3. Usman: UMT Back Gate -> Gulberg (Van, 4 seats)
+    4. Ahmed: Main Gate UMT -> DHA Phase 5 (Car, 2 seats)
+    5. Sara: UMT Main Gate -> Wapda Town (Bike, 1 seat)
+    6. Usman: UMT -> Lahore Airport (Car, 3 seats)
+
+  bookings: starts as empty array []
+  rideRequests: starts as empty array []
+
+ACTIONS:
+
+  1. addRide(newRide)
+     WHAT: Pushes a new ride into the rides array.
+     WHEN USED: When a logged-in user fills the Post Ride form.
+
+  2. bookRide(booking)
+     WHAT: Does TWO things:
+       a) Finds the ride and DECREASES availableSeats by 1
+       b) Adds the booking to the bookings array
+     WHEN USED: When someone clicks "Book This Ride" on the Ride Details page.
+
+  3. addRideRequest(request)
+     WHAT: Pushes a new ride request into rideRequests array.
+     WHEN USED: When someone fills the Request Ride form.
+
+
+================================================================================
+SECTION 6: THE NAVBAR COMPONENT
+================================================================================
+
+
+--------------------------------------------------------------------------------
+FILE: src/components/Navbar.jsx
+--------------------------------------------------------------------------------
+WHAT: The dark navigation bar at the top. Appears on EVERY page.
+
+HOW IT WORKS:
+  - Uses useSelector to check if someone is logged in
+  - If NOT logged in, shows: Home, All Rides, Login, Register
+  - If logged in, shows: Home, All Rides, Post Ride, Request Ride,
+    My Bookings, "Hi [Name]", Change Password, Logout button
+
+CONCEPTS USED:
+  - <Link to="/rides"> instead of <a href="/rides">
+    WHY? <Link> navigates WITHOUT reloading the page. <a> would reload.
+    This is what makes React a Single Page Application (SPA).
+
+  - Conditional rendering with {loggedInUser ? (...) : (...)}
+    This is a ternary operator. If loggedInUser exists, show option A.
+    If null, show option B.
+
+  - useNavigate() hook: Used in handleLogout to redirect to homepage
+    after logging out. navigate('/') means "go to the homepage".
+
+  - The navbar uses Bootstrap classes (navbar-dark, bg-dark, etc.)
+    exactly like your previous assignment.
+
+
+================================================================================
+SECTION 7: ALL PAGE COMPONENTS (ONE BY ONE)
+================================================================================
+
+
+--------------------------------------------------------------------------------
+FILE: src/pages/Dashboard.jsx (Route: /)
+--------------------------------------------------------------------------------
+WHAT: The homepage. First thing users see.
+
+STRUCTURE:
+  - Blue hero banner with title "Campus Ride Sharing Board"
+  - If logged in: shows "Welcome back, [Name]!" + "Post a Ride" button
+  - If not logged in: shows "Login to Get Started" button
+  - Below: shows up to 6 ride cards in a responsive grid
+  - Each card shows: route, driver, seats, vehicle, "View Details" button
+  - "View All Rides" button at the bottom
+
+CONCEPTS:
+  - useSelector: reads rides and loggedInUser from Redux store
+  - rides.slice(0, 6): takes only the first 6 rides to show
+  - .map(): loops through rides to create a card for each one
+  - Bootstrap grid: col-sm-12 col-md-6 col-lg-4 means:
+      Small screens: 1 card per row (full width)
+      Medium screens: 2 cards per row
+      Large screens: 3 cards per row
+
+
+--------------------------------------------------------------------------------
+FILE: src/pages/Login.jsx (Route: /login)
+--------------------------------------------------------------------------------
+WHAT: Login form page.
+
+HOW IT WORKS:
+  1. User types email and password
+  2. Clicks Login button -> handleLogin() runs
+  3. Checks if fields are empty -> shows alert if yes
+  4. Searches the users array for matching email AND password
+  5. If found: dispatches login(foundUser) and navigates to /
+  6. If not found: shows "Invalid email or password!" alert
+
+CONCEPTS:
+  - useState: creates state variables for email and password
+  - onChange: updates the state every time user types something
+  - value={email}: makes the input "controlled" (React controls its value)
+  - useDispatch: sends the login action to Redux store
+  - useNavigate: redirects user to homepage after login
+
+TRY IT: Login with ahmed@umt.edu / 123456
+
+
+--------------------------------------------------------------------------------
+FILE: src/pages/Register.jsx (Route: /register)
+--------------------------------------------------------------------------------
+WHAT: Registration form page.
+
+HOW IT WORKS:
+  1. User fills: name, email, password, phone
+  2. Clicks Register -> handleRegister() runs
+  3. Checks if any field is empty
+  4. Checks if email already exists in users array
+  5. Creates a new user object with a new id
+  6. Dispatches register(newUser) to add them to the store
+  7. Shows success alert and redirects to /login
+
+CONCEPTS:
+  - Same as Login (useState, useDispatch, useNavigate)
+  - users.find(u => u.email == email): checks for duplicate emails
+  - id: users.length + 1: simple way to generate a new unique ID
+
+
+--------------------------------------------------------------------------------
+FILE: src/pages/AllRides.jsx (Route: /rides)
+--------------------------------------------------------------------------------
+WHAT: Shows ALL rides with a search/filter section.
+
+THIS IS IMPORTANT - IT USES URL PARAMETERS:
+  The assignment requires "search and filter rides using parameters in the URL."
+
+  When you search, the URL changes like:
+    /rides?pickup=UMT&destination=Johar&vehicle=Car
+
+  This is done using useSearchParams() hook.
+
+HOW THE SEARCH WORKS:
+  1. User types in pickup, destination, or selects vehicle type
+  2. Clicks "Search" -> handleSearch() runs
+  3. handleSearch builds a params object and calls setSearchParams(params)
+  4. This CHANGES THE URL to include those search parameters
+  5. The filter logic reads from searchParams.get('pickup') etc.
+  6. rides.filter() checks each ride against the search criteria
+  7. Only matching rides are shown
+
+  "Clear" button resets everything.
+
+CONCEPTS:
+  - useSearchParams: React Router hook to read/write URL query parameters
+  - .filter(): creates a new array with only matching items
+  - .includes(): checks if a string contains a substring (case-insensitive)
+  - .toLowerCase(): converts to lowercase for case-insensitive comparison
+
+
+--------------------------------------------------------------------------------
+FILE: src/pages/RideDetails.jsx (Route: /rides/:id)
+--------------------------------------------------------------------------------
+WHAT: Shows FULL details of one specific ride.
+
+HOW IT WORKS:
+  1. Gets the ride id from the URL using useParams()
+     (if URL is /rides/3, then id = 3)
+  2. Finds the ride in the store: rides.find(r => r.id == id)
+  3. If not found, shows "Ride not found!" message
+  4. If found, shows a table with all ride info:
+     Driver, Pickup, Destination, Time, Seats, Vehicle, Contact, Notes
+  5. Three buttons at bottom:
+     - "Book This Ride" - books a seat (reduces availableSeats by 1)
+     - "View Driver Profile" - links to /profile/[driverId]
+     - "Back to Rides" - goes back to /rides
+
+BOOKING LOGIC (handleBook):
+  - Checks if user is logged in (if not, redirect to login)
+  - Checks if seats are available
+  - Checks if user is trying to book their own ride (not allowed)
+  - Checks if user already booked this ride (no double booking)
+  - If all good: dispatches bookRide action
+
+CONCEPTS:
+  - useParams(): grabs :id from the URL
+  - Conditional rendering: shows "Book" or "Fully Booked" button
+
+
+--------------------------------------------------------------------------------
+FILE: src/pages/PostRide.jsx (Route: /post-ride)
+--------------------------------------------------------------------------------
+WHAT: Form to offer a new ride. REQUIRES LOGIN.
+
+FIELDS:
+  - Pickup Location (text)
+  - Destination (text)
+  - Departure Time (datetime-local picker)
+  - Available Seats (number)
+  - Vehicle Type (dropdown: Car/Bike/Van)
+  - Contact Number (text)
+  - Notes (optional textarea)
+
+HOW IT WORKS:
+  1. If not logged in, shows "Please login" message with button
+  2. User fills the form and clicks "Post Ride"
+  3. Validates all required fields are filled
+  4. Creates a new ride object with the logged-in user as driver
+  5. Dispatches addRide(newRide)
+  6. Shows success alert and redirects to /rides
+
+CONCEPTS:
+  - Guard clause: the if(!loggedInUser) check at the top returns early
+    with a "please login" message. This protects the page.
+  - parseInt(availableSeats): converts string to number
+
+
+--------------------------------------------------------------------------------
+FILE: src/pages/RequestRide.jsx (Route: /request-ride)
+--------------------------------------------------------------------------------
+WHAT: Form to request a ride (when you NEED a ride). REQUIRES LOGIN.
+
+FIELDS:
+  - Pickup Location
+  - Destination
+  - Preferred Time
+  - Notes (optional)
+
+HOW IT WORKS:
+  Same pattern as PostRide but simpler. Creates a ride request object
+  and dispatches addRideRequest().
+
+DIFFERENCE FROM POST RIDE:
+  - Post Ride = "I have a car, I can take people"
+  - Request Ride = "I need a ride, can someone help?"
+
+
+--------------------------------------------------------------------------------
+FILE: src/pages/MyBookings.jsx (Route: /my-bookings)
+--------------------------------------------------------------------------------
+WHAT: Shows all rides the logged-in user has booked. REQUIRES LOGIN.
+
+HOW IT WORKS:
+  1. Gets all bookings from store
+  2. Filters to only show bookings where userId matches logged-in user:
+     bookings.filter(b => b.userId == loggedInUser.id)
+  3. For each booking, finds the corresponding ride to show details
+  4. Shows ride cards with pickup, destination, driver, time, contact
+  5. If no bookings yet, shows "You haven't booked any rides yet" message
+
+CONCEPTS:
+  - .filter(): keeps only items that match a condition
+  - .find(): finds ONE item that matches a condition
+  - Nested data lookup: booking has rideId, we use that to find the ride
+
+
+--------------------------------------------------------------------------------
+FILE: src/pages/ChangePassword.jsx (Route: /change-password)
+--------------------------------------------------------------------------------
+WHAT: Form to change password. REQUIRES LOGIN.
+
+FIELDS:
+  - Current Password
+  - New Password
+  - Confirm New Password
+
+VALIDATION:
+  - All fields must be filled
+  - Current password must match what's stored in Redux
+  - New password and confirm must match each other
+  - New password must be at least 4 characters
+
+HOW IT WORKS:
+  1. Validates everything
+  2. Dispatches changePassword(newPassword)
+  3. This updates the password in the users array AND in loggedInUser
+  4. Shows success alert and clears the form
+
+
+--------------------------------------------------------------------------------
+FILE: src/pages/UserProfile.jsx (Route: /profile/:userId)
+--------------------------------------------------------------------------------
+WHAT: Shows the profile of a user who posted a ride.
+
+HOW IT WORKS:
+  1. Gets userId from URL using useParams()
+  2. Finds the user in the store: users.find(u => u.id == userId)
+  3. Shows their profile info: Name, Email, Phone
+  4. Shows all rides offered by this user:
+     rides.filter(r => r.driverId == user.id)
+  5. Each ride card links to its details page
+
+WHEN IS THIS USED:
+  From the Ride Details page, theres a "View Driver Profile" button.
+  That links to /profile/[driverId]. So this page shows who the driver is.
+
+
+================================================================================
+SECTION 8: KEY REACT CONCEPTS USED (SIMPLE EXPLANATIONS)
+================================================================================
+
+
+--- useState ---
+  const [email, setEmail] = useState('')
+
+  This creates a variable called "email" that starts as empty string ''.
+  setEmail is the function to UPDATE it.
+  When you call setEmail('test@gmail.com'), React re-renders the component
+  with the new value.
+
+  Think of it like:
+    let email = ''          // useState('') creates this
+    email = 'new value'     // setEmail('new value') does this + re-renders
+
+
+--- useSelector ---
+  const rides = useSelector((state) => state.ride.rides)
+
+  This READS data from the Redux store.
+  state.ride = the ride slice
+  state.ride.rides = the rides array inside the ride slice
+
+  Think of it like: "Hey store, give me the rides data."
+
+
+--- useDispatch ---
+  const dispatch = useDispatch()
+  dispatch(login(foundUser))
+
+  This SENDS an action to the Redux store to update data.
+  login(foundUser) creates an action like: { type: 'user/login', payload: foundUser }
+  The reducer in userSlice handles this and updates loggedInUser.
+
+  Think of it like: "Hey store, do this thing (login) with this data (foundUser)."
+
+
+--- useNavigate ---
+  const navigate = useNavigate()
+  navigate('/')
+
+  This changes the page/URL programmatically.
+  navigate('/') means "go to homepage."
+  navigate('/login') means "go to login page."
+
+  Used after login (redirect to home), after register (redirect to login), etc.
+
+
+--- useParams ---
+  const { id } = useParams()
+
+  Grabs dynamic values from the URL.
+  If the route is /rides/:id and URL is /rides/3, then id = "3".
+  If the route is /profile/:userId and URL is /profile/1, then userId = "1".
+
+
+--- useSearchParams ---
+  const [searchParams, setSearchParams] = useSearchParams()
+  let pickup = searchParams.get('pickup')
+
+  Reads and writes URL query parameters.
+  If URL is /rides?pickup=UMT&vehicle=Car:
+    searchParams.get('pickup') returns "UMT"
+    searchParams.get('vehicle') returns "Car"
+
+  setSearchParams({pickup: 'UMT'}) changes URL to /rides?pickup=UMT
+
+
+--- .map() ---
+  rides.map((ride) => ( <div key={ride.id}> ... </div> ))
+
+  Loops through an array and creates JSX for each item.
+  Like a for loop but it returns something for each item.
+  IMPORTANT: every mapped element needs a unique "key" prop.
+
+
+--- .filter() ---
+  bookings.filter(b => b.userId == loggedInUser.id)
+
+  Creates a NEW array with only items that pass the test.
+  Returns items where the condition is true.
+
+
+--- .find() ---
+  rides.find(r => r.id == id)
+
+  Returns the FIRST item that matches the condition.
+  Returns undefined if nothing matches.
+
+
+================================================================================
+SECTION 9: HOW TO RUN AND TEST
+================================================================================
+
+1. Open terminal in the frontend folder
+2. Run: npm run dev
+3. Open http://localhost:5173 in browser
+
+TEST ACCOUNTS (pre-loaded):
+  Email: ahmed@umt.edu    Password: 123456
+  Email: sara@umt.edu     Password: 123456
+  Email: usman@umt.edu    Password: 123456
+
+THINGS TO TRY:
+  1. Visit homepage -> see ride cards
+  2. Click "Login to Get Started" -> login with ahmed@umt.edu / 123456
+  3. See navbar now shows more options
+  4. Go to All Rides -> try searching by pickup "UMT" or vehicle "Car"
+  5. Click "View Details" on any ride -> see full info
+  6. Click "Book This Ride" -> check My Bookings page
+  7. Click "View Driver Profile" -> see the drivers info
+  8. Go to Post Ride -> fill form and post a new ride
+  9. Go to Request Ride -> fill form and submit a request
+  10. Try Change Password -> enter current password 123456 and set new one
+  11. Click Logout -> see navbar changes back
+
+
+================================================================================
+SECTION 10: WHAT EACH REQUIREMENT MAPS TO
+================================================================================
+
+REQUIREMENT                              WHERE IT IS
+--------------------------------------------------------------------
+Register a new account                   Register.jsx + userSlice register
+Login and logout                         Login.jsx, Navbar.jsx + userSlice
+Change password                          ChangePassword.jsx + userSlice
+View available rides                     Dashboard.jsx, AllRides.jsx
+Post a new ride offer                    PostRide.jsx + rideSlice addRide
+Request a ride                           RequestRide.jsx + rideSlice addRideRequest
+Book a seat on a ride                    RideDetails.jsx + rideSlice bookRide
+Search/filter using URL params           AllRides.jsx (useSearchParams)
+View ride details                        RideDetails.jsx (useParams)
+View booked rides                        MyBookings.jsx
+View ride provider profile               UserProfile.jsx (useParams)
+Redirect to dashboard after login        Login.jsx navigate('/')
+Login required for actions               PostRide, RequestRide, MyBookings guard
+Redux Toolkit state management           store.js, userSlice.js, rideSlice.js
+Component state (useState)               Every form page
+React Hooks                              useState, useSelector, useDispatch,
+                                         useNavigate, useParams, useSearchParams
+Routing with multiple routes             App.jsx (10 routes)
+Clean UI with Bootstrap                  All pages use Bootstrap classes
+Responsive design                        Bootstrap grid + media queries
+
+
+================================================================================
+END OF EXPLANATION
+================================================================================
