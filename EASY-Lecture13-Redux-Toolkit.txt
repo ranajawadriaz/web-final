@@ -1,0 +1,368 @@
+================================================================================
+   LECTURE 13 - REACT REDUX TOOLKIT (EASY VERSION)
+   Everything you need to know about Redux for your exam
+================================================================================
+
+
+────────────────────────────────────────
+  WHAT IS REDUX? (The Big Picture)
+────────────────────────────────────────
+
+  Imagine your React app is a HOUSE with many ROOMS (components).
+
+  WITHOUT Redux:
+    - Each room has its own mini-fridge (local state with useState)
+    - If the kitchen wants food from the bedroom's fridge,
+      you have to carry it through EVERY room in between
+    - This is called PROPS DRILLING = passing data parent → child → child → child
+    - It gets MESSY when your app grows!
+
+  WITH Redux:
+    - There's ONE BIG FRIDGE in the hallway (the Store)
+    - ANY room can grab food from it directly
+    - ANY room can add food to it directly
+    - No more carrying stuff through every room!
+
+  So: Redux = a CENTRAL PLACE to store ALL your app's data
+      that ANY component can access directly.
+
+
+────────────────────────────────────────
+  WHY USE REDUX?
+────────────────────────────────────────
+
+  Problem it solves:
+    - Without Redux: Component A → passes to B → passes to C → passes to D
+      (just so D can use the data... exhausting!)
+    - With Redux: Component D just GRABS the data directly from the Store
+
+  Use Redux when:
+    - Multiple components need the SAME data
+    - User authentication state (is the user logged in?)
+    - Shopping cart data
+    - Theme settings (dark mode / light mode)
+    - Any data that needs to be SHARED across many components
+
+
+────────────────────────────────────────
+  REDUX TOOLKIT (RTK) - THE EASY WAY
+────────────────────────────────────────
+
+  Redux Toolkit = the OFFICIAL, EASIER way to write Redux
+  (Old Redux had too much setup code, RTK simplifies everything)
+
+  INSTALL:
+    npm install @reduxjs/toolkit react-redux
+
+
+────────────────────────────────────────
+  THE 5 KEY CONCEPTS (MUST KNOW!)
+────────────────────────────────────────
+
+  Think of Redux like a RESTAURANT:
+
+  1. STORE     = The kitchen (central place that holds all the food/data)
+  2. ACTIONS   = The order slip ("I want to INCREMENT the counter")
+  3. REDUCERS  = The chef (reads the order, actually cooks/updates the data)
+  4. DISPATCH  = The waiter (takes your order to the kitchen)
+  5. SELECTORS = The menu board (lets you SEE what's available/current state)
+
+  FLOW:
+    You (component) → tell the WAITER (dispatch) → "I want THIS" (action)
+    → WAITER takes order to CHEF (reducer) → CHEF updates the KITCHEN (store)
+    → MENU BOARD (selector) shows the updated data → You see the change!
+
+  In code terms:
+    Component calls dispatch(increment())
+    → Redux runs the increment reducer
+    → Store gets updated
+    → useSelector sees the change
+    → Component re-renders with new data
+
+  REAL EXAMPLE:
+    You click a "Like" button on a post:
+    - Action       = "Like Post"
+    - Dispatch     = Sends "Like Post" to Redux
+    - Reducer      = Increases the like count in the Store
+    - Selector     = Gets the updated like count to show on screen
+
+
+────────────────────────────────────────
+  SLICE = STATE + ACTIONS + REDUCERS IN ONE
+────────────────────────────────────────
+
+  A "Slice" is Redux Toolkit's way of grouping everything together.
+
+  Think of it like useState but for GLOBAL state:
+    useState:  const [counter, setCounter] = useState(0);     ← local to one component
+    Redux:     createSlice({ counter with increment/decrement }) ← available EVERYWHERE
+
+  CREATING A SLICE (counterSlice.js):
+  ──────────────────────────────────────
+    import { createSlice } from '@reduxjs/toolkit';
+
+    const counterSlice = createSlice({
+      name: 'counter',           // name of this slice
+      initialState: {            // starting values
+        value: 0
+      },
+      reducers: {                // functions that change the state
+        increment: (state) => {
+          state.value += 1;      // increases value by 1
+        },
+        decrement: (state) => {
+          state.value -= 1;      // decreases value by 1
+        },
+        incrementByAmount: (state, action) => {
+          state.value += action.payload;  // increases by whatever number you pass
+        }
+      }
+    });
+
+    // Export the actions (so components can use them)
+    export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+
+    // Export the reducer (so the store can use it)
+    export default counterSlice.reducer;
+
+  BREAKDOWN:
+    - name: 'counter'         → identifies this slice
+    - initialState: { value: 0 } → starting data
+    - reducers: { ... }       → functions that MODIFY the state
+    - action.payload           → the data you pass when calling the action
+    - Redux Toolkit AUTO-CREATES actions from your reducer names!
+
+
+────────────────────────────────────────
+  STORE - THE CENTRAL DATA HUB
+────────────────────────────────────────
+
+  The Store holds ALL your app's state in one place.
+
+  CREATING THE STORE (store.js):
+  ──────────────────────────────────────
+    import { configureStore } from '@reduxjs/toolkit';
+    import counterReducer from './counterSlice';
+
+    const store = configureStore({
+      reducer: {
+        counter: counterReducer,   // register your slice here
+      }
+    });
+
+    export default store;
+
+  You can add MULTIPLE slices:
+    const store = configureStore({
+      reducer: {
+        counter: counterReducer,
+        user: userReducer,         // another slice!
+        cart: cartReducer,         // and another!
+      }
+    });
+
+  PROVIDE STORE TO YOUR APP (index.js):
+  ──────────────────────────────────────
+    import { Provider } from 'react-redux';
+    import store from './store';
+
+    root.render(
+      <Provider store={store}>     {/* Wrap your ENTIRE app */}
+        <App />
+      </Provider>
+    );
+    // Now EVERY component inside <App> can access the Redux store!
+
+
+────────────────────────────────────────
+  useSelector - READING DATA FROM STORE
+────────────────────────────────────────
+
+  useSelector = a hook to GET data from the Redux store
+
+    import { useSelector } from 'react-redux';
+
+    function MyComponent() {
+      // "state" is the ENTIRE store
+      // "state.counter" matches the key in configureStore's reducer
+      // "state.counter.value" is the actual data from the slice
+      const count = useSelector((state) => state.counter.value);
+
+      return <h1>Count: {count}</h1>;
+    }
+
+  TIPS:
+    - Only select what you NEED (don't grab the whole store)
+    - state.counter → "counter" matches the key name in store's reducer
+    - state.counter.value → "value" is from the slice's initialState
+
+
+────────────────────────────────────────
+  useDispatch - UPDATING DATA IN STORE
+────────────────────────────────────────
+
+  useDispatch = a hook to SEND actions to update the store
+
+    import { useDispatch } from 'react-redux';
+    import { increment, decrement, incrementByAmount } from './counterSlice';
+
+    function Counter() {
+      const dispatch = useDispatch();
+      const count = useSelector((state) => state.counter.value);
+
+      return (
+        <div>
+          <h2>Count: {count}</h2>
+          <button onClick={() => dispatch(increment())}>+1</button>
+          <button onClick={() => dispatch(decrement())}>-1</button>
+          <button onClick={() => dispatch(incrementByAmount(5))}>+5</button>
+        </div>
+      );
+    }
+
+  HOW IT WORKS:
+    1. You click "+1" button
+    2. dispatch(increment()) sends the "increment" action to Redux
+    3. Redux runs the increment reducer: state.value += 1
+    4. Store updates
+    5. useSelector detects the change
+    6. Component re-renders with new count!
+
+
+────────────────────────────────────────
+  PASSING DATA WITH ACTIONS (action.payload)
+────────────────────────────────────────
+
+  SINGLE PARAMETER:
+  ──────────────────────────────────────
+    // In the slice:
+    incrementByAmount: (state, action) => {
+      state.value += action.payload;   // payload = 5
+    }
+
+    // In the component:
+    dispatch(incrementByAmount(5));     // 5 becomes action.payload
+
+  MULTIPLE PARAMETERS (pass an object):
+  ──────────────────────────────────────
+    // In the slice:
+    updateUser: (state, action) => {
+      state.name = action.payload.name;  // "Alice"
+      state.age = action.payload.age;    // 30
+    }
+
+    // In the component:
+    dispatch(updateUser({ name: "Alice", age: 30 }));
+    // The whole object becomes action.payload
+
+  ARRAY PARAMETER:
+  ──────────────────────────────────────
+    // In the slice:
+    addTasks: (state, action) => {
+      state.tasks = [...state.tasks, ...action.payload];
+    }
+
+    // In the component:
+    const newTasks = ["Buy groceries", "Complete project", "Read a book"];
+    dispatch(addTasks(newTasks));
+
+
+────────────────────────────────────────
+  MULTIPLE SLICES EXAMPLE
+────────────────────────────────────────
+
+  You can have as many slices as you need!
+
+  counterSlice.js → manages counter data
+  userSlice.js    → manages user data
+
+  If two slices export actions with the SAME NAME, use aliases:
+
+    import { increment as counterIncrement } from './counterSlice';
+    import { increment as userIncrement } from './userSlice';
+
+    // Now use them separately:
+    dispatch(counterIncrement());
+    dispatch(userIncrement());
+
+
+────────────────────────────────────────
+  COMPLETE EXAMPLE: COUNTER APP
+────────────────────────────────────────
+
+  FILE 1: counterSlice.js
+  ──────────────────────────────────────
+    import { createSlice } from '@reduxjs/toolkit';
+
+    const counterSlice = createSlice({
+      name: 'counter',
+      initialState: { value: 0 },
+      reducers: {
+        increment: (state) => { state.value += 1; },
+        decrement: (state) => { state.value -= 1; },
+      }
+    });
+
+    export const { increment, decrement } = counterSlice.actions;
+    export default counterSlice.reducer;
+
+  FILE 2: store.js
+  ──────────────────────────────────────
+    import { configureStore } from '@reduxjs/toolkit';
+    import counterReducer from './counterSlice';
+
+    export default configureStore({
+      reducer: { counter: counterReducer }
+    });
+
+  FILE 3: index.js
+  ──────────────────────────────────────
+    import { Provider } from 'react-redux';
+    import store from './store';
+
+    root.render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+  FILE 4: App.js (using it!)
+  ──────────────────────────────────────
+    import { useSelector, useDispatch } from 'react-redux';
+    import { increment, decrement } from './counterSlice';
+
+    function App() {
+      const count = useSelector((state) => state.counter.value);
+      const dispatch = useDispatch();
+
+      return (
+        <div>
+          <h1>Count: {count}</h1>
+          <button onClick={() => dispatch(increment())}>+</button>
+          <button onClick={() => dispatch(decrement())}>-</button>
+        </div>
+      );
+    }
+
+
+────────────────────────────────────────
+  QUICK SUMMARY CHEAT SHEET
+────────────────────────────────────────
+
+  Redux         = Central state management (no more props drilling!)
+  Redux Toolkit = The easy, modern way to write Redux
+  Store         = ONE place that holds ALL app state
+  Slice         = State + Reducers + Actions bundled together
+  createSlice() = Makes a slice (defines state, actions, reducers)
+  configureStore() = Creates the store (registers all slices)
+  <Provider>    = Wraps app so all components can access store
+  useSelector   = READ data from the store (like a getter)
+  useDispatch   = SEND actions to UPDATE the store (like a setter)
+  action.payload = The data you pass with an action
+  dispatch(action()) = Trigger a state update
+
+  FLOW: Component → dispatch(action) → reducer updates store → useSelector gets new data
+
+================================================================================
+  END OF LECTURE 13 - REDUX TOOLKIT
+================================================================================

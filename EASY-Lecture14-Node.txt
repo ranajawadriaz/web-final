@@ -1,0 +1,373 @@
+================================================================================
+   LECTURE 14 - NODE.js & EXPRESS.js (EASY VERSION)
+   Everything you need to know about Node/Express for your exam
+================================================================================
+
+
+────────────────────────────────────────
+  WHAT IS NODE.js?
+────────────────────────────────────────
+
+  Think of JavaScript like a person who can ONLY work inside a browser.
+  Node.js = gives JavaScript the ability to work OUTSIDE the browser too!
+
+  Before Node.js:
+    JavaScript → can only run in browser (Chrome, Firefox, etc.)
+
+  After Node.js:
+    JavaScript → can run on a SERVER (backend), build APIs, access files, etc.
+
+  KEY FACTS:
+    - Built on Chrome's V8 engine (the thing that makes JS fast in Chrome)
+    - Non-blocking & event-driven (can handle many requests at once)
+    - Perfect for building web servers and APIs
+
+
+────────────────────────────────────────
+  WHAT IS EXPRESS.js?
+────────────────────────────────────────
+
+  Node.js alone CAN build a server, but it's a lot of code.
+  Express.js = a FRAMEWORK that makes building servers MUCH easier.
+
+  Think of it like:
+    Node.js = a car ENGINE
+    Express = the full CAR (steering wheel, seats, everything built around the engine)
+
+  Express simplifies:
+    - Routing (which code runs for which URL)
+    - Handling HTTP requests (GET, POST, PUT, DELETE)
+    - Middleware (stuff that happens between request and response)
+
+
+────────────────────────────────────────
+  SETTING UP A NODE PROJECT
+────────────────────────────────────────
+
+  Step by step:
+
+    # 1. Create a folder for your project
+    mkdir my-node-app
+    cd my-node-app
+
+    # 2. Initialize Node.js (creates package.json)
+    npm init -y
+
+    # 3. Install the packages you need
+    npm install express mongoose cors dotenv
+
+    # What each package does:
+    # express   → web framework (handles routes & requests)
+    # mongoose  → connects to MongoDB database
+    # cors      → allows frontend to talk to backend
+    # dotenv    → reads .env file for secret settings
+
+    # 4. Install nodemon for development (auto-restarts server on changes)
+    npm install --save-dev nodemon
+
+    # 5. Create folders for organizing code
+    mkdir config controllers models routes
+
+    # 6. Create main file
+    touch index.js .env
+
+    # 7. Run the server
+    npm run dev
+
+
+────────────────────────────────────────
+  MVC PATTERN - HOW TO ORGANIZE CODE
+────────────────────────────────────────
+
+  MVC = Model - View - Controller
+  It's a way to ORGANIZE your code into 3 categories:
+
+  MODEL (the data layer)
+  ──────────────────────────────────────
+    - Defines the STRUCTURE of your data
+    - Talks to the DATABASE
+    - In MERN: this is your Mongoose schema
+
+    Example: "A User has a name, email, and password"
+
+  VIEW (what users see)
+  ──────────────────────────────────────
+    - The USER INTERFACE
+    - In MERN: this is your REACT app (the frontend)
+    - It's a SEPARATE project from the backend
+
+  CONTROLLER (the brain)
+  ──────────────────────────────────────
+    - Handles REQUESTS and RESPONSES
+    - Gets data from the Model
+    - Sends data to the View
+    - The MIDDLEMAN between database and frontend
+
+  Think of it like a restaurant:
+    Model      = The kitchen (where food/data is stored & prepared)
+    View       = The dining area (what customers see)
+    Controller = The waiter (takes orders, brings food)
+
+
+────────────────────────────────────────
+  FILE STRUCTURE OF A NODE PROJECT
+────────────────────────────────────────
+
+  my-node-app/
+  ├── config/          → database connection settings
+  ├── controllers/     → functions that handle requests
+  │   └── itemController.js
+  ├── models/          → database schemas (data structure)
+  │   └── Item.js
+  ├── routes/          → URL routes (which URL → which controller)
+  │   └── itemRoutes.js
+  ├── .env             → secret settings (passwords, ports)
+  ├── index.js         → MAIN file (starts the server)
+  └── package.json     → project info & dependencies
+
+
+────────────────────────────────────────
+  .env FILE - KEEPING SECRETS SAFE
+────────────────────────────────────────
+
+  .env = a file that stores SENSITIVE information like passwords and API keys
+
+  Example .env file:
+    PORT=5000
+    MONGO_URI=mongodb://localhost:27017/mernapp
+    JWT_SECRET=mysecretkey
+
+  RULES:
+    - Variable names are UPPERCASE with underscores: PORT, MONGO_URI
+    - NEVER commit .env to GitHub (add it to .gitignore!)
+    - Access in code using: process.env.PORT, process.env.MONGO_URI
+
+
+────────────────────────────────────────
+  package.json SCRIPTS
+────────────────────────────────────────
+
+  In package.json, you set up commands to run your server:
+
+    "scripts": {
+      "start": "node index.js",       // for production (runs normally)
+      "dev": "nodemon index.js"        // for development (auto-restarts on changes)
+    }
+
+  Then run with:
+    npm start     → production mode
+    npm run dev   → development mode (auto-restarts when you save files!)
+
+
+────────────────────────────────────────
+  index.js - THE MAIN SERVER FILE
+────────────────────────────────────────
+
+  This is where your server STARTS:
+
+    const express = require('express');       // import express
+    const mongoose = require('mongoose');     // import mongoose
+    const cors = require('cors');             // import cors
+    const dotenv = require('dotenv');         // import dotenv
+
+    dotenv.config();                          // load .env file
+
+    const app = express();                    // create express app
+
+    // MIDDLEWARE (runs on every request)
+    app.use(cors());                          // allow frontend to connect
+    app.use(express.json());                  // parse JSON request bodies
+
+    // CONNECT ROUTES
+    const itemRoutes = require('./routes/itemRoutes');
+    app.use('/api/items', itemRoutes);        // all /api/items requests go to itemRoutes
+
+    // CONNECT TO DATABASE
+    mongoose.connect(process.env.MONGO_URI)
+      .then(() => console.log('Connected to MongoDB'))
+      .catch(err => console.log(err));
+
+    // START SERVER
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+
+────────────────────────────────────────
+  REST ROUTES - THE 4 MAIN OPERATIONS
+────────────────────────────────────────
+
+  REST = a pattern for organizing your API URLs
+
+  There are 4 main HTTP methods (think CRUD):
+
+    CREATE → POST     (add new data)
+    READ   → GET      (get/fetch data)
+    UPDATE → PUT      (change existing data)
+    DELETE → DELETE    (remove data)
+
+  Example for an "items" resource:
+    GET    /api/items       → get ALL items
+    GET    /api/items/:id   → get ONE item by ID
+    POST   /api/items       → create a new item
+    PUT    /api/items/:id   → update an item
+    DELETE /api/items/:id   → delete an item
+
+
+────────────────────────────────────────
+  ROUTES FILE (itemRoutes.js)
+────────────────────────────────────────
+
+  Routes = the TRAFFIC SIGNS of your server
+  They decide: "This URL → runs this function"
+
+    const express = require('express');
+    const router = express.Router();
+    const {
+      getItems,
+      getItem,
+      createItem,
+      updateItem,
+      deleteItem
+    } = require('../controllers/itemController');
+
+    router.get('/', getItems);          // GET /api/items → getItems function
+    router.get('/:id', getItem);        // GET /api/items/123 → getItem function
+    router.post('/', createItem);       // POST /api/items → createItem function
+    router.put('/:id', updateItem);     // PUT /api/items/123 → updateItem function
+    router.delete('/:id', deleteItem);  // DELETE /api/items/123 → deleteItem function
+
+    module.exports = router;
+
+  CONNECTING ROUTES IN index.js:
+    const itemRoutes = require('./routes/itemRoutes');
+    app.use('/api/items', itemRoutes);
+    // This means: any request to /api/items/... → use itemRoutes
+
+
+────────────────────────────────────────
+  CONTROLLER FILE (itemController.js)
+────────────────────────────────────────
+
+  Controllers = the ACTUAL LOGIC that runs for each route
+
+    const Item = require('../models/Item');
+
+    // GET all items
+    const getItems = async (req, res) => {
+      try {
+        const items = await Item.find();         // get all from database
+        res.json(items);                         // send back as JSON
+      } catch (err) {
+        res.status(500).json({ message: err.message });
+      }
+    };
+
+    // GET one item by ID
+    const getItem = async (req, res) => {
+      try {
+        const item = await Item.findById(req.params.id);  // find by ID from URL
+        res.json(item);
+      } catch (err) {
+        res.status(500).json({ message: err.message });
+      }
+    };
+
+    // CREATE a new item
+    const createItem = async (req, res) => {
+      try {
+        const newItem = new Item(req.body);      // create from request body
+        const saved = await newItem.save();      // save to database
+        res.status(201).json(saved);             // send back the created item
+      } catch (err) {
+        res.status(400).json({ message: err.message });
+      }
+    };
+
+    // UPDATE an item
+    const updateItem = async (req, res) => {
+      try {
+        const updated = await Item.findByIdAndUpdate(
+          req.params.id,                         // which item (from URL)
+          req.body,                              // new data (from request body)
+          { new: true }                          // return the UPDATED version
+        );
+        res.json(updated);
+      } catch (err) {
+        res.status(400).json({ message: err.message });
+      }
+    };
+
+    // DELETE an item
+    const deleteItem = async (req, res) => {
+      try {
+        await Item.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Item deleted' });
+      } catch (err) {
+        res.status(500).json({ message: err.message });
+      }
+    };
+
+    module.exports = { getItems, getItem, createItem, updateItem, deleteItem };
+
+  KEY THINGS:
+    - req = the REQUEST (what the client sent)
+      - req.body    = data sent in the request (for POST/PUT)
+      - req.params  = URL parameters (like :id)
+    - res = the RESPONSE (what you send back)
+      - res.json()  = send JSON data back
+      - res.status() = set HTTP status code (200=OK, 201=Created, 400=Bad Request, 500=Server Error)
+
+
+────────────────────────────────────────
+  THE COMPLETE REQUEST FLOW
+────────────────────────────────────────
+
+  Here's what happens when someone makes a request:
+
+  1. Client sends: GET http://localhost:5000/api/items
+  2. index.js receives it
+  3. app.use('/api/items', itemRoutes) → sends it to itemRoutes
+  4. router.get('/', getItems) → matches the route, calls getItems
+  5. getItems controller → queries MongoDB → gets the data
+  6. Controller sends response back → res.json(items)
+  7. Client receives the JSON data!
+
+  VISUAL:
+    Client Request
+        ↓
+    index.js (main server)
+        ↓
+    Routes (which URL matches?)
+        ↓
+    Controller (run the logic)
+        ↓
+    Model (talk to database)
+        ↓
+    Response sent back to Client
+
+
+────────────────────────────────────────
+  QUICK SUMMARY CHEAT SHEET
+────────────────────────────────────────
+
+  Node.js        = Run JavaScript on a server (outside browser)
+  Express.js     = Framework that makes Node servers easy to build
+  npm init -y    = Start a new Node project
+  npm install    = Add packages/libraries
+  nodemon        = Auto-restarts server when you save changes
+  .env           = File for secret settings (never commit to GitHub!)
+  MVC            = Model (data) + View (UI) + Controller (logic)
+  Routes         = Map URLs to controller functions
+  Controllers    = The actual logic for handling requests
+  req.body       = Data sent in request body (POST/PUT)
+  req.params     = URL parameters (:id)
+  res.json()     = Send JSON response
+  CRUD           = Create(POST), Read(GET), Update(PUT), Delete(DELETE)
+  app.use()      = Register middleware or routes
+  app.listen()   = Start the server on a port
+
+================================================================================
+  END OF LECTURE 14 - NODE.js & EXPRESS.js
+================================================================================
