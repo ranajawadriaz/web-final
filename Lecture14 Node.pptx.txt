@@ -1,0 +1,124 @@
+Node
+Web Programming
+Lecture 14
+Mahhek Khan
+.
+1
+
+NODE.js
+Node.js is a JavaScript runtime built on Chrome's V8 engine.
+Allows you to run JavaScript on the server.
+Non-blocking, event-driven architecture – great for web apps & APIs.
+
+2
+
+Express.js
+Definition: Express is a minimal and flexible Node.js web application framework.
+Purpose: Simplifies routing, handling HTTP requests, middleware.
+
+3
+
+Setup Node
+Install Node.js: Go to nodejs.org and install the latest version.
+Verify Installation: Open terminal and run:
+
+node -v
+npm -v
+
+
+4
+
+Setup a Project
+# 1. Create a folder
+mkdir my-node-app
+cd my-node-app
+# 2. Initialize Node.js
+npm init -y
+# 3. Install mongoose and express
+npm install express mongoose cors dotenv
+npm install --save-dev nodemon
+mkdir config controllers models routes
+# 4. Create main file
+touch index.js .env
+npm run dev
+5
+
+MVC
+Model - Interacts with database
+Views - Interacts with clients
+Controller - Handle Request and Response
+In MERN
+Model MongoDB schema (Mongoose model)
+Controller - Node.js Handles request/response
+View - In MERN, React acts as the View layer (separate frontend)
+
+6
+
+File Structure
+7
+
+.env
+A .env file stores environment variables used to configure an application. These variables allow us to keep configuration separate from the source code.
+
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/mernapp
+JWT_SECRET=mysecretkey
+Keeps sensitive information (API keys, passwords) out of the code
+Naming convention
+Environment variables are usually written in CAPITAL LETTERS with underscores.
+The .env file should NOT be committed to GitHub. It is usually added to the .gitignore file to keep sensitive data private.
+
+8
+
+run server
+package.json:
+"scripts": {
+  "start": "node index.js",
+  "dev": "nodemon index.js"
+}
+npm run dev
+http://localhost:5000
+By convention, developers use:
+npm run dev → development (nodemon, debugging, auto-reload)
+npm start → production (normal Node run)
+
+9
+
+index.js
+10
+
+Rest Routes
+11
+
+What is a Route?
+Route decides WHICH code should run when a request comes.
+Example request:
+GET /api/items
+The route catches the request and sends it to the correct controller.
+Example:
+router.get("/", getItems)
+Here:"/" → the route pathgetItems → the controller function
+
+12
+
+Connecting Routes in index.js
+const itemRoutes = require("./routes/itemRoutes");
+app.use("/api/items", itemRoutes);
+Meaning:
+If a request starts with:
+/api/items
+send it to the routes file.
+
+13
+
+Routes File Example (itemRoutes.js)
+
+14
+
+Controller Example (itemController.js)
+15
+
+Complete Request Flow
+16
+
+17

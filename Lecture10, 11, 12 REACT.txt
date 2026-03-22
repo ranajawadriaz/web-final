@@ -1,0 +1,592 @@
+
+Web Programming
+Lecture 10, 11, 12
+
+REACT
+Mahhek Tahir
+.
+1
+
+MERN - Architecture
+React.js
+Node.js
+Mongo DB
+Express.JS
+WEB
+SERVER
+DATABASE
+2
+
+Why MERN?
+🔹 Single Language (JavaScript) – No need to switch between languages for frontend & backend
+🔹 Fast & Scalable – Non-blocking architecture of Node.js ensures efficiency
+🔹 MongoDB is Schema-less – Flexible and easy-to-use database
+🔹 React’s Component-Based Architecture – Reusable UI components
+🔹 Full-Stack Development – Everything in one ecosystem
+
+React.js front end
+Creates dynamic client-side application in HTML.
+It let you build complex interface through simple components, connect them to data on your back-end server, and render them as HTML
+
+Virtual DOM
+The Virtual DOM (VDOM) is a lightweight copy of the Real DOM that React uses to efficiently update the UI without directly modifying the actual browser DOM.
+
+
+
+Virtual DOM
+React doesn’t update the Real DOM immediately.
+Instead, it creates a Virtual DOM, which is just a JavaScript object representation of the UI.
+When state or props change, React creates a new Virtual DOM.
+React compares (diffs) the new Virtual DOM with the previous one to find the exact changes.
+Instead of re-rendering the entire UI, React updates only the changed elements in the Real DOM.
+
+
+6
+
+Virtual DOM Advantages
+Without Virtual DOM (Direct DOM Updates)
+Changing a small part of a webpage requires re-rendering the whole DOM.
+This causes slow performance and flickering effects.
+With Virtual DOM (React's Approach)
+React creates a Virtual DOM and detects changes.
+Instead of updating everything, React only updates the changed elements.
+The Real DOM gets updated only where needed, improving efficiency.
+
+7
+
+What is REACT
+A JavaScript library for building user interfaces
+Developed and maintained by Facebook (Meta)
+Component-based and declarative
+Used for building Single Page Applications (SPAs)
+
+
+Why use REACT?
+Component-based architecture (reusable UI elements)
+Virtual DOM for efficient updates
+Fast rendering
+Strong community support
+
+
+Setting up REACT
+Install Node.js
+Create a new React app:
+
+npx create-react-app my-app
+cd my-app
+npm start
+
+Opens in the browser at localhost:3000 or http://192.168.18.7:3000
+10
+
+JSX
+JSX (JavaScript XML) is a syntax extension of JavaScript
+Allows writing HTML-like code inside JavaScript
+const element = <h1>Hello, World!</h1>;
+
+JSX Rules
+Must return a single parent element
+Use camelCase for attributes (e.g., className instead of class)
+Must close all tags (e.g., <br /> instead of <br>)
+Embed JavaScript with {} (e.g., {2 + 2} → 4)
+
+12
+
+Nested JSX
+Multiple JSX elements inside <div>
+
+
+Nested JSX
+Data in the format of JSON can be sent by React.js to Express.js, where the process data stores directly in MongoDB for later retrieval. 
+
+Attributes on jsx
+15
+
+Can be set dynamically
+16
+
+REACT Components
+A component is a small, chunk of code that is responsible for ONE job. The job is often to render some HTML
+
+Function Components
+
+function Greeting() {
+  return <h1>Hello, World!</h1>;
+}
+
+Class Components (older)
+
+class Greeting extends React.Component {
+  render() {
+	return <h1>Hello, World!</h1>;
+  }
+}
+Function components have largely replaced class components in modern React development.
+
+
+
+React Components
+Reusable, independent UI pieces
+Can be Class Components or Function Components
+Components can have state and props
+Components help in modularizing code
+
+
+What are props?
+Short for "Properties"
+Passed from Parent to Child
+Read-only (Immutable)
+
+19
+
+Passing Props
+Parent Component (App.js)
+function App() {
+return <Greeting name="John" />;
+}
+Child Component (Greeting.js)
+function Greeting(props) {
+ return <h1>Hello, {props.name}!</h1>; 
+}
+name is passed as a prop
+
+
+Default prop value
+function Greeting({ name = "Guest" }) 
+{ 
+return <h1>Hello, {name}!</h1>; 
+} 
+
+If name is not provided, it defaults to "Guest"
+
+Multiple props
+Parent Component (App.js)
+function App() {
+  return <UserInfo name="John" age={25} city="New York" />;
+}
+Child Component (UserInfo.js)
+function UserInfo(props) {
+  return (
+	<div>
+  	<h1>Name: {props.name}</h1>
+  	<h2>Age: {props.age}</h2>
+  	<h3>City: {props.city}</h3>
+	</div>
+  );
+}
+export default UserInfo;
+🔹 Here, we pass three props (name, age, city) to UserInfo.
+22
+
+Destructuring
+Instead of writing props.name, props.age, etc., we can destructure props:
+Child Component (UserInfo.js)
+function UserInfo({ name, age, city }) {
+  return (
+	<div>
+  	<h1>Name: {name}</h1>
+  	<h2>Age: {age}</h2>
+  	<h3>City: {city}</h3>
+	</div>
+  );
+}
+export default UserInfo;
+🔹 Easy to read
+23
+
+Passing Objects as Props
+Parent Component (App.js)
+const user = { name: "John Doe", age: 25, city: "New York" };
+function App() {
+  return <UserInfo user={user} />;
+}
+Child Component (UserInfo.js)
+function UserInfo({ user }) {
+  return (
+	<div>
+  	<h1>Name: {user.name}</h1>
+  	<h2>Age: {user.age}</h2>
+  	<h3>City: {user.city}</h3>
+	</div>
+  );
+} Instead of passing multiple props, we pass a single object (user) and access its properties inside the child component.
+Can we destructure it with name age and city?
+24
+
+What is props.children?
+props.children is a special prop in React that allows components to wrap other components or elements inside them.
+It is useful when creating reusable wrapper components like cards, modals, layouts, etc.
+
+25
+
+Another example
+Example: Single java jar file
+26
+
+Layout Example
+Can you use API with monolith?
+27
+
+Conditional rendering
+function UserGreeting(props) {
+  return (
+	<h2>{props.isLoggedIn ? "Welcome Back!" : "Please Log In"}</h2>
+  );
+}
+
+
+
+&& Conditional rendering
+function Notification(props) {
+  return (
+	<div>
+  	<h2>Notifications</h2>
+  	{props.hasMessages && <p>You have new messages!</p>}
+	</div>
+  );
+}
+
+
+
+REACT Event Handling
+function ButtonComponent() {
+  function handleClick() {
+	alert("Button clicked!");
+  }
+
+  return <button onClick={handleClick}>Click Me</button>;
+}
+
+Events are camelCased → Instead of onclick, use onClick.
+Use function references, not strings → Instead of onclick="myFunction()", use onClick={myFunction}.
+event.preventDefault() is needed → In React, you must call event.preventDefault() manually for form submissions or link clicks.
+
+Example: Single java jar file
+30
+
+REACT Form Submission
+function FormComponent() {
+  function handleSubmit(event) {
+	event.preventDefault();
+	alert("Form submitted!");
+  }
+
+  return (
+	<form onSubmit={handleSubmit}>
+  	<button type="submit">Submit</button>
+	</form>
+  );
+}
+
+Example: Single java jar file
+31
+
+Events
+Example: Single java jar file
+32
+
+Passing Parameters in Events
+function handleClick(name) {
+  alert(`Hello, ${name}!`);
+}
+<button onClick={() => handleClick("John")}>Click Me</button>
+
+Use arrow functions to pass parameters in event handlers.
+
+
+33
+
+
+Hooks
+A hook:
+Starts with use
+Can only be used inside a functional component
+
+General
+useState
+useParams
+useNavigate
+useSearchParams
+useEffect
+useRef
+Redux
+useSelector
+useDispatch
+.
+34
+
+States in React
+State stores dynamic data
+Allows components to re-render
+useState is used to manage state in functional components
+Yes, <h2>Count: {count}</h2> automatically updates
+The useState(0) creates a state variable called count.
+Clicking the button updates the state using setCount().
+
+
+Multiple States
+Clicking the button only updates age, keeping name unchanged.
+36
+
+Object in States
+The spread operator (...car) ensures other properties remain unchanged.
+37
+
+Arrays in States
+The spread operator (...tasks) ensures we keep existing items when adding a new one.
+38
+
+Updating States based on Previous
+If state depends on the previous value, use a function inside setState().
+Ensures correct updates when React batches multiple state updates.
+Useful in asynchronous updates.
+
+39
+
+Why?
+React batches state updates for performance reasons. If multiple updates happen at the same time, using setCount(count + 1) might not give the correct result.   
+  <button onClick={() => {
+    	setCount(count + 1);
+    	setCount(count + 1);
+    	setCount(count + 1);
+  	}}>
+    	Increase 3 times
+  </button>
+Count only increases by 1 instead of by 3!
+
+  const [count, setCount] = useState(0);
+  return (
+	<div>
+  	<h2>Count: {count}</h2>
+  	<button onClick={() => {
+    	setCount(prevCount => prevCount + 1);
+    	setCount(prevCount => prevCount + 1);
+    	setCount(prevCount => prevCount + 1);
+  	}}>
+    	Increase 3 times
+  	</button>
+	</div>
+  );
+}
+Now, count correctly increases by 3 instead of just 1.
+
+
+40
+
+REACT Router
+React Router makes your React app work like a multi-page website while staying fast & interactive!
+
+IMPORTANT: npm install react-router-dom
+Think of a website. It has different pages:
+Home → /
+About → /about
+Contact → /contact
+When you click on a link, the page changes without reloading.
+React Router helps React apps do this!
+
+Can you use API with monolith?
+41
+
+Installing REACT Routers
+First, install React Router using: 
+
+npm install react-router-dom
+
+
+REACT Routers Use
+Example: App.js
+
+
+REACT Routers Use
+Example: Navbar.js
+This is a separate component for easy reuse.
+Use <Link> instead of <a>
+Problem: The page reloads every time a user clicks the link.
+Solution: React Router provides <Link>, which updates the URL without a full page reload
+
+
+
+
+REACT Routers Use
+Example: Home.js
+Example: About.js
+
+Dynamic Routes
+useParams() for Dynamic Routes
+The useParams() hook allows us to access route parameters from the URL.
+🔹 Example: If your URL is /user/5, then 5 is the dynamic parameter (User ID).
+<Route path="/user/:id" element={<User />} /> {/* Dynamic Route */}
+<Link to="/user/5">Go to User 5</Link> {/* Link with Dynamic ID */}
+
+Redirect Programmatically
+
+The useNavigate() hook is used to programmatically redirect users.
+
+<Route path="/user/:id" element={<User />} />
+
+Query parameters
+/products?category=shoes&page=2
+<Route path="/products" element={<Products />} />
+48
+
+UI Elements - Lists
+Use .map() to generate list items dynamically
+
+49
+
+UI Elements - Form
+Forms are controlled using state.
+Example: Simple Form with one field.
+
+import { useState } from 'react';
+function Form() {
+  const [name, setName] = useState('');
+  return <input value={name} onChange={(e) => setName(e.target.value)} />;
+}
+50
+
+UI Elements - Form
+Forms are controlled using state.
+Example: Simple Form with one field.
+
+51
+
+UI Elements - Adding Task
+52
+
+UI Elements - Deleting Task
+53
+
+Multiple fields Form
+Example: Multiple Element Form
+
+54
+
+Class Components - Life Cycle
+Three main lifecycle phases: Mounting, Updating, Unmounting
+
+Mounting (When the component is created and inserted into the DOM)
+
+constructor(): Initializes state and binds event handlers.
+render(): Renders the UI.
+componentDidMount(): Runs after the component is added to the DOM (used for API calls, subscriptions, etc.).
+55
+
+Updating (When props or state change)
+render(): Re-renders the UI.
+componentDidUpdate(prevProps, prevState, snapshot): Runs after the component updates. It is useful for making API calls when relevant data
+(props/state) changes.
+Unmounting (When the component is removed from the DOM)
+componentWillUnmount(): Cleanup function (removing event listeners, clearing timers, etc.).
+56
+
+Function Components - Life Cycle
+Functional components do not have lifecycle methods like class components (componentDidMount, componentDidUpdate,
+etc.).
+However, with React Hooks (introduced in React 16.8), functional components can achieve the same lifecycle behavior (using
+useEffect hook). Hooks allow function components to have access to state and other React features.
+Because of react hooks, class components are generally no longer needed.
+57
+
+Problem with useState
+It re-render whole component with value is updated
+UseEffect to solve this issue
+58
+
+UseEffect
+1. No Dependency Array Runs after every render (initial + re-renders).
+useEffect(() => {console.log("Runs on each render"); });
+Problem: Can cause performance issues if it runs unnecessarily.
+useState causes re-render.
+useEffect does NOT cause re-render by itself.
+2. Empty Dependency Array Runs only once, after the first render (like componentDidMount).
+useEffect(() => {console.log("Runs only on mount!"); }, []);
+3. Specific Dependencies - Runs only when the specified dependency changes.
+useEffect(() => { console.log(`Count changed to: ${count}`); }, [count]); // Runs only when `count` changes, count is a state 
+59
+
+Clear Function in UseEffect
+Runs when the component unmounts (removes from page or another component is called)
+Prevent memory leaks
+Avoid unnecessary event listeners or intervals
+Ensure performance optimization
+
+Cleanup
+Effect without [], cleanup after each render 
+Effect with [], cleanup after component unmounts
+Effect with [dependency], cleanup runs before next effect
+61
+
+Fetching Data without useEffect
+62
+
+Problem?
+Fetch Runs on Every Render
+Every time the component renders, fetchData() is called again.
+This causes multiple API calls, making the app inefficient.
+Infinite Loop Risk
+If setData updates state, React will re-render the component.
+The function runs again during re-render, leading to an infinite loop
+
+63
+
+Fetching Data from API
+64
+
+Auto-saving Input fields
+65
+
+Dynamic Title
+It detects state changes (title updates).
+It performs a side effect (updating the document title).
+Without useEffect, we couldn’t automatically update the page title based on the input value.
+
+66
+
+useRef
+useRef is a variable that stays the same even when the page updates (re-renders). Unlike useState, updating useRef does not trigger a re-render, but you can still display its value on the page if you want. 
+Unlike useState, changing useRef does NOT cause a re-render.
+Accessing & Manipulating DOM Elements
+Storing Previous State Values
+Avoiding Re-renders for Unnecessary State Updates
+Persisting Values Across Renders
+67
+
+Accessing Dom Elements
+68
+
+Accessing Dom Elements
+
+ inputRef.current.style.backgroundColor = "yellow";
+inputRef.current.style.color = "red";
+inputRef.current.style.border = "2px solid blue";
+alert(`Input value: ${inputRef.current.value}`);
+inputRef.current.className = "highlight"; // Apply new class
+69
+
+Will not update UI
+70
+
+useState vs useRef
+useSate when you want to re render the whole component on update of a variable or a field
+useRef if you want to update the variable or a field but don’t want to re-render the whole component
+
+71
+
+CSS
+React supports standard CSS stylesheets that can be imported into components.
+You can define styles in a .css file and import them in your component:
+
+Helping Material
+React Official Documentation https://react.dev
+The best official guide to learn React.
+Covers JSX, components, state, props, hooks, and routing.
+Full Modern React Course (Scrimba) https://scrimba.com/learn/learnreact
+The Road to React (Free Book Sample)
+🔗 https://www.roadtoreact.com
+FreeCodeCamp’s Open-Source React Course
+https://www.freecodecamp.org/learn/front-end-development-libraries/react/
+Open-source interactive React course.
+Covers functional components, class components, and Redux.
+
+73

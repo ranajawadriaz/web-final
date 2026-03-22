@@ -1,0 +1,32 @@
+/* Navbar container */
+.topnav {
+  background-color: #ccc;
+  overflow: hidden;
+}
+
+/* Style all links */
+.topnav a {
+  text-decoration: none;
+  display: block;
+  color: black;
+}
+
+/* First link (Home) different style */
+.topnav a:first-child {
+  background-color: #333;
+  color: white;
+}
+
+/* Mobile view (<=600px) */
+@media screen and (max-width: 600px) {
+  .topnav a {
+    display: block;
+    width: 100%;
+  }
+}
+/* Desktop view (>600px) */
+@media screen and (min-width: 601px) {
+  .topnav a {
+    float: left;
+  }
+}

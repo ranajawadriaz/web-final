@@ -1,0 +1,147 @@
+Web Programming
+Lecture 13
+
+React - Redux Toolkit
+Mahhek Tahir
+.
+1
+
+Redux
+Redux is a state management library for JavaScript applications, mainly used with React.
+It helps you manage and store data in a central place instead of passing it between components manually.
+Think of it like a storage box where all your app’s data is kept in one place, so every part of your app can access it easily.
+
+2
+
+Why do we need Redux?
+Without Redux (Normal React State)
+Each component manages its own state using useState().
+Passing data between components requires props drilling (passing props from parent → child → child).
+Managing complex states like user authentication, or shopping carts.
+With Redux
+Redux stores all the state in a single place (Store).
+Any component can access or update the state easily.
+No need for props drilling! 
+
+3
+
+Redux Toolkit
+Redux Toolkit (RTK) is the official way to write Redux code easier and faster.It reduces boilerplate code and makes Redux simpler to use.
+Traditional Redux → Too much setup (Actions, Reducers, Store separately)Redux Toolkit → All in one place (createSlice())
+npm install @reduxjs/toolkit react-redux
+
+4
+
+Key concepts of Redux Toolkit
+Store (Central place for state)
+The global state of your app.
+Components get data from and send updates to the store.
+Actions (Tell Redux what to do)
+Actions are messages that tell Redux what changes should happen
+Reducers (Update the state)
+Pure Functions that modify the store when actions are dispatched.
+In RTK, reducers are inside createSlice()
+Redux Toolkit we write actions inside the reducers object, but technically we are writing reducer functions, and Redux Toolkit automatically creates the actions for us.
+Dispatch (Send actions to update the state)
+Used in components to trigger actions.
+Selectors (Read data from the store)
+Used in components to get data from Redux (useSelector()).
+
+5
+
+Store → A big container that stores all the state (data). Selectors → Functions that extract specific data from the store.Actions → Instructions that tell Redux what to change (like “increase the counter”).  Dispatcher → Triggers actions and tells Redux, "Hey, do this now!"  Reducers → The actual workers that update the state based on the action. 
+Example: If you click a "Like" button in an app:
+Action → "Like Post"
+Dispatcher → Sends "Like Post" to Redux
+Reducer → Increases the like count in the store
+Selector → Gets the updated like count to show on the screen
+
+Example 
+6
+
+Diagram
+7
+
+Slice (action + reducer)
+A slice in Redux Toolkit is like a state variable but with built-in actions and an initial value.
+With createSlice(), reducers and actions are defined together inside a single slice.
+Think of this like 
+const [counter, setCounter] = useState(0);
+but for global state, where counter also has actions like increment and decrement.
+Redux Slice = State + Actions in One Place
+When you create a slice:
+You define a state variable (counter with an initial value).
+You define actions (increment, decrement).
+Redux handles updating the state for you.
+
+8
+
+Slice Example (counterSlice.js)
+9
+
+Store
+The Redux store is like a central database for your app. It holds all the global state and allows components to read data or update the state by dispatching actions.
+
+Holds the entire state of the applicationAllows access to state via useSelectorAllows state updates via dispatch(action)Uses reducers to modify the state
+
+10
+
+Registering the counterSlice
+11
+
+Provide Store to App
+12
+
+Selector
+A selector is a function used to retrieve data from the Redux store.It helps in reading and using the state inside React components.
+
+const count = useSelector((state) => state.counter.value); // Selecting counter value
+const user = useSelector((state) => state.user); // Selecting user object
+
+useSelector takes a function that returns a part of the Redux state.
+Avoid directly selecting the whole store, pick only needed values.
+
+13
+
+Dispatcher
+A dispatcher is a function that sends actions to the Redux store to update state.
+We use useDispatch from Redux Toolkit to trigger actions.
+
+return (
+	<div>
+  	<button onClick={() => dispatch(increment())}>+ Increment</button>
+  	<button onClick={() => dispatch(decrement())}>- Decrement</button>
+	</div>
+  );
+dispatch(action()) calls an action that updates the state.
+14
+
+15
+
+2 slices with same names (alias)
+16
+
+17
+
+Store.js
+18
+
+Selector + Dispatcher in App.js
+19
+
+Selector in Profile Component
+20
+
+Slice with parameters
+<button onClick={() => dispatch(incrementByAmount(5))}>Increment by 5</button>
+21
+
+Slice with multiple parameters
+dispatch(updateUser({ name: "Alice", age: 30 }));
+
+22
+
+Add tasks - array params
+const newTasks = ["Buy groceries", "Complete project", "Read a book"];
+dispatch(addTasks(newTasks));
+23
