@@ -1,0 +1,628 @@
+Web Programming - Sessional 1 (Fall 2018)
+Section A:
+
+Which of the following is not a request header field:    
+
+Which of the following is not a response header field:    
+
+Identify each of the following from the url: https://www.youtube.com/watch?v=U8XF6AFGqlc (Fragment, Query, Path, Scheme, Authority)    
+
+Which of the following is invalid use of call or apply for the code below:    
+
+Which of the following is not true about the loading of an HTML document in the browser?    
+
+Which of the following statement is valid to use a Node module fs in a Node based application?    
+
+In Node.js how do web servers differ from traditional web servers?    
+
+What are the key features of Node.js?    
+
+Node.js uses an event-driven, non-blocking I/O model?    
+
+Which method of fs module is used to open a file?    
+
+Node.js is a single-threaded application, but it can support concurrency via the concept of events and callbacks. ?    
+
+Which is true for the following two lines of code: eventEmitter.addListener("connection", listener1); eventEmitter.on("connection", listener2);    
+
+Consider the following JavaScript code [code provided in document] ... What will be the output? (2)    
+
+What results will these function calls return? add(11, 12); add(3); add(undefined, 20); add(); (2)    
+
+What will be the output of the following code? If there are errors then what is the reason?(2)    
+
+Here is some JavaScript code with intentional bugs... Write the output and also list the bugs.(5)    
+
+What is the purpose of wrapping all JavaScript behavior inside of the .ready() method? (2)    
+
+Write jquery code to make all div elements fade in or out over a period of one second. (1)    
+
+Write jquery code that allows a user to click a LOGIN button that toggles a login form with the id login-menu. (1)    
+
+What is the difference between blocking code and non-blocking code? Give an example. (5)    
+
+Write JavaScript code against the instructions (10) [instructions provided in document]... What will be the output?    
+
+Write code for a RESTful API using the express framework that handles the following requests: /listProducts, /addProduct, /deleteProduct, /:id (8)    
+
+Section B:
+
+How can you make an e-mail link:    
+
+Which attribute you'll use with TD tag to merge two cells horizontally?    
+
+HTML documents are saved in:    
+
+JavaScript supports a composite data type known as object?    
+
+In JavaScript, what is the value of x: var x = 2+ 2 + "Hello" + 0 + 4    
+
+In JavaScript if we use document.write() after an HTML document is loaded, will it delete all existing HTML?    
+
+JavaScript has a built-in function constructor?    
+
+_______ removes the child elements from the selected element “p” using jQuery.    
+
+Write code in jQuery to select first <li> element of every <ul>    
+
+jQuery contains the following features:    
+
+Explain ASP.net compilation procedure (1)    
+
+What is the difference between value type and reference type? (1)    
+
+What is the difference between boxing and unboxing? (1)    
+
+What is Sql injection and how can you avoid it in ADO.net? (2)    
+
+Consider a database with following table Employee (id, name, salary, deptID). Write a query to get the average salary for all departments employing more than 10 employees (1)    
+
+What are the benefits of using n-tier architecture (1)    
+
+In HTML forms we use an attribute called as method i.e. Request method. Explain the different types of it with the help of an example (1)    
+
+Suppose you have one image (image1.gif) and two buttons (button1 and button2) on the HTML page. By default, image1.gif is set. Use JavaScript to change the image source to image2.gif when button1 is clicked and change image source back to image1.gif when button2 is clicked (2)    
+
+You have two tags <p id = “intro”> Hello World </p> and <p id = “demo”> </p>. Write JavaScript code to get the text from paragraph with id = intro and then place that text onto paragraph with id = demo. (1)    
+
+In this question you have to create new html elements using JavaScript. Assume the following code is already written: <div id = “div1”> <p id = “p1”> This is a paragraph </p> </div>. Write JavaScript code to create one paragraph with text “this is new paragraph” inside div (it should be written before “This is a paragraph”). Then remove the existing paragraph with id = p1 (2).    
+
+What is the purpose of wrapping all jQuery methods inside of the .ready() method? (1)    
+
+What are the advantages jQuery has over JavaScript? (1)    
+
+Suppose you have: <p>change my background color using jQuery</p>. Using jQuery change the background color of “p” to white when mouse pointer leaves the html element. Change the background color of “p” to yellow when the mouse pointer double clicks the html element (2)    
+
+Write jQuery code to make all elements fade to 0.5 opacity over a period of one second (1)    
+
+Write jQuery code to change the following div: <div id=”d1”> </div> Change its height and width to 200px and opacity to 0.3 (1)    
+
+What are the three powerful methods to change and manipulate HTML elements and attributes by jQuery. Write their names (1)    
+
+Web Programming - Mid 1 (Fall 2017)
+Question 1: What is MVC design pattern? briefly describe all three parts of the MVC pattern and why they are used. (Marks 10)    
+
+Question 2: Describe a servlet's life cycle. List out all the methods involved in the life cycle and the purpose of each method. (Marks 10)    
+
+Question 4: What is the purpose of having a Listener in a web application. Give two examples of Listeners. (Marks 5)    
+
+Question 6: As per the figure and HTML code given below write java script validation function to validate all the requirements given in red. (Marks 15)    
+
+Web Programming - Mid 1 (Spring 2017)
+Question 1: What are the three key elements of a HTTP request? (Please give a detailed answer on how request works) (Marks 10)    
+
+Question 2: What is a container and what features does it provide? (Give details of what a container is and what it does) (Marks 10)    
+
+Question 3: What is a ServletContext object and what is it used for? (Marks 5)    
+
+Question 4: How should servlet developers handle the HttpServlet's service() method when extending HttpServlet? (Select the correct option) (Marks 2)    
+
+Question 5: Which types of objects can store attributes? (Select the correct option) (Marks 3)    
+
+Question 6: Write a JavaScript function which creates an Object 'Person'. This object should have the following properties: First Name, Last Name, Address, Phone. Also write an HTML page which will display the data in this person object. (Marks 10)
+
+Fall 2017 (Mid-1 Exams)
+Question 1: What is MVC design pattern? Briefly describe all three parts of the MVC pattern and why they are used.    
+
+Question 2: Describe a servlet's life cycle. List out all the methods involved in the life cycle and the purpose of each method.    
+
+Question 3 (Variant A): What is the purpose of having a Listener in a web application? Give two examples of Listeners.    
+
+Question 3 (Variant B): What is the difference between GET and POST request? When should you use POST request?    
+
+
+Question 4: As per the figure and HTML code given below write java script validation function to validate all the requirements given in red.    
+
+Question 6: Write a JavaScript function which creates an Object 'Person'. This object should have the following properties: First Name, Last Name, Address, Phone. Also write an HTML page which will display the data in this person object.    
+
+Spring 2017 (Mid-1 Exams)
+Question 1: What are the three key elements of a HTTP request? (Please give a detailed answer on how request works)    
+
+Question 2: What is a container and what features does it provide? (Give details of what a container is and what it does)    
+
+
+Question 3: What is a ServletContext object and what is it used for?    
+
+Question 4: How should servlet developers handle the HttpServlet's service() method when extending HttpServlet? (Multiple choice options provided)    
+
+Question 5: Which types of objects can store attributes? (Multiple choice options provided)    
+
+Question 6: Write a JavaScript function which creates an Object 'Person'. This object should have the following properties: First Name, Last Name, Address, Phone. Also write an HTML page which will display the data in this person object.    
+
+Spring 2018 (Mid-1 Exam)
+
+Sample Question 1: World Wide Web was invented by?    
+
+
+Sample Question 2: HTTP is an _____ layer protocol    
+
+
+Question 1 (Javascript):    
+
+(a) Write object-oriented Javascript code using the constructor functions to show how to realize the Question inheritance hierarchy. You cannot use the class based syntax.    
+
+
+(b) Give detailed implementation of MCQ display function to generate correct HTML for MCQ.    
+
+
+(c) Give detailed implementation of FIB display function to generate correct HTML for FIB.    
+
+
+Question 2 (CSS):    
+
+(a) Write a CSS rule to style all radio buttons (input type radio) that are used to represent options of a MCQ only (and not any other radio button used elsewhere), such that options are stacked vertically. Use your own HTML (in answer to Q1.b) as a basis to determine structure.    
+
+
+(b) Describe the resultant style effect of the following CSS rules on the given HTML below: p , .text { font-weight : normal ; padding-left : 0px ; color : black} .text { background-color : grey } p.text { font-weight : bold ; padding-left : 10px } <p class='text'> World Wide Web was invented by?</p>    
+
+Fall 2019 (Mid-1 Exam, Section A & B)
+Question 1: The university has decided to develop an application to analyze student results and activities. The students data is given in JSON file having hundreds of records.    
+
+
+(Part 1) Fill in the blank spaces in the above code and use Bootstrap classes or CSS media queries to achieve the following:    
+
+
+a. Create a row column structure such that on desktop screen, it displays 3 columns in one row and all columns should have equal width.    
+
+
+b. On mobile or small screen, the div with id (student-information) should be full width and div with ids (student-courses, student-activities) should be displays in two columns.    
+
+
+(Part 2) Write CSS for div id (header) as follows: Add border; add background color i.e. #3333 and change font family to "arial" and font color to white; change font to uppercase.    
+
+
+(Part 3) The JavaScript code is given below and you have to write down the missing code and the missing logic in specific code section.    
+
+Write code to implement GET request from JSON file (data.json) using AJAX.    
+
+Write code to get the value from the input field and save it in a variable.    
+
+Write down the regular expression to validate the Roll No. The pattern is as follows: ##L-#### (where # is an integer).    
+
+Write the logic to display the students information as follows: Display the student name with program in which the student is enrolled; display the students courses (Web & OOP) with "Pass or Fail" status; display total number of activities.    
+
+
+Question 2 (Short Questions):    
+
+1. What will the code below output to the console? Write the answer into the blank space.    
+
+a) console.log(1+"2"+"2");    
+
+b) console.log(1++"2"+"2");    
+
+c) console.log(1+-"1"+"2");    
+
+d) console.log(+"1"+"1"+"1"+"2");    
+
+2. What's Wrong with the following HTML? Highlight and correct the errors.
+
+Here are all the questions extracted from the provided exam pages, ordered sequentially:
+
+1. Which of the following is not a request header field:
+a) Host
+b) Connection
+c) ETag
+d) Content-Length
+e) Accept
+
+2. Which of the following is not a response header field:
+a) Date
+b) Server
+c) Last-Modified
+d) Keep-Alive
+e) Expires
+f) Location
+
+3. Identify each of the following from the url: https://www.youtube.com/watch?v=U8XF6AFGqIc
+a) Fragment
+b) Query
+c) Path
+d) Scheme
+e) Authority
+
+4. Which of the following is invalid use of call or apply for the code below:
+
+JavaScript
+var person1 = {
+    firstName: "Ali",
+    lastName: "Akber",
+}
+var person = {
+    fullName: function(city, country) {
+        return this.firstName + " " + this.lastName + "," + city + "," + country;
+    }
+}
+a) person.fullName.call(person1, "Pakistan", "Islamabad");
+b) person.fullName.apply(person1, ["Pakistan", "Karachi"]);
+c) person.fullName.call(person1, ["Pakistan", "Lahore"]);
+d) None of the above
+
+5. Which of the following is not true about the loading of an HTML document in the browser?
+a) The HTML document is loaded from top to bottom
+b) the style dependencies in the <head> will load first
+c) the structural elements in the <body> will load after the style dependencies
+d) The JavaScript code included as an external file will execute first
+
+6. Which of the following statement is valid to use a Node module fs in a Node based application?
+a) var fs = require("fs");
+b) var fs = import("fs");
+c) package fs;
+d) import fs;
+
+7. In Node.js how do web servers differ from traditional web servers ?
+a) Node based server uses a single threaded model and can serve much larger number of requests compared to any traditional server like Apache HTTP Server.
+b) Node based server process request much faster than traditional server.
+c) There is no much difference between the two.
+d) All Of The Above
+
+8. What are the key features of Node.js ?
+a) Real time Data intensive.
+b) Highly scalable servers for Web Applications.
+c) Builds fast and scalable network Applications.
+d) All of the above
+
+9. Node.js uses an event-driven, non-blocking I/O model ?
+a) True
+b) False
+
+10. Which method of fs module is used to open a file ?
+a) fs.openFile(path, flags[, mode], callback)
+b) fs.open(path, flags[, mode], callback)
+c) fs.openPath(path, flags[, mode], callback)
+d) None of the above.
+
+11. Node.js is a single-threaded application, but it can support concurrency via the concept of events and callbacks. ?
+a) Yes
+b) No
+
+12. Which is true for the following two lines of code
+
+JavaScript
+eventEmitter.addListener("connection", listener1);
+eventEmitter.on("connection", listener2);
+a) addListener is an alias for on, you can use either to bind a listener to an event
+b) addListener can be replaced with on in the first line
+c) both a and b
+d) None of the above
+
+13. Consider the following JavaScript code   
+
+JavaScript
+var arr = [5, 6, 8];
+var plus_one = arr.map(function(n) {
+    return n + 1;
+});
+console.log(plus_one);
+let another_plus_one = arr.map(n => n + 1);
+console.log(another_plus_one);
+What will be the output? (2)   
+
+14. What results will these function calls return? (2)
+
+JavaScript
+function add(a = 10, b = 5) {
+    return a + b;
+}
+add(11, 12);
+add(3);
+add(undefined, 20);
+add();
+15. What will be the output of the following code? If there are errors then what is the reason?(2)
+
+JavaScript
+var firstname = "Farooq";
+var addSurname = function() {
+    var surname = "Shah";
+    console.log(firstname + " " + surname);
+};
+addSurname();
+console.log(firstname + " " + surname);
+16. Here is some JavaScript code with intentional bugs:
+
+JavaScript
+var myName = {
+    first: "Saad",
+    last: "Zaheer"
+},
+age = 20,
+country = "Pakistan";
+console.log("1:", myName.first, myName.last);
+var changeDetails = (function() {
+    console.log("2:", age, country);
+    var age = 19;
+    country = "Pakistan";
+    console.log("3:", age, country);
+    var reduceAge = function(step) {
+        age = age - step;
+        console.log("4: Age:", age);
+    };
+    var doAgeIncrease = function(step) {
+        for (var i = 0; i <= step; i++) {
+            window.age += 1;
+        }
+        console.log("5: Age:", window.age);
+    },
+    increaseAge = function(step) {
+        var waitForIncrease = setTimeout(function() {
+            doAgeIncrease(step);
+        }, step * 200);
+    };
+    console.log("6:", myName.first, myName.last, age, country);
+    return {
+        reduceAge: reduceAge,
+        increaseAge: increaseAge
+    };
+})();
+changeDetails.increaseAge(5);
+console.log("7:", age, country);
+changeDetails.reduceAge(5);
+console.log("8:", age, country);
+Write the output and also list the bugs.(5)
+
+17. What is the purpose of wrapping all JavaScript behavior inside of the .ready() method? (2)
+
+18. Write jquery code to make all div elements fade in or out over a period of one second. (1)
+
+19. Write jquery code that allows a user to click a LOGIN button that toggles a login form with the id login-menu. (1)
+
+20. What is the difference between blocking code and non-blocking code? Give an example. (5)
+
+21. Write JavaScript code against the instructions (10)
+a) Import events module
+b) Create an eventEmitter object
+c) Create an event handler function connectHandler that logs connection successful message to the console. It should also fire a data_received event
+d) Bind the connection event with the handler
+e) Bind the data_received event with an anonymous function that prints the message data received successfully
+f) Fire the connection event
+g) Log the message program ended to console
+h) What will be the output?   
+
+22. Write code for a RESTful API using the express framework that handles the following requests: (8)
+a) /listProducts -> Show a list of products (The application level middleware/controller logic should intercept this path, read the data from the products.json file and send the response to the client)
+b) /addProduct -> Add a new product (intercept a post request to this path, read the existing products from the file, parse the file and store it in a data variable, add a new product to the data variable, stringify the data and send it back to the client)
+c) /deleteProduct -> Delete an existing product (Prompt partially cut off)   
+
+The products data is available in a products.json file as follows:
+
+JSON
+{
+   "product1":{
+      "name":"Check print shirt",
+      "price":"4000",
+      "imageUrl":"https://content.shop.com/media/catalog/product/imgl8986.jpg",
+      "id":1
+   },
+   "product2":{
+      "name":"Blue Sweater",
+      "price":"2000",
+      "imageUrl":"https://content.shop.com/media/catalog/product/imgl8776.jpg",
+      "id":2
+   },
+   "product3":{
+      "name":"Yellow Jacket",
+      "price":"2500",
+      "imageUrl":"https://content.shop.com/media/catalog/product/imgl4586.jpg",
+      "id":3
+   }
+}
+Start with requiring the modules necessary and creating an express application. Then define the four routes required. Lastly, start up the server on port '3000' and print a log comment to the console.
+
+Midterm Exam - Fall 2018 (From Images)
+How can you make an e-mail link:
+
+Which attribute you'll use with TD tag to merge two cells horizontally?
+
+HTML documents are saved in
+
+JavaScript supports a composite data type known as object?
+
+In JavaScript, what is the value of x: var x = 2+ 2 + "Hello" + 0 + 4
+
+In JavaScript if we use document.write() after an HTML document is loaded, will it delete all existing HTML?
+
+JavaScript has a built-in function constructor?
+
+_____ removes the child elements from the selected element "p" using jQuery.
+
+Write code in jQuery to select first <li> element of every <ul>
+
+jQuery contains the following features:
+
+Explain ASP.net compilation procedure (1)
+
+What is the difference between value type and reference type? (1)
+
+What is the difference between boxing and unboxing? (1)
+
+What is Sql injection and how can you avoid it in ADO.net? (2)
+
+Consider a database with following table Employee (id, name, salary, deptID). Write a query to get the average salary for all departments employing more than 10 employees (1)
+
+What are the benefits of using n-tier architecture (1)
+
+In HTML forms we use an attribute called as method i.e. Request method. Explain the different types of it with the help of an example (1)
+
+Suppose you have one image (image1.gif) and two buttons (button1 and button2) on the HTML page. By default, image1.gif is set. Use JavaScript to change the image source to image2.gif when button1 is clicked and change image source back to image1.gif when button2 is clicked (2)
+
+You have two tags <p id="intro"> Hello World </p> and <p id="demo"> </p>. Write JavaScript code to get the text from paragraph with id = intro and then place that text onto paragraph with id = demo. (1)
+
+In this question you have to create new html elements using JavaScript. Assume the following code is already written:
+<div id="div1">
+<p id="p1"> This is a paragraph </p>
+</div>
+a) Write JavaScript code to create one paragraph with text "this is new paragraph" inside div (it should be written before "This is a paragraph").
+b) Then remove the existing paragraph with id = p1 (2).
+
+What is the purpose of wrapping all jQuery methods inside of the .ready() method? (1)
+
+What are the advantages jQuery has over JavaScript? (1)
+
+Suppose you have: <p>change my background color using jQuery</p>. Using jQuery change the background color of "p" to white when mouse pointer leaves the html element. Change the background color of "p" to yellow when the mouse pointer double clicks the html element (2)
+
+Write jQuery code to make all elements fade to 0.5 opacity over a period of one second (1)
+
+Write jQuery code to change the following div: <div id="d1"> </div>. Change its height and width to 200px and opacity to 0.3 (1)
+
+What are the three powerful methods to change and manipulate HTML elements and attributes by jQuery. Write their names (1)
+
+Mid 1 Exam - Fall 2023
+Question 1: Write a program using the JavaScript (DOM) such that (as encircled below):
+
+Delete the attribute node.    
+
+Replace the immediate parents of all text nodes with div elements.    
+
+
+Question 2: Your task is to create a web page using html, CSS and JavaScript for dynamic quiz application. The application should have the following features:    
+
+Timer: Implement a timer that counts down from a specified time (e.g. 5 minutes). You can use 'math.floor()' (to round off the number) and 'setTimeout()'.    
+
+Question: Displays the question one at a time. (Assume we have only 5 questions).    
+
+
+Answer: One input field or text area, to take the answer from the user.    
+
+Previous/Next Button: One previous and one next button, to navigate between the questions. Ensure to disable/hide the 'previous' button, when the user is on the first question and, disable/hide 'next' button when the user is on the last question.    
+
+
+Submit: One submit button that, upon clicking prevents the user from changing their answers, and displays a dialogue box indicating the number of question out of 5, attempted by the user.    
+
+Midterm-I Exam - Spring 2018
+Question 1 (Javascript):
+
+
+(a) Write object-oriented Javascript code using the constructor functions to show how to realize the Question inheritance hierarchy. You cannot use the class based syntax.    
+
+
+(b) Give detailed implementation of MCQ display function to generate correct HTML for MCQ.    
+
+
+(c) Give detailed implementation of FIB display function to generate correct HTML for FIB.    
+
+Question 2 (CSS):
+
+
+(a) Write a CSS rule to style all radio buttons (input type radio) that are used to represent options of a MCQ only (and not any other radio button used elsewhere), such that options are stacked vertically. Use your own HTML (in answer to Q1.b) as a basis to determine structure.    
+
+
+(b) Describe the resultant style effect of the following CSS rules on the given HTML below: p , .text { font-weight: normal; padding-left: 0px; color: black } .text { background-color: grey } p.text { font-weight: bold; padding-left: 10px } <p class='text'> World Wide Web was invented by?</p>
+
+Spring 2017 Midterm
+Question 1: What are the three key elements of a HTTP request? (Please give a detailed answer on how request works)    
+
+Question 2: What is a container and what features does it provide? (Give details of what a container is and what it does)    
+
+
+Question 3: What is a ServletContext object and what is it used for?    
+
+Question 4: How should servlet developers handle the HttpServlet's service() method when extending HttpServlet? (Select the correct option)    
+
+A. They should override service() method in most cases.    
+
+B. They should call the service() method from doGet() or doPost().    
+
+C. They should call the service() method from the init() method.    
+
+D. They should override at least one doXXX() method (such as doPost()).    
+
+Question 5: Which types of objects can store attributes? (Select the correct option)    
+
+A. ServletConfig    
+
+B. ServletResponse    
+
+C. RequestDispatcher    
+
+D. HttpServletRequest    
+
+E. HttpSessionContext    
+
+Question 6: Write a JavaScript function which creates an Object 'Person'. This object should have the following properties: First Name, Last Name, Address, Phone. Also write an HTML page which will display the data in this person object.    
+
+Fall 2017 Midterm
+(Note: There are two slight variations of this paper in the provided documents)
+
+Question 1: What is MVC design pattern? Briefly describe all three parts of the MVC pattern and why they are used.    
+
+Question 2: Describe a servlet's life cycle. List out all the methods involved in the life cycle and the purpose of each method.    
+
+Question 3 (Variation A): What is the purpose of having a Listener in a web application. Give two examples of Listeners.    
+
+Question 3 (Variation B): What is the difference between GET and POST request? When should you use POST request?    
+
+
+Question 4: As per the figure and HTML code given below write java script validation function to validate all the requirements given in red. (A sample registration form code is provided for this question).    
+
+Question 6: Write a JavaScript function which creates an Object 'Person'. This object should have the following properties: First Name, Last Name, Address, Phone. Also write an HTML page which will display the data in this person object.    
+
+Fall 2019 Midterm
+Question 1: The university has decided to develop an application to analyze student results and activities. The students data is given in JSON file having hundreds of records.  The HTML code is given below. You have to fill the missing code section and write the code to achieve a specific output:    
+
+1. Fill in the blank spaces in the above code and use Bootstrap classes or CSS media queries to achieve a specific row column structure (3 columns on a desktop, and a mix of full width and 2 columns on mobile/small screens).    
+
+2. Write CSS for div id (header) to add a border, add a background color (#3333), change the font family to "arial", change the font color to white, and change the font to uppercase.    
+
+Write down the missing JavaScript code and logic to:
+
+Implement a GET request from a JSON file (data.json) using AJAX.    
+
+Get the value from the input field and save it in a variable.    
+
+Write down the regular expression to validate the Roll No based on the pattern ##L-#### (where # is an integer).    
+
+Write the logic to display the student's information, including their name, program, courses with "Pass or Fail" status, and total number of activities.    
+
+
+Question 2: Short questions:    
+
+1. What will the code below output to the console?    
+
+a) console.log log(1+"2"+"2");    
+
+b) console.log log(1++"2"+"2");    
+
+c) console.log log(1+-"1"+"2");    
+
+d) console.log log(+"1"+"1"1"1"+"2");    
+
+What's wrong with the following HTML? Highlight and correct the errors.
+
+Page 1
+Q1: Write a program using the JavaScript such that it deletes the attribute node and replace the immediate parents of all text nodes with div elements as encircled below. [10 marks]
+
+(Note: This question is accompanied by a diagram showing a DOM tree structure where a <span> and an <a> element, which are parents of text nodes, are targeted for replacement, and an href attribute node is targeted for deletion.)
+
+Page 2
+Q2: Implement the Dynamic Subject List of Computer Science discipline using JavaScript DOM as shown in the figure below. The initial structure of HTML code is given below: [20 marks]
+
+HTML
+<html lang="en"><body><h2>Dynamic Subject List of Computer Science Discipline</h2><form action="#">Enter Subject Name:<input type="text" id="subject_name"/><input type="button" value="Add" onclick="AddRow();"/></form><table id="subject-list" border="1"><tr><th>Subject Name</th><th>Actions</th></tr></table></body></html>
+Your tasks are:
+
+By Clicking on "Add" button, it should generate New Row and add it into the table (N-Rows for NSubjects, see Fig-1)
+
+By Clicking on the Delete Button, it should delete the current Row of the Table.
+
+By Clicking on the Edit Button, it should generate the Editable Textbox for the selected subject and change the captions of the buttons ("Edit" and "Delete") to "Save" and "Cancel". Once user modify the subject name and click on the "Save" button, it should display the modified subject name at the selected place. By clicking on the Cancel button, it should discard the action and change the captions of the buttons ("Save" and "Cancel") to "Edit" and "Delete". (Note: you can only edit one row at a time, See Fig-2)
+
+(Note: This question includes two reference figures showing the UI state after clicking "Add" and after clicking "Edit".)

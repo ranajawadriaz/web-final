@@ -1,0 +1,407 @@
+
+Lecture 7 & 8
+Web Programming
+
+Async/Eventloops
+DOM
+Jquery
+Mahhek Tahir
+html
+1
+
+Async/Eventloops
+
+2
+
+Asynchronous
+
+JavaScript is single-threaded, meaning it executes one task at a time. However, asynchronous programming allows it to handle multiple tasks without blocking execution.
+Synchronous Code 
+(Executes One Task at a Time)
+
+
+
+
+3
+
+Async/await
+Because some tasks take time:
+API calls
+Database fetch
+File loading
+Geolocation
+Timers
+
+4
+
+API Call (fetch data from server)
+
+
+
+
+
+
+
+wait for api to return, get json and then print it
+5
+
+File Loading (read file content)
+6
+
+Fetch api using JS
+7
+
+Event Loop
+The Event Loop is what makes JavaScript asynchronous. It allows JavaScript to handle non-blocking operations, even though it's single-threaded.
+8
+
+Event Loop
+9
+
+Event Loop
+10
+
+Event Loop
+11
+
+Event Loop
+12
+
+Event Loop
+13
+
+Event Loop
+14
+
+Event Loop
+15
+
+Event Loop
+16
+
+Event Loop
+17
+
+Event Loop
+18
+
+Code after await runs in the Microtask queue. If called directly without await, it runs immediately on the Call Stack.
+19
+
+Document Object Model
+20
+
+Document Object Model - DOM
+A programming interface for web documents
+Represents the HTML structure as a tree
+Enables JavaScript to interact with web pages dynamically
+
+DOM Structure
+The DOM is structured like a tree
+Root Node → Document
+Element Nodes → HTML elements
+Attribute Nodes → Attributes inside elements
+Text Nodes → Text inside elements
+
+22
+
+How DOM Works
+Browser parses an HTML document and creates a DOM tree
+JavaScript can modify this tree dynamically
+The DOM is an in-memory representation of the document
+
+23
+
+DOM Tree
+
+DOM Node
+
+Accessing DOM Elements
+document.getElementById('id')
+document.getElementsByClassName('class')
+document.querySelector('selector') //only first match
+document.querySelectorAll('selector')
+document.getElementsByTagName("tagName")
+
+26
+
+Modifying the DOM
+Change content: element.innerHTML = ‘<div> new element</div>’
+Change text: element.textContent = "New Text";
+Change styles: element.style.color = 'blue';
+Can be used to get and set innerHtml, textContent and style 
+element.innerHtml will return inner Html of the element and element.innerHtml = “” will set it
+27
+
+Getting the first and last element
+First Element
+// Get all <p> elements 
+let paragraphs = document.getElementsByTagName("p"); 
+// Select the first one
+let firstParagraph = paragraphs[0];
+
+Last Element
+// Get all <p> elements 
+let paragraphs = document.getElementsByTagName("p");
+// Select the last one
+let lastParagraph = paragraphs[paragraphs.length - 1]; 
+28
+
+Node
+29
+
+textContent
+text content will return all the children node text, 
+Text before First Child Second Child Text after
+30
+
+Form Validation
+<html>
+	<head>
+		<script type="text/javascript">
+			function validate(){
+				if (document.getElementById('q').value == ""){
+					alert('search string cannot be empty');
+					return false;
+				}
+				return true;
+			}
+		</script>
+	</head>
+	<body>
+		<form method="GET" action="http://www.google.com/search">
+			<input type="text" name="q" id="q" />
+			<input type="submit" value="Google Search" onclick="return validate()"/>
+		</form>
+	</body>
+</html>
+
+getAttribute() vs setAttribute
+<button id="btn1" name="submitBtn" value="Send">
+  Click Me
+</button>
+
+const button = document.getElementById("btn1");
+
+console.log(button.getAttribute("id"));      // btn1
+console.log(button.getAttribute("name"));    // submitBtn
+console.log(button.getAttribute("value"));   // Send
+
+const button = document.getElementById("btn1");
+
+// Set new attributes
+button.setAttribute("name", "submitBtn");
+button.setAttribute("value", "Send");
+button.setAttribute("class", "primaryBtn");
+
+
+32
+
+CreateElement() + appendChild()
+Used to create and add a new element at the end.
+ <div id="container">
+        <p>Existing paragraph</p>
+    </div>
+    <script>
+        // Step 1: Create a new element
+        let newParagraph = document.createElement("p");
+        // Step 2: Add text content
+        newParagraph.textContent = "I am a new paragraph added with JavaScript!";
+        // Step 3: Append to the parent div document.getElementById("container").appendChild(newParagraph);
+    </script>
+ What Happens?
+createElement("p") → Creates a <p> element.
+textContent → Adds text inside it.
+appendChild(newParagraph) → Adds it inside <div id="container">.
+
+33
+
+createTextNode/createAttribute
+We create a new text node (called newText) using the createTextNode() method. This will contain whatever text was found in textarea.
+// Create a new paragraph element
+let newParagraph = document.createElement("p"); 
+// Create a text node 
+let text = document.createTextNode("Hello, this is a text node!");
+ // Create an ID attribute 
+let idAttr = document.createAttribute("id");
+// Assign a value to the attribute
+idAttr.value = "myButton"; 
+ // Append the text node to the paragraph 
+newParagraph.appendChild(text); 
+// Attach the attribute to the button
+newParagraph.setAttributeNode(idAttr); 
+// Append the paragraph to the body 
+document.body.appendChild(newParagraph);
+
+Adds an Element Before Another
+The insertBefore() method inserts an element before a specific existing child.
+parentElement.insertBefore(newElement, existingChild);
+Example: Inserting a New Item Before Another
+// Select the parent
+let parent = document.getElementById("container"); 
+// Create a new element
+let newItem = document.createElement("p"); 
+newItem.textContent = "This is inserted before an existing item!";
+// Select an existing child
+let existingItem = document.getElementById("oldItem"); 
+// Insert before oldItem
+parent.insertBefore(newItem, existingItem); 
+The new <p> is added before #oldItem.
+
+
+Remove Child
+let parent = document.getElementById("container");
+let child = document.getElementById("item");
+parent.removeChild(child);
+
+Finds the parent element with ID "container"
+Removes the child element with ID "item"
+
+36
+
+Delete last paragraph on the page
+var allGrafs = document.getElementsByTagName("p");
+getElementsByTagName method collect all the paragraph tags in our page and store them in the allGrafs array.
+
+if (allGrafs.length > 1){
+var lastGraf = allGrafs[allGrafs.length-1];
+var docBody = document.getElementsByTagName("body")[0];
+docBody.removeChild(lastGraf);
+}
+
+In order to modify the document we need to get the content of the body.
+Once we have got that, its simply a matter of calling the
+ docBody.removeChild() method and passing it lastGraf. 
+Which tells JavaScript which paragraph we want to delete. Our page
+should immediately show one less paragraph
+
+Removing an Element on Click of a button
+ <div id="container">
+        <p id="text">Click the button to remove me!</p>
+        <button onclick="removeElement()">Remove</button>
+    </div>
+    <script>
+        function removeElement() {
+            let element = document.getElementById("text");
+            if (element) {
+                element.remove(); // Removes the paragraph
+            }
+        }
+    </script>
+
+
+38
+
+Replacing Node
+  <div id="parent">
+        <p id="oldChild">This is the old paragraph.</p>
+    </div>
+    <button onclick="replaceElement()">Replace Child</button>
+    <script>
+        function replaceElement() {
+            let parent = document.getElementById("parent");
+            let oldChild = document.getElementById("oldChild");
+            // Create a new element
+            let newChild = document.createElement("p");
+            newChild.textContent = "This is the new paragraph.";
+            // Replace the old child with the new one
+            parent.replaceChild(newChild, oldChild);
+        }
+    </script>
+
+
+JQUERY
+40
+
+Introduction to JQuery
+What is jQuery?
+A fast, small, and feature-rich JavaScript library.
+Simplifies HTML document traversal, event handling, and animation.
+Ensures cross-browser compatibility.
+Why use jQuery?
+Concise and easy-to-use syntax.
+Reduces the need for complex JavaScript code.
+Widely supported and used in web development.
+
+41
+
+Adding JQuery
+Ways to include jQuery:
+Download from jQuery.com and include locally.
+Use a CDN (e.g., Google or jQuery CDN):<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+Placing the script in your HTML file:
+Inside the <head> or before closing <body>.
+Recommended: Place it before </body> for better performance.
+
+42
+
+Basic Syntax
+Structure:	$(document).ready(function() {
+    		// jQuery code here
+});
+$ is the jQuery selector.
+$(document).ready() ensures the DOM is fully loaded before executing scripts.
+
+43
+
+JQuery Selector
+Select elements like CSS selectors:	
+$("p").hide(); // Hides all `<p>` elements
+$("#myId").show(); // Shows the element with ID 'myId'
+$(".myClass").fadeOut(); // Fades out elements with class 'myClass'
+
+44
+
+
+
+Event handling in JQuery
+jQuery makes event handling simple:
+$("#btn").click(function() {
+    alert("Button clicked!");
+});
+Common events:
+click(), mouseover(), mouseleave(), keydown(), submit()
+
+47
+
+JQuery Effects & Animations
+Hide/Show Elements:
+$("#box").hide();
+$("#box").show();
+$("#box").toggle();
+Fading Effects:
+("#box").fadeIn();
+$("#box").fadeOut();
+Sliding Effects:
+$("#box").slideUp();
+$("#box").slideDown();
+
+48
+
+jQuery Fading Effects
+With jQuery you can fade elements in and out of visibility.
+Click to fade in/out panel
+Examples:
+jQuery fadeIn()Demonstrates the jQuery fadeIn() method.
+jQuery fadeOut()Demonstrates the jQuery fadeOut() method.
+jQuery fadeToggle()Demonstrates the jQuery fadeToggle() method.
+jQuery fadeTo()Demonstrates the jQuery fadeTo() method.
+
+
+jQuery Effects - Sliding
+Examples
+slideDown()Demonstrates the jQuery slideDown() method.
+slideUp()Demonstrates the jQuery slideUp() method.
+slideToggle()Demonstrates the jQuery slideToggle() method.
+
+
+Manipulating HTML and CSS
+Change content:
+$("#text").text("New Content");
+$("#text").html("<b>Bold Content</b>");
+Change CSS:
+$("#box").css("background-color", "blue");
+
+51
+
+

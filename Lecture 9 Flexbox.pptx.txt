@@ -1,0 +1,145 @@
+
+Web Programming
+Lecture 9
+
+Flexbox
+Mahhek Tahir
+.
+1
+
+Understanding Flexbox Layout
+What is Flexbox?
+Aligns items in row or column
+
+
+
+3
+
+Applying Flexbox to Parent
+Flexbox is applied to the parent
+All direct children become flex items
+.card now behaves as flexible boxes
+Layout becomes horizontal by default
+Flexbox always works on the parent.
+
+4
+
+Allowing Items to Move
+Default is nowrap
+wrap allows items to move to next line
+Prevents overflow
+Important for responsive layouts
+Simple explanation:
+Wrap allows items to break into a new
+row when space ends.
+gap creates space between flex items
+Cleaner than using margins
+Works directly with Flexbox
+
+
+
+Responsiveness
+Takes full width
+One card per row
+Mobile-first approach
+flex: grow  (1 means Can grow if extra space exists) shrink (Can shrink if space is small) basis (size)
+Break it simply:
+Start with full width.
+
+Mobile
+Tablet
+Laptop
+50% width
+Two cards per row
+calc() adjusts for gap
+Responsive behavior
+
+33.33% width
+Three columns
+Fully responsive layout
+
+
+Flexbox - row vs column
+Default Behavior
+.container {
+  display: flex;
+}
+Default = flex-direction: rowItems arranged horizontally
+
+Using flex-direction: column
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+Items arranged vertically (top → bottom)
+7
+
+Without flexbox nav menu?
+Display block vs Display - inline
+
+
+
+8
+
+9
+
+Data in html
+
+Access Clicked Element & Its Data
+box.getAttribute("data-item-id") will also work
+
+Arrow function version
+12
+
+setTimeout
+What is setTimeout?
+setTimeout runs code after a specific time delay.
+
+13
+
+Async always return a promise
+async → always returns a Promise
+return value → wrapped inside that Promise
+14
+
+When one function depends on other
+function getFirst() {
+  return Promise.resolve("A");
+}
+function addSecond(value) {
+  return Promise.resolve(value + "B");
+}
+and we have to print AB, 
+use await to get its value.
+15
+
+Adding and Removing Classes JS
+const element = document.querySelector(".box");
+element.classList.add("active");
+Adds the class activeDoes NOT remove existing classes
+Remove a Class
+element.classList.remove("active");
+Removes only the class active Other classes remain unchanged
+Toggle a Class
+element.classList.toggle("active");
+Adds the class if not present Removes the class if already present
+Check if Class Exists
+element.classList.contains("active");
+Returns true or false
+
+16
+
+Revise
+17
+
+Practice!
+In a string Find Words That Start and End With Same Letter
+Create 5 vertical bars. Click bar 4, Bars 1–4 become blue, Click bar 4 again, Only bar 4 resets.
+Write a JavaScript class called GameBoard that represents a rectangular game board of size m × n.
+The class should:
+Store number of rows and columns.
+Store board values in a 2D array.
+Include a method combine(otherBoard) that:
+If the board sizes do not match, display:
+18

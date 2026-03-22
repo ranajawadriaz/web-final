@@ -1,0 +1,300 @@
+================================================================================
+   LECTURE 3 - CSS (EASY VERSION)
+   *** CSS IS IN YOUR SYLLABUS - STUDY THIS WELL! ***
+================================================================================
+
+
+────────────────────────────────────────
+  WHAT IS CSS?
+────────────────────────────────────────
+
+  CSS = Cascading Style Sheets
+
+  If HTML is the SKELETON, CSS is the SKIN + CLOTHES.
+  It makes your webpage LOOK PRETTY.
+
+  CSS controls: colors, fonts, spacing, layout, borders, etc.
+
+
+────────────────────────────────────────
+  3 WAYS TO ADD CSS
+────────────────────────────────────────
+
+  1. INLINE (directly on the element):
+     <p style="color: red;">Red text</p>
+
+  2. INTERNAL/EMBEDDED (in <head> with <style> tag):
+     <head>
+       <style>
+         p { color: red; }
+       </style>
+     </head>
+
+  3. EXTERNAL (separate .css file):
+     <head>
+       <link rel="stylesheet" href="style.css">
+     </head>
+
+  PRIORITY ORDER (who wins):
+    1st: Inline CSS      (HIGHEST priority)
+    2nd: Internal CSS
+    3rd: External CSS     (LOWEST priority)
+
+    ** !important beats EVERYTHING **
+    Example: background-color: red !important;
+
+
+────────────────────────────────────────
+  CSS SELECTORS  ***VERY IMPORTANT***
+────────────────────────────────────────
+
+  Selectors = HOW you pick which element to style.
+
+  ┌─────────────────┬──────────────────┬───────────────────────────┐
+  │ SELECTOR TYPE   │ SYNTAX           │ WHAT IT SELECTS           │
+  ├─────────────────┼──────────────────┼───────────────────────────┤
+  │ Element         │ p { }            │ ALL <p> elements          │
+  │ ID              │ #myId { }        │ Element with id="myId"    │
+  │ Class           │ .myClass { }     │ All with class="myClass"  │
+  │ Universal       │ * { }            │ EVERYTHING on the page    │
+  │ Grouping        │ h1, h2, p { }    │ All h1, h2, AND p         │
+  └─────────────────┴──────────────────┴───────────────────────────┘
+
+  CODE EXAMPLES:
+
+  /* Select ALL paragraphs */
+  p {
+    color: red;
+    text-align: center;
+  }
+
+  /* Select element with id="para1" */
+  #para1 {
+    color: blue;
+  }
+
+  /* Select all elements with class="highlight" */
+  .highlight {
+    background-color: yellow;
+  }
+
+  /* Select EVERYTHING */
+  * {
+    margin: 0;
+  }
+
+  /* Multiple classes on one element */
+  <p class="center large">This has TWO classes</p>
+
+
+────────────────────────────────────────
+  CSS SPECIFICITY  ***EXAM FAVORITE***
+────────────────────────────────────────
+
+  When MULTIPLE CSS rules target the SAME element,
+  WHO WINS? The one with HIGHER SPECIFICITY.
+
+  PRIORITY (highest to lowest):
+
+  1. inline style          style="color:red"    (1000 points)
+  2. ID selector           #myId                (100 points)
+  3. Class selector        .myClass             (10 points)
+  4. Element selector      p                    (1 point)
+
+  EXAMPLE:
+  <p id="msg" class="text highlight">Hello World</p>
+
+  p { color: blue; }              /* specificity: 1 */
+  .text { color: green; }         /* specificity: 10 */
+  p.highlight { color: orange; }  /* specificity: 11 (1+10) */
+  #msg { color: red; }            /* specificity: 100 */
+
+  ANSWER: Text will be RED because #msg has highest specificity!
+
+  If SAME specificity? The one that appears LATER in code wins.
+  If SAME specificity and same location? Internal beats external.
+
+
+────────────────────────────────────────
+  COLORS & BACKGROUNDS
+────────────────────────────────────────
+
+  /* Color by name */
+  color: red;
+  background-color: DodgerBlue;
+
+  /* Color by hex code */
+  color: #FF0000;        /* red */
+  background-color: #FFFFFF;  /* white */
+
+  /* Background image */
+  body {
+    background-image: url("paper.gif");
+  }
+
+
+────────────────────────────────────────
+  FONTS
+────────────────────────────────────────
+
+  font-size: 40px;                      /* size in pixels */
+  font-size: 2.5em;                     /* relative size */
+  font-family: Arial, "Times New Roman"; /* which font */
+  font-style: italic;                    /* normal or italic */
+  font-weight: bold;                     /* normal, bold, or number like 900 */
+
+
+────────────────────────────────────────
+  WIDTH & HEIGHT
+────────────────────────────────────────
+
+  div {
+    width: 300px;     /* how wide */
+    height: 200px;    /* how tall */
+  }
+
+  Can use: px, %, em, vh, vw
+
+
+────────────────────────────────────────
+  CSS BORDERS
+────────────────────────────────────────
+
+  border-style: solid;      /* solid, dashed, dotted, double, none */
+  border-width: 5px;        /* how thick */
+  border-color: red;        /* what color */
+
+  SHORTHAND (all in one line):
+  border: 2px solid red;
+  ────── ─── ───── ───
+  width  style color
+
+  Individual sides:
+  border-top: 1px solid black;
+  border-bottom: 2px dashed blue;
+  border-left: 1px solid green;
+  border-right: 1px solid green;
+
+
+────────────────────────────────────────
+  BOX MODEL  ***SUPER IMPORTANT***
+────────────────────────────────────────
+
+  Every HTML element is a BOX with 4 layers:
+
+  ┌──────────────────────────────────────────┐
+  │            MARGIN (invisible space)       │
+  │  ┌────────────────────────────────────┐  │
+  │  │         BORDER (line)              │  │
+  │  │  ┌──────────────────────────────┐  │  │
+  │  │  │      PADDING (inner space)   │  │  │
+  │  │  │  ┌────────────────────────┐  │  │  │
+  │  │  │  │     CONTENT            │  │  │  │
+  │  │  │  │   (text, images)       │  │  │  │
+  │  │  │  └────────────────────────┘  │  │  │
+  │  │  └──────────────────────────────┘  │  │
+  │  └────────────────────────────────────┘  │
+  └──────────────────────────────────────────┘
+
+  From INSIDE to OUTSIDE:
+    CONTENT  -> The actual text/image
+    PADDING  -> Space between content and border (INSIDE the box)
+    BORDER   -> The line around the element
+    MARGIN   -> Space between this element and OTHER elements (OUTSIDE)
+
+  Easy memory trick:
+    PADDING = PADDING inside a jacket (keeps YOU warm)
+    MARGIN  = MARGIN of a page (space outside the text area)
+
+
+────────────────────────────────────────
+  MARGIN & PADDING SYNTAX
+────────────────────────────────────────
+
+  /* All 4 sides same */
+  margin: 25px;               /* all sides = 25px */
+
+  /* Individual sides */
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-bottom: 30px;
+  margin-left: 40px;
+
+  /* SHORTHAND - 4 values = TOP RIGHT BOTTOM LEFT (clockwise!) */
+  margin: 25px 50px 75px 100px;
+  /*      top  right bottom left  */
+
+  /* SHORTHAND - 2 values = TOP/BOTTOM  LEFT/RIGHT */
+  padding: 10px 20px;
+  /*       top/bottom  left/right */
+  /* So: top=10, bottom=10, left=20, right=20 */
+
+  /* SHORTHAND - 3 values = TOP  LEFT/RIGHT  BOTTOM */
+  padding: 10px 20px 30px;
+  /*       top  left/right  bottom */
+  /* So: top=10, left=20, right=20, bottom=30 */
+
+  ** REMEMBER: Clockwise = Top, Right, Bottom, Left (TRouBLe) **
+
+
+────────────────────────────────────────
+  TEXT ALIGNMENT & FLOAT
+────────────────────────────────────────
+
+  text-align: center;    /* centers the TEXT inside the box */
+  text-align: left;
+  text-align: right;
+
+  float: left;           /* pushes the BOX ITSELF to the left */
+  float: right;          /* pushes the BOX ITSELF to the right */
+
+  KEY DIFFERENCE:
+    text-align = affects the CONTENT inside a box
+    float      = affects the BOX ITSELF
+
+
+────────────────────────────────────────
+  DISPLAY PROPERTY
+────────────────────────────────────────
+
+  display: block;         /* Acts like <div> - full width, new line */
+  display: inline;        /* Acts like <span> - only needed width */
+  display: inline-block;  /* Inline but CAN have width/height */
+  display: none;          /* HIDES the element completely */
+
+  BLOCK  = big box, takes FULL width, stacks VERTICALLY
+  INLINE = small, takes ONLY needed space, flows HORIZONTALLY
+
+
+────────────────────────────────────────
+  LINK/ANCHOR STYLES (Pseudo-classes)
+────────────────────────────────────────
+
+  a:link    { color: blue; }     /* normal unvisited link */
+  a:visited { color: purple; }   /* already visited */
+  a:hover   { color: red; }      /* mouse is over it */
+  a:active  { color: green; }    /* moment you click it */
+
+  Remember order: L-V-H-A (LoVe HAte)
+
+
+────────────────────────────────────────
+  CSS CASCADE RULES (Who wins?)
+────────────────────────────────────────
+
+  When two rules conflict, CSS decides like this:
+
+  STEP 1: Check !important (always wins)
+  STEP 2: Check specificity (inline > id > class > element)
+  STEP 3: Check location (internal > external)
+  STEP 4: Check order (later rule wins)
+
+  Example:
+  p { color: blue; }         /* specificity 1 */
+  p { color: red; }          /* specificity 1, but LATER = WINS */
+  
+  Result: red (same specificity, red comes later)
+
+================================================================================
+  END OF LECTURE 3 EASY NOTES
+================================================================================

@@ -1,0 +1,532 @@
+================================================================================
+   LECTURE 7 & 8 - ASYNC/AWAIT, PROMISES, EVENT LOOP, DOM (EASY VERSION)
+   *** PROMISES, ASYNC/AWAIT, and DOM ARE IN YOUR SYLLABUS ***
+   *** jQuery is NOT in syllabus ***
+================================================================================
+
+
+════════════════════════════════════════════════════════════════════════════════
+  PART A: PROMISES & ASYNC/AWAIT  *** IN SYLLABUS ***
+════════════════════════════════════════════════════════════════════════════════
+
+
+────────────────────────────────────────
+  WHY DO WE NEED ASYNC?
+────────────────────────────────────────
+
+  JavaScript is SINGLE-THREADED = it does ONE thing at a time.
+
+  Problem: Some tasks are SLOW:
+    - Fetching data from a server (API calls)
+    - Reading files
+    - Timers (setTimeout)
+
+  If JS waited for each slow task, the WHOLE PAGE would FREEZE.
+  
+  Solution: ASYNCHRONOUS code!
+  JS says: "Hey slow task, go do your thing. I'll keep working. 
+            Call me back when you're done."
+
+
+────────────────────────────────────────
+  SYNCHRONOUS vs ASYNCHRONOUS
+────────────────────────────────────────
+
+  SYNCHRONOUS (blocking):
+  // Each line waits for the previous to finish
+  console.log("Step 1");      // runs first
+  console.log("Step 2");      // runs second
+  console.log("Step 3");      // runs third
+  // Output: Step 1, Step 2, Step 3 (in order)
+
+  ASYNCHRONOUS (non-blocking):
+  console.log("Step 1");
+  setTimeout(() => {
+    console.log("Step 2");    // runs AFTER 2 seconds
+  }, 2000);
+  console.log("Step 3");
+  // Output: Step 1, Step 3, Step 2
+  // Step 3 doesn't WAIT for Step 2!
+
+
+────────────────────────────────────────
+  SETTIMEOUT
+────────────────────────────────────────
+
+  setTimeout = runs code AFTER a delay.
+
+  setTimeout(function() {
+    console.log("Hello after 3 seconds!");
+  }, 3000);  // 3000 milliseconds = 3 seconds
+
+  // Arrow function version:
+  setTimeout(() => {
+    console.log("Hello after 3 seconds!");
+  }, 3000);
+
+
+────────────────────────────────────────
+  PROMISES  ***IMPORTANT***
+────────────────────────────────────────
+
+  A Promise = an object that says "I'll give you a result LATER"
+
+  A Promise has 3 states:
+    PENDING   = still waiting (doing the work)
+    FULFILLED = done! here's your result (resolved)
+    REJECTED  = something went wrong (error)
+
+  Think of it like ordering food online:
+    Pending  = "Your order is being prepared"
+    Fulfilled = "Your food has arrived!"
+    Rejected  = "Sorry, restaurant is closed"
+
+  // Creating a Promise:
+  let myPromise = new Promise(function(resolve, reject) {
+    let success = true;
+    if (success) {
+      resolve("It worked!");      // SUCCESS -> sends this value
+    } else {
+      reject("Something failed"); // FAILURE -> sends this error
+    }
+  });
+
+  // Using a Promise:
+  myPromise
+    .then(function(result) {
+      console.log(result);           // "It worked!" (if resolved)
+    })
+    .catch(function(error) {
+      console.log(error);            // "Something failed" (if rejected)
+    });
+
+  REAL EXAMPLE - Fetching data:
+  fetch("https://api.example.com/data")   // returns a Promise
+    .then(response => response.json())     // when done, convert to JSON
+    .then(data => console.log(data))       // then log the data
+    .catch(error => console.log(error));   // if error, log it
+
+  Promise.resolve("value") = creates a promise that IMMEDIATELY resolves
+  // Example:
+  function getFirst() {
+    return Promise.resolve("A");   // instantly resolves with "A"
+  }
+
+
+────────────────────────────────────────
+  ASYNC / AWAIT  ***VERY IMPORTANT***
+────────────────────────────────────────
+
+  async/await makes Promises EASIER to read.
+  Instead of .then().then(), you just use await.
+
+  RULES:
+  1. "async" goes before a function → makes it ALWAYS return a Promise
+  2. "await" can ONLY be used INSIDE an async function
+  3. "await" PAUSES the function until the Promise resolves
+
+  // WITH .then() (old way):
+  fetch("https://api.example.com/users")
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
+
+  // WITH async/await (new way - SAME thing but cleaner):
+  async function getUsers() {
+    try {
+      let response = await fetch("https://api.example.com/users");
+      let data = await response.json();  // wait for JSON conversion
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  getUsers();
+
+  ** "async" function ALWAYS returns a Promise **
+  ** If you return "hello", it actually returns Promise.resolve("hello") **
+
+  EXAMPLE:
+  async function getData() {
+    return "Hello";
+  }
+  // Same as:
+  function getData() {
+    return Promise.resolve("Hello");
+  }
+
+
+────────────────────────────────────────
+  CHAINING ASYNC FUNCTIONS
+────────────────────────────────────────
+
+  When one function DEPENDS on another:
+
+  function getFirst() {
+    return Promise.resolve("A");
+  }
+  function addSecond(value) {
+    return Promise.resolve(value + "B");
+  }
+
+  // To get "AB":
+  async function run() {
+    let first = await getFirst();          // first = "A"
+    let result = await addSecond(first);   // result = "AB"
+    console.log(result);                   // "AB"
+  }
+  run();
+
+
+────────────────────────────────────────
+  EVENT LOOP (How Async Works Under the Hood)
+────────────────────────────────────────
+
+  JavaScript has these parts:
+
+  1. CALL STACK = where your code runs (one thing at a time)
+  2. WEB APIs = where setTimeout, fetch etc. wait
+  3. CALLBACK QUEUE = where callbacks wait to be run
+  4. MICROTASK QUEUE = where Promise callbacks wait (HIGHER priority!)
+  5. EVENT LOOP = checks: "Is call stack empty? OK, grab next task"
+
+  HOW IT WORKS:
+  
+  Step 1: Code runs on the Call Stack
+  Step 2: If it's async (setTimeout, fetch), it goes to Web APIs
+  Step 3: When async is done, callback goes to Queue
+  Step 4: Event Loop checks: "Is Call Stack empty?"
+  Step 5: If empty, Event Loop pushes next callback to Call Stack
+
+  ** MICROTASK QUEUE (Promises) runs BEFORE Callback Queue (setTimeout) **
+
+  EXAMPLE:
+  console.log("1");                        // Call Stack → prints "1"
+  
+  setTimeout(() => {
+    console.log("2");                      // Goes to Callback Queue
+  }, 0);
+  
+  Promise.resolve().then(() => {
+    console.log("3");                      // Goes to Microtask Queue
+  });
+  
+  console.log("4");                        // Call Stack → prints "4"
+
+  OUTPUT: 1, 4, 3, 2
+  WHY? 
+    - "1" runs immediately
+    - setTimeout goes to Callback Queue (waits)
+    - Promise goes to Microtask Queue (waits)
+    - "4" runs immediately
+    - Stack is empty → Microtask "3" runs first (higher priority!)
+    - Then Callback "2" runs
+
+  ** Code after "await" also runs in the Microtask Queue **
+
+
+════════════════════════════════════════════════════════════════════════════════
+  PART B: DOM  *** IN SYLLABUS - VERY IMPORTANT ***
+════════════════════════════════════════════════════════════════════════════════
+
+
+────────────────────────────────────────
+  WHAT IS THE DOM?
+────────────────────────────────────────
+
+  DOM = Document Object Model
+
+  When your browser loads an HTML page, it creates a TREE structure
+  in memory. This tree is the DOM.
+
+  JavaScript can READ and CHANGE this tree → that's how pages become dynamic!
+
+  <html>                    ← Document (root)
+    <head>                  ← Element Node
+      <title>My Page</title>← Element + Text Node
+    </head>
+    <body>                  ← Element Node
+      <h1>Hello</h1>       ← Element + Text Node
+      <p>World</p>         ← Element + Text Node
+    </body>
+  </html>
+
+  NODE TYPES:
+    Document Node  = the whole document
+    Element Node   = HTML tags (<p>, <div>, <h1>)
+    Attribute Node = attributes (id, class, href)
+    Text Node      = the actual text inside elements
+
+
+────────────────────────────────────────
+  ACCESSING DOM ELEMENTS  ***MUST KNOW***
+────────────────────────────────────────
+
+  // By ID (returns ONE element)
+  document.getElementById("myId")
+
+  // By Class Name (returns a COLLECTION)
+  document.getElementsByClassName("myClass")
+
+  // By Tag Name (returns a COLLECTION)
+  document.getElementsByTagName("p")
+
+  // By CSS Selector (returns FIRST match only)
+  document.querySelector(".myClass")
+  document.querySelector("#myId")
+  document.querySelector("p.highlight")
+
+  // By CSS Selector (returns ALL matches)
+  document.querySelectorAll(".myClass")
+  document.querySelectorAll("p")
+
+  EXAMPLES:
+  // HTML: <h1 id="title">Hello</h1>
+  let title = document.getElementById("title");
+
+  // HTML: <p class="info">Text 1</p> <p class="info">Text 2</p>
+  let allInfo = document.getElementsByClassName("info");  // gets BOTH
+  let firstInfo = allInfo[0];  // gets the first one
+
+  // Get first and last from a collection:
+  let paragraphs = document.getElementsByTagName("p");
+  let first = paragraphs[0];                          // first
+  let last = paragraphs[paragraphs.length - 1];       // last
+
+
+────────────────────────────────────────
+  MODIFYING DOM ELEMENTS  ***SUPER IMPORTANT***
+────────────────────────────────────────
+
+  let element = document.getElementById("myElement");
+
+  // Change the TEXT inside (plain text only):
+  element.textContent = "New text here";
+
+  // Change the HTML inside (can include tags):
+  element.innerHTML = "<strong>Bold text</strong>";
+
+  // Change CSS style:
+  element.style.color = "blue";
+  element.style.backgroundColor = "yellow";   // camelCase!
+  element.style.fontSize = "20px";
+
+  READING values:
+  let text = element.textContent;     // gets text
+  let html = element.innerHTML;       // gets HTML
+  let color = element.style.color;    // gets color
+
+  ** textContent = returns ALL text of element AND children **
+  ** innerHTML = returns the HTML tags + text inside **
+
+
+────────────────────────────────────────
+  getAttribute() and setAttribute()
+────────────────────────────────────────
+
+  // HTML: <button id="btn1" name="submitBtn" value="Send">Click</button>
+
+  let btn = document.getElementById("btn1");
+
+  // GET attributes:
+  btn.getAttribute("id");       // "btn1"
+  btn.getAttribute("name");     // "submitBtn"
+  btn.getAttribute("value");    // "Send"
+
+  // SET attributes (change or add new ones):
+  btn.setAttribute("name", "newName");
+  btn.setAttribute("class", "primary");    // adds a class
+
+
+────────────────────────────────────────
+  CREATING NEW ELEMENTS  ***EXAM FAVORITE***
+────────────────────────────────────────
+
+  3 STEPS: Create → Add Content → Attach to Page
+
+  // Step 1: CREATE a new element
+  let newParagraph = document.createElement("p");
+
+  // Step 2: ADD content to it
+  newParagraph.textContent = "I am a new paragraph!";
+
+  // Step 3: ATTACH it to an existing element
+  document.getElementById("container").appendChild(newParagraph);
+  // appendChild adds it at the END of the container
+
+  FULL EXAMPLE:
+  // HTML: <div id="container"><p>Old paragraph</p></div>
+
+  let newP = document.createElement("p");
+  newP.textContent = "New paragraph added by JavaScript!";
+  document.getElementById("container").appendChild(newP);
+
+  // Result: <div id="container">
+  //           <p>Old paragraph</p>
+  //           <p>New paragraph added by JavaScript!</p>
+  //         </div>
+
+
+────────────────────────────────────────
+  createTextNode & createAttribute
+────────────────────────────────────────
+
+  // Create a text node (just the text, not an element)
+  let text = document.createTextNode("Hello World");
+
+  // Create an attribute
+  let idAttr = document.createAttribute("id");
+  idAttr.value = "myParagraph";
+
+  // Attach them:
+  let newP = document.createElement("p");
+  newP.appendChild(text);              // add text to paragraph
+  newP.setAttributeNode(idAttr);       // add id attribute
+  document.body.appendChild(newP);     // add to page
+
+
+────────────────────────────────────────
+  insertBefore (Add BEFORE another element)
+────────────────────────────────────────
+
+  // Insert a new element BEFORE an existing one
+  let parent = document.getElementById("container");
+  let newItem = document.createElement("p");
+  newItem.textContent = "I come first!";
+  let existingItem = document.getElementById("oldItem");
+
+  parent.insertBefore(newItem, existingItem);
+  // newItem is now BEFORE existingItem
+
+
+────────────────────────────────────────
+  REMOVING ELEMENTS
+────────────────────────────────────────
+
+  // Method 1: removeChild (need parent reference)
+  let parent = document.getElementById("container");
+  let child = document.getElementById("item");
+  parent.removeChild(child);
+
+  // Method 2: remove() (simpler, directly on element)
+  let element = document.getElementById("item");
+  element.remove();  // gone!
+
+  // COMMON EXAM QUESTION: Delete last paragraph
+  var allParagraphs = document.getElementsByTagName("p");
+  if (allParagraphs.length > 0) {
+    var lastP = allParagraphs[allParagraphs.length - 1];
+    var body = document.getElementsByTagName("body")[0];
+    body.removeChild(lastP);
+  }
+
+
+────────────────────────────────────────
+  REPLACING ELEMENTS
+────────────────────────────────────────
+
+  let parent = document.getElementById("parent");
+  let oldChild = document.getElementById("oldChild");
+
+  // Create replacement
+  let newChild = document.createElement("p");
+  newChild.textContent = "I replaced the old one!";
+
+  // Replace
+  parent.replaceChild(newChild, oldChild);
+  // parent.replaceChild(NEW, OLD);
+
+
+────────────────────────────────────────
+  ADDING/REMOVING CSS CLASSES  ***IMPORTANT***
+────────────────────────────────────────
+
+  let element = document.querySelector(".box");
+
+  // ADD a class
+  element.classList.add("active");
+  // Adds "active" class, keeps existing classes
+
+  // REMOVE a class
+  element.classList.remove("active");
+
+  // TOGGLE a class (add if missing, remove if present)
+  element.classList.toggle("active");
+
+  // CHECK if class exists
+  element.classList.contains("active");  // true or false
+
+
+────────────────────────────────────────
+  FORM VALIDATION EXAMPLE  ***EXAM PATTERN***
+────────────────────────────────────────
+
+  <form method="GET" action="http://www.google.com/search">
+    <input type="text" name="q" id="q" />
+    <input type="submit" value="Search" onclick="return validate()" />
+  </form>
+
+  <script>
+  function validate() {
+    if (document.getElementById('q').value == "") {
+      alert('Search cannot be empty!');
+      return false;    // PREVENTS form submission
+    }
+    return true;       // ALLOWS form submission
+  }
+  </script>
+
+  KEY: return false in onclick STOPS the form from submitting
+
+
+────────────────────────────────────────
+  DATA ATTRIBUTES
+────────────────────────────────────────
+
+  HTML can store custom data using data-* attributes:
+  <div data-item-id="42" data-color="blue">Click me</div>
+
+  // Access with JavaScript:
+  let box = document.querySelector("div");
+  let id = box.getAttribute("data-item-id");    // "42"
+  let color = box.getAttribute("data-color");   // "blue"
+
+
+────────────────────────────────────────
+  REMOVING ELEMENT ON CLICK (Combining concepts)
+────────────────────────────────────────
+
+  <div id="container">
+    <p id="text">Click the button to remove me!</p>
+    <button onclick="removeElement()">Remove</button>
+  </div>
+
+  <script>
+  function removeElement() {
+    let element = document.getElementById("text");
+    if (element) {
+      element.remove();  // element is gone!
+    }
+  }
+  </script>
+
+
+════════════════════════════════════════
+  PART C: JQUERY  *** NOT IN YOUR SYLLABUS - SKIP ***
+════════════════════════════════════════
+
+  jQuery is NOT in your exam.
+  
+  Quick summary if you're curious:
+  - jQuery = a JS library that makes DOM manipulation easier
+  - $(selector).action() is the basic syntax
+  - $("p").hide() hides all paragraphs
+  - $("#myId").css("color", "red") changes color
+  
+  BUT YOU DON'T NEED THIS FOR YOUR EXAM!
+
+================================================================================
+  EN
+  
+  D OF LECTURE 7 & 8 EASY NOTES
+================================================================================

@@ -1,0 +1,206 @@
+Lecture 1
+Web Programming
+
+Internet and world-wide-web
+Understanding the Key Components and Best Practices
+
+Mahhek Tahir
+1
+
+Why Web Technology ?
+Internet is a global network of computers communicating through internet over diverse underlying infrastructure
+The internet connects billions of users worldwide. Web technology enables access to information from anywhere, at any time, on any device (PC, tablet, smartphone).
+In very short period of time, it has caused major changes in information technology, business processes, communications and the way many people spend their leisure time.
+To compare its growth, consider that the World Wide Web attained 50 millions users in four years. It took radio 38 years and television 13 years to reach similar penetration.
+2
+
+Web Technology Fundamental
+The World Wide Web (WWW)
+The WWW is NOT the Internet. The Internet is the global network of computers, while the World Wide Web is the content (websites, webpages, media) accessed over the Internet.
+Key Components:
+Web pages: Documents containing text, images, videos, and links.
+Web browsers: Software like Chrome, Firefox, and Safari used to access and navigate the web.
+Tim Berners Lee
+
+Web Technology Fundamentals
+Network Addresses
+Every computer that is connected to an IP network is uniquely identified by a value, known as its IP address.
+Example: 194.27.254.189
+
+4
+
+Internet
+5
+
+Web Technology Fundamentals
+Port Numbers – It is used to distinguish between the individual networking applications that are running simultaneously above the TCP/IP protocol stack.
+Port Numbers for standard TCP/IP services examples:
+80 – Hypertext Transfer Protocol (HTTP) …Web/WWW
+21 -  File Transfer Protocol (FTP) … File Transfer
+
+Uniform Resource Locator (URL) – All information over the internet can be accessed, using a reference called URL.   
+
+
+6
+
+Domain Name System (DNS)
+7
+
+Web Technology Fundamentals
+Uniform Resource Locator
+<protocol> : / / <machine id> / <local name> 
+<protocol> : identifies the application protocol used to 			                        retrieved the source.
+<machine id> : identifies the server on which the resource is located.
+<local name> identifies the resource, and that can include a directory      structure.
+Example: https://www.facebook.com/login
+
+
+
+8
+
+DNS Resolution and Service Ports
+
+A connection to ip_address:21 indicates an FTP service
+9
+
+What is Web Architecture?
+Web architecture refers to the structure of the underlying technology stack that powers websites and web applications.
+It involves planning and designing the layout and interactions of servers, databases, APIs, frontend, and backend technologies.
+
+
+10
+
+Key Components of Web Architecture
+Frontend: The user interface (UI) and experience (UX).
+Backend: Server-side components that process requests, store data, etc.
+Database: Storage layer for data.
+APIs: Interface for data exchange between systems.
+Communication Layer: Protocols like HTTP/HTTPS.
+
+11
+
+Web Architecture
+
+12
+
+Client-Server Model
+Client-Server model involve the following independent layers:
+Presentation - Client – how the user interacts with application. The user's device (browser, mobile app, etc.) requesting resources.
+Server – A machine providing data, services, and resources to the client.
+Data Storage – Handles the storage and retrieval of data
+
+
+13
+
+System Architecture
+Two Tier Client/Server 
+Database Server
+RDBMS
+* Business Logic
+* Data Access Logic
+LAN
+Client 1
+Client 2
+Client 3
+14
+
+System Architecture
+Three Tier Client/Server 
+Database Server
+Data Access Logic
+LAN
+Personal computer
+Application Server
+Business Logic
+Presentation Logic
+15
+
+System Architecture
+Multi Tier Client/Server 
+
+Database Server
+Data Access Logic
+LAN
+Personal computer
+Application Server
+Business Logic
+Presentation Logic
+16
+
+Scalability
+Horizontal Scaling (Scaling Out): Adding more servers to handle increased load.
+Vertical Scaling (Scaling Up): Increasing the resources (CPU, RAM) of a single server.
+Why it matters: As user traffic grows, web systems need to scale efficiently to maintain performance and availability.
+
+17
+
+Microservices Architecture
+What is Microservices?
+Breaking down a large system into smaller, independently deployable services.
+Benefits:
+Independent scalability and fault isolation.
+Easier to maintain and update.
+Example: A large e-commerce platform with separate services for user authentication, product catalog, and payment processing.
+
+18
+
+ RESTful Design
+What is REST?: Representational State Transfer – an architectural style for designing networked applications.
+Principles:
+Statelessness: No session data stored on the server.
+Uniform Interface: Standardized URL patterns (e.g., /users, /products).
+HTTP Methods: Use of GET, POST, PUT, DELETE for CRUD operations.
+
+
+19
+
+ RESTful Design
+GET = get all, get by id, searches
+POST = form submit, create record
+PUT  = update records
+PATCH = updating a single field
+DELETE = Delete
+Get all - /students GET
+Create student - /students POST
+Get student by id 2 - /students/2 GET
+Update student with id 2 - /students/2 PUT
+Delete student with id 2 - /students/2 DELETE
+
+
+20
+
+Responsive Design
+Principle: Designing web applications that adapt to different screen sizes and devices.
+Tools:
+CSS Media Queries: Adjust layout based on viewport size.
+Flexible Grid Layouts: Dynamic layout based on content.
+
+21
+
+Web Technology Fundamental (WWW as Service internet)
+
+Hyper Text Transfer Protocol (HTTP) – protocol used to get the required document using HTTP request and response message.
+
+
+
+Security
+Secure Transactions: With the adoption of HTTPS (HyperText Transfer Protocol Secure), web technologies provide encryption of data transmitted between the user’s browser and the server. This ensures sensitive information, such as passwords, credit card numbers, and personal details, is securely transmitted, reducing the risk of data breaches.
+Authentication and Authorization: Web technologies support advanced security protocols like OAuth, OpenID, and two-factor authentication (2FA), which allow web applications to ensure that users are securely authenticated before granting access to sensitive data or services.
+Protection Against Threats: Modern web technologies are also built with security in mind, helping to mitigate risks such as Cross-Site Scripting (XSS), Cross-Site Request Forgery (CSRF), and SQL injection attacks.
+
+23
+
+Summary
+Web architecture is a multi-layered process involving frontend, backend, database, and APIs.
+Scalability, security, and performance are critical to the success of any web application.
+Modern web systems rely on principles like microservices, RESTful APIs, and responsive design.
+
+24
+
+Questions
+What is the difference between HTTP and HTTPS?
+What is the difference between Web App and Desktop App ?
+What is the meaning of responsive design? 
+Can you name an open source framework for building responsive websites?
+Advantages of Microservice Architecture?
+

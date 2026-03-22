@@ -1,0 +1,155 @@
+Web Programming - Quiz 1
+Version 1 (V1 - BSDS)
+
+
+Question 1: A web application has the following requirements: 1. A user opens the login page, 2. The user submits their email and password, 3. The server updates the user's last login time.    
+
+
+Task a): Write the URL and HTTP method used for each step.    
+
+
+Task b): Briefly explain why that HTTP method is appropriate.    
+
+
+Question 2: Consider the following HTML and CSS: <p id="msg" class="text highlight">Hello World</p>, p {color: blue;}, .text {color: green;}, p.highlight {color: orange;}, #msg {color: red;}.    
+
+
+Task a): What will be the final text color of the paragraph?    
+
+
+Task b): Arrange the above selectors in increasing order of specificity.    
+
+
+Task c): Explain why the final color is applied.    
+
+Version 2 (V2 - BSDS)
+
+
+Question 1: A student profile system has these actions: Create a new student, Update only the student's phone number, Delete the student.    
+
+
+Task a): Write the URL and HTTP method used for each step.    
+
+
+Task b): Briefly explain why that HTTP method is appropriate.    
+
+
+Question 2: A page layout should behave as follows: Mobile - columns per row, Tablet - columns per row, Laptop / Desktop - columns per row.    
+
+
+Task: Write the Bootstrap HTML code to create this layout and display 2 rows of content.    
+
+Version 3 (V3 - BSCS)
+
+
+Question 1: By using proper rowspan / colspan, write the complete HTML table code representing the layout structure: "Column 1 & 2", "Row 1, 2, 3", "Item A", and "Item B".    
+
+Question 2: Consider the following HTML and CSS: <button class="btn large" style="font-size: 18px; padding: 20px;">Click Me</button>, button { padding: 5px; }, .btn { padding: 10px; }, .large { padding: 30px; }.    
+
+
+Task a): What will be the final font-size of the button?    
+
+
+Task b): What will be the final padding of the button?    
+
+
+Task c): Explain why these values are applied.    
+
+Version 4 (V4 - BSCS)
+
+Question 1: Consider the following HTML and CSS: <div class="container"><div class="box">BOX</div></div>, .container { width: 300px; height: 300px; border: 2px solid black; position: relative; }, .box { width: 100px; height: 100px; background: lightgray; position: absolute; top: 50px; left: 100px; }.    
+
+
+Task a): Draw the final position of the box inside the container.    
+
+
+Task b): Explain from where top and left are calculated.    
+
+
+Task c): What will happen if position: relative is removed from .container?    
+
+
+Question 2: A course management system provides the following actions: 1. Add a new course, 2. Update only the course title, 3. Remove a course from the system.    
+
+
+Task a): Write the URL and HTTP method used for each action.    
+
+
+Task b): Briefly explain why each HTTP method is appropriate.    
+
+Version 5 (V5 - BSSE)
+
+
+Question 1: A student portal system provides the following actions: 1. View a student's profile, 2. Create a new student account, 3. Update only the student's contact number.    
+
+
+Task a): Write the URL and HTTP method for each action.    
+
+
+Task b): Briefly explain why each HTTP method is appropriate.    
+
+
+Question 2: By using proper rowspan / colspan, write the complete HTML table code for the layout containing Group 1, Group 2, and Data 1 through Data 10.    
+
+Version 6 (Labelled V5 - BSSE in Document)
+
+Question 1: Consider the following HTML and CSS: <button class="btn large" style="font-size: 18px; padding: 20px;">Click Me</button>, button { padding: 5px; }, .btn { padding: 10px; }, .large { padding: 30px; }.    
+
+
+Task a): What will be the final font-size of the button?    
+
+
+Task b): What will be the final padding of the button?    
+
+
+Task c): Explain why these values are applied.    
+
+
+Question 2: Consider the following Bootstrap code containing nested rows and columns (col-sm-6, col-sm-4, col-md-4, col-md-5, col-md-6).    
+
+
+Task a): Draw how this layout will appear on small screens.    
+
+
+Task b): Draw how this layout will appear on large screens.    
+
+Web Programming - Quiz 2
+Version A
+
+
+Question: Create a small counter app using the provided HTML snippet.    
+
+
+Requirements: Must have a minus button, plus button, reset button, a textbox showing the current value, and a div containing the step value.    
+
+Behavior: When '+' is clicked, add the step value. When '-' is clicked, subtract the step value. When 'Reset' is clicked, set the value to 0.    
+
+
+Rules: Step value must be read from the div (not hardcoded), value should update live, value cannot drop below 0, and you must use JavaScript.    
+
+Version B
+
+
+Question: Create a small temperature app using the provided HTML snippet.    
+
+
+Requirements: Must have a heat button, cool button, reset button, a textbox showing the current temperature, and a div containing the maximum allowed temperature.    
+
+
+Behavior: When 'Heat' is clicked, increase temperature by 2. When 'Cool' is clicked, decrease temperature by 2. When 'Reset' is clicked, set temperature to 20 (default).    
+
+
+Rules: Temperature must not exceed the maximum, must not go below 0, updates must happen live, and you must use JavaScript only.    
+
+Version C
+
+
+Question: Create a transaction counter app using the provided HTML snippet.    
+
+
+Requirements: Must have a deposit button, withdraw button, reset button, a div containing the transaction amount, and a textbox showing the current balance.    
+
+Behavior: When 'Deposit' is clicked, add the transaction amount to the balance. When 'Withdraw' is clicked, subtract the transaction amount. When 'Reset' is clicked, set the balance to 0.    
+
+
+Rules: Balance must NEVER go below 0, the textbox must be updated immediately, use JavaScript only, and the code should still work if the amount changes in the HTML.

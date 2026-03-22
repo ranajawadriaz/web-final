@@ -1,0 +1,753 @@
+================================================================================
+   PREDICTED MID-TERM PAPER + EASY SOLUTIONS
+   Based on: Past papers, quizzes, and syllabus analysis
+   
+   SYLLABUS: JavaScript (functions + classes), DOM,
+             HTML/CSS (including Flexbox), Promises & async/await
+   
+   NOT IN EXAM: HTTP protocols, TypeScript, React, jQuery
+================================================================================
+
+
+================================================================================
+  QUESTION 1: HTML + CSS  (Estimated: 15-20 marks)
+================================================================================
+
+Q1(a): Create an HTML table with the following layout using rowspan/colspan.
+       [5 marks]
+
+  ┌────────────────────┬──────────┐
+  │   Student Info     │  Grade   │
+  │   (colspan=2)      │          │
+  ├──────────┬─────────┤          │
+  │   Name   │  Roll # │(rowspan2)│
+  ├──────────┼─────────┼──────────┤
+  │   Ali    │  123    │    A     │
+  └──────────┴─────────┴──────────┘
+
+SOLUTION:
+---------
+<table border="1">
+  <tr>
+    <!-- This cell takes 2 columns (Name + Roll #) -->
+    <td colspan="2">Student Info</td>
+    <!-- This cell takes 2 rows (header + data row) -->
+    <td rowspan="2">Grade</td>
+  </tr>
+  <tr>
+    <td>Name</td>
+    <td>Roll #</td>
+    <!-- no 3rd td here because "Grade" rowspan covers this row -->
+  </tr>
+  <tr>
+    <td>Ali</td>
+    <td>123</td>
+    <td>A</td>
+  </tr>
+</table>
+
+WHY:
+- colspan="2" makes ONE cell stretch across 2 COLUMNS (horizontally)
+- rowspan="2" makes ONE cell stretch across 2 ROWS (vertically)
+- When a cell uses rowspan, the rows BELOW skip that column position
+
+
+--------------------------------------------------------------------------------
+
+Q1(b): CSS Specificity Question [5 marks]
+
+Given this HTML and CSS, what color will the text be?
+
+  <p id="msg" class="text highlight">Hello World</p>
+
+  p           { color: blue; }
+  .text       { color: green; }
+  p.highlight { color: orange; }
+  #msg        { color: red; }
+
+SOLUTION:
+---------
+  FINAL COLOR = RED
+
+  WHY? Let's count specificity:
+  - p              → 0,0,1 = 1 point    (just an element)
+  - .text          → 0,1,0 = 10 points  (one class)
+  - p.highlight    → 0,1,1 = 11 points  (one element + one class)
+  - #msg           → 1,0,0 = 100 points (one ID)
+
+  #msg has the HIGHEST specificity (100), so RED wins!
+
+  ORDER from lowest to highest:
+  p (1) < .text (10) < p.highlight (11) < #msg (100)
+
+
+--------------------------------------------------------------------------------
+
+Q1(c): What is the CSS Box Model? Draw and explain. [5 marks]
+
+SOLUTION:
+---------
+  Every HTML element is a BOX with 4 layers (inside to outside):
+
+  ┌──────────────────────────────────────┐
+  │           MARGIN                     │  ← Space OUTSIDE (between elements)
+  │  ┌────────────────────────────────┐  │
+  │  │        BORDER                  │  │  ← The visible line/edge
+  │  │  ┌──────────────────────────┐  │  │
+  │  │  │     PADDING              │  │  │  ← Space INSIDE (between border & content)
+  │  │  │  ┌────────────────────┐  │  │  │
+  │  │  │  │    CONTENT         │  │  │  │  ← The actual text, image, etc.
+  │  │  │  └────────────────────┘  │  │  │
+  │  │  └──────────────────────────┘  │  │
+  │  └────────────────────────────────┘  │
+  └──────────────────────────────────────┘
+
+  - CONTENT = your text/image
+  - PADDING = space between content and border (like padding inside a jacket)
+  - BORDER  = the edge/line of the box
+  - MARGIN  = space between this box and other boxes (like personal space)
+
+  Example:
+  div {
+    margin: 20px;                /* 20px outside space */
+    border: 2px solid black;     /* 2px black line */
+    padding: 10px;               /* 10px inside space */
+  }
+
+
+--------------------------------------------------------------------------------
+
+Q1(d): Given this CSS, what are the final padding values? [5 marks]
+
+  <button class="btn large" style="font-size: 18px; padding: 20px;">
+    Click Me
+  </button>
+
+  button { padding: 5px; }
+  .btn   { padding: 10px; }
+  .large { padding: 30px; }
+
+SOLUTION:
+---------
+  font-size = 18px (from inline style, HIGHEST specificity)
+  padding   = 20px (from inline style, HIGHEST specificity)
+
+  WHY?
+  - Inline style beats everything!
+  - button { padding: 5px }  → specificity 1 (element) → LOSES
+  - .btn { padding: 10px }   → specificity 10 (class) → LOSES
+  - .large { padding: 30px } → specificity 10 (class) → LOSES
+  - style="padding: 20px"    → specificity 1000 (inline) → WINS!
+
+  Even though .large says 30px, the inline style="padding:20px" WINS.
+
+
+================================================================================
+  QUESTION 2: CSS POSITIONING + FLEXBOX  (Estimated: 15 marks)
+================================================================================
+
+Q2(a): Explain CSS position values with examples. [5 marks]
+
+SOLUTION:
+---------
+  1. STATIC (default):
+     - Normal flow, can't use top/left/right/bottom
+     - .box { position: static; }  ← just normal
+
+  2. RELATIVE:
+     - In normal flow BUT can be nudged
+     - .box { position: relative; top: 20px; left: 30px; }
+     - Moves 20px DOWN, 30px RIGHT from where it normally sits
+
+  3. ABSOLUTE:
+     - REMOVED from flow, positioned relative to nearest positioned parent
+     - .parent { position: relative; }
+       .child  { position: absolute; top: 50px; left: 100px; }
+     - If parent has NO position → child positions relative to the PAGE
+
+  4. FIXED:
+     - REMOVED from flow, stays in place when scrolling
+     - .navbar { position: fixed; top: 0; }
+     - Like a sticky note on your screen
+
+  5. STICKY:
+     - Relative until you scroll past it, then becomes fixed
+     - .header { position: sticky; top: 0; }
+
+
+Q2(b): Write CSS Flexbox code to create a responsive card layout: [10 marks]
+       - Mobile: 1 card per row
+       - Tablet: 2 cards per row
+       - Desktop: 3 cards per row
+
+SOLUTION:
+---------
+  HTML:
+  <div class="container">
+    <div class="card">Card 1</div>
+    <div class="card">Card 2</div>
+    <div class="card">Card 3</div>
+    <div class="card">Card 4</div>
+    <div class="card">Card 5</div>
+    <div class="card">Card 6</div>
+  </div>
+
+  CSS:
+  /* Parent becomes a flex container */
+  .container {
+    display: flex;         /* activate flexbox */
+    flex-wrap: wrap;       /* allow items to go to next line */
+    gap: 10px;             /* space between cards */
+  }
+
+  /* Mobile first - 1 card per row (default) */
+  .card {
+    flex: 1 1 100%;        /* each card takes full width */
+    background: lightblue;
+    padding: 20px;
+  }
+
+  /* Tablet - 2 cards per row */
+  @media (min-width: 768px) {
+    .card {
+      flex: 1 1 calc(50% - 10px);  /* 50% width minus gap */
+    }
+  }
+
+  /* Desktop - 3 cards per row */
+  @media (min-width: 1024px) {
+    .card {
+      flex: 1 1 calc(33.33% - 10px);  /* 33.33% width minus gap */
+    }
+  }
+
+  WHY:
+  - display: flex on parent → children become flex items
+  - flex-wrap: wrap → items go to next line when no space
+  - flex: 1 1 100% → grow=yes, shrink=yes, start at 100% width
+  - calc(50% - 10px) → exactly half minus the gap space
+  - Media queries change the basis (100% → 50% → 33%)
+
+
+================================================================================
+  QUESTION 3: JAVASCRIPT BASICS  (Estimated: 15-20 marks)
+================================================================================
+
+Q3(a): What will be the output? Explain each line. [5 marks]
+
+  console.log(2 + "2");
+  console.log("10" - 5);
+  console.log(1 + 2 + "3");
+  console.log("5" - 3 + "2");
+  console.log(typeof null);
+
+SOLUTION:
+---------
+  console.log(2 + "2");         // "22"
+  // Number + String = String concatenation. 2 becomes "2", then "2"+"2"="22"
+
+  console.log("10" - 5);        // 5
+  // String - Number = Math. "10" becomes 10, then 10-5=5
+
+  console.log(1 + 2 + "3");     // "33"
+  // Left to right: 1+2=3 (math), then 3+"3"="33" (concatenation)
+
+  console.log("5" - 3 + "2");   // "22"
+  // Left to right: "5"-3=2 (math), then 2+"2"="22" (concatenation)
+
+  console.log(typeof null);     // "object"
+  // This is a KNOWN BUG in JavaScript! null is NOT an object but typeof says it is.
+
+
+--------------------------------------------------------------------------------
+
+Q3(b): What will these function calls return? [5 marks]
+
+  function calculate(a = 10, b = 5) {
+    return a + b;
+  }
+
+  console.log(calculate(3, 7));
+  console.log(calculate(3));
+  console.log(calculate(undefined, 20));
+  console.log(calculate());
+
+SOLUTION:
+---------
+  calculate(3, 7)            → 10   (a=3, b=7)
+  calculate(3)               → 8    (a=3, b=default 5)
+  calculate(undefined, 20)   → 30   (a=default 10, b=20)
+      // undefined triggers the default value!
+  calculate()                → 15   (a=default 10, b=default 5)
+
+
+--------------------------------------------------------------------------------
+
+Q3(c): Explain var vs let vs const with examples. [5 marks]
+
+SOLUTION:
+---------
+  var:
+  - FUNCTION scoped (accessible anywhere in the function)
+  - Can be redeclared and reassigned
+  - Gets HOISTED (moved to top, but value is undefined)
+
+  if (true) { var x = 10; }
+  console.log(x);   // 10 (var LEAKS out of the if block!)
+
+
+  let:
+  - BLOCK scoped (only inside the { } where declared)
+  - Can be reassigned but NOT redeclared
+  - NOT hoisted (well, technically hoisted but in "temporal dead zone")
+
+  if (true) { let y = 10; }
+  console.log(y);   // ERROR! y is not defined (stays inside block)
+
+
+  const:
+  - BLOCK scoped (like let)
+  - CANNOT be reassigned
+  - BUT object properties CAN be changed!
+
+  const obj = { name: "Ali" };
+  obj.name = "Sara";          // WORKS (changing property)
+  obj = { name: "New" };      // ERROR (can't reassign whole object)
+
+
+--------------------------------------------------------------------------------
+
+Q3(d): Write a JavaScript class called Student with: [5 marks]
+       - Properties: name, rollNo, marks (array)
+       - Method: getAverage() that returns average marks
+       - Method: isPassed() that returns true if average >= 50
+
+SOLUTION:
+---------
+  class Student {
+    // Constructor runs when creating a new Student
+    constructor(name, rollNo, marks) {
+      this.name = name;         // store the name
+      this.rollNo = rollNo;     // store the roll number
+      this.marks = marks;       // store marks array
+    }
+
+    // Method to calculate average
+    getAverage() {
+      let total = 0;
+      // Loop through all marks and add them up
+      for (let i = 0; i < this.marks.length; i++) {
+        total += this.marks[i];
+      }
+      // Divide by number of subjects
+      return total / this.marks.length;
+    }
+
+    // Method to check if passed
+    isPassed() {
+      return this.getAverage() >= 50;   // true if average is 50 or more
+    }
+  }
+
+  // Creating a student
+  let s1 = new Student("Ali", "22L-1234", [80, 60, 40, 70]);
+  console.log(s1.getAverage());   // 62.5
+  console.log(s1.isPassed());     // true
+
+  let s2 = new Student("Sara", "22L-5678", [30, 40, 20, 50]);
+  console.log(s2.getAverage());   // 35
+  console.log(s2.isPassed());     // false
+
+
+================================================================================
+  QUESTION 4: DOM MANIPULATION  (Estimated: 15-20 marks)
+================================================================================
+
+Q4(a): Write JavaScript to do the following: [10 marks]
+  Given this HTML:
+  <div id="container">
+    <p id="p1">First paragraph</p>
+  </div>
+  
+  1. Create a new paragraph with text "New paragraph" BEFORE p1
+  2. Change p1's text to "Updated paragraph"
+  3. Add a class "highlight" to p1
+  4. Remove p1 from the page
+
+SOLUTION:
+---------
+  // 1. CREATE a new paragraph and insert BEFORE p1
+  let newP = document.createElement("p");             // create <p>
+  newP.textContent = "New paragraph";                  // add text
+  let container = document.getElementById("container");// get parent
+  let p1 = document.getElementById("p1");              // get existing
+  container.insertBefore(newP, p1);                    // insert before p1
+
+  // 2. CHANGE p1's text
+  p1.textContent = "Updated paragraph";
+
+  // 3. ADD a class to p1
+  p1.classList.add("highlight");
+
+  // 4. REMOVE p1
+  p1.remove();
+  // OR: container.removeChild(p1);
+
+
+--------------------------------------------------------------------------------
+
+Q4(b): Create a dynamic list app using DOM. [10 marks]
+       - Input field + "Add" button
+       - Clicking "Add" creates a new list item with a "Delete" button        
+       - Clicking "Delete" removes that specific item
+
+SOLUTION:
+---------
+HTML:
+  <input type="text" id="itemInput" placeholder="Enter item">
+  <button onclick="addItem()">Add</button>
+  <ul id="itemList"></ul>
+
+JavaScript:
+  function addItem() {
+    // Step 1: Get the text from input
+    let input = document.getElementById("itemInput");
+    let text = input.value;
+
+    // Don't add if empty
+    if (text === "") {
+      alert("Please enter something!");
+      return;    // stop the function
+    }
+
+    // Step 2: Create new list item
+    let li = document.createElement("li");
+    li.textContent = text;
+
+    // Step 3: Create delete button
+    let deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.onclick = function() {
+      li.remove();   // removes THIS specific li
+    };
+
+    // Step 4: Add button to list item
+    li.appendChild(deleteBtn);
+
+    // Step 5: Add list item to the list
+    document.getElementById("itemList").appendChild(li);
+
+    // Step 6: Clear the input
+    input.value = "";
+  }
+
+
+================================================================================
+  QUESTION 5: PROMISES & ASYNC/AWAIT  (Estimated: 10-15 marks)
+================================================================================
+
+Q5(a): Explain what a Promise is. Write an example. [5 marks]
+
+SOLUTION:
+---------
+  A Promise is an object that represents a value that will be 
+  available LATER (in the future).
+
+  3 states:
+    PENDING    → still working
+    FULFILLED  → done successfully (resolved)
+    REJECTED   → failed (error)
+
+  Example:
+  // Creating a promise
+  let willIPass = new Promise(function(resolve, reject) {
+    let marks = 75;
+    if (marks >= 50) {
+      resolve("You passed!");        // success!
+    } else {
+      reject("You failed :(");       // failure!
+    }
+  });
+
+  // Using the promise
+  willIPass
+    .then(function(message) {
+      console.log(message);          // "You passed!" (on success)
+    })
+    .catch(function(error) {
+      console.log(error);            // "You failed :(" (on failure)
+    });
+
+
+Q5(b): Rewrite the above using async/await. [5 marks]
+
+SOLUTION:
+---------
+  // Same promise
+  let willIPass = new Promise(function(resolve, reject) {
+    let marks = 75;
+    if (marks >= 50) {
+      resolve("You passed!");
+    } else {
+      reject("You failed :(");
+    }
+  });
+
+  // Using async/await instead of .then()
+  async function checkResult() {
+    try {
+      let message = await willIPass;   // WAIT for the promise
+      console.log(message);            // "You passed!"
+    } catch (error) {
+      console.log(error);              // if promise rejected
+    }
+  }
+  checkResult();
+
+  RULES:
+  - "async" → makes the function return a Promise
+  - "await" → pauses until the Promise resolves
+  - "await" can ONLY be used inside "async" functions
+  - Use try/catch for error handling (replaces .catch())
+
+
+Q5(c): What is the output of this code? Explain. [5 marks]
+
+  console.log("A");
+
+  setTimeout(() => {
+    console.log("B");
+  }, 0);
+
+  Promise.resolve().then(() => {
+    console.log("C");
+  });
+
+  console.log("D");
+
+SOLUTION:
+---------
+  OUTPUT: A, D, C, B
+
+  EXPLANATION:
+  1. "A" → runs immediately on call stack → prints "A"
+  2. setTimeout with 0ms → goes to CALLBACK QUEUE (waits)
+  3. Promise.resolve().then → goes to MICROTASK QUEUE (waits)
+  4. "D" → runs immediately on call stack → prints "D"
+  5. Call stack is now EMPTY
+  6. Event loop checks MICROTASK queue first → prints "C"
+  7. Event loop checks CALLBACK queue → prints "B"
+
+  KEY: Microtasks (Promises) ALWAYS run BEFORE Callbacks (setTimeout)!
+
+
+================================================================================
+  QUESTION 6: FORM VALIDATION + DOM  (Estimated: 10 marks)
+================================================================================
+
+Q6: Create a registration form with JavaScript validation.
+    Name (required), Email (must contain @), 
+    Password (minimum 6 characters).
+    Show error messages on the page (not alert).
+
+SOLUTION:
+---------
+HTML:
+  <form onsubmit="return validateForm()">
+    <label>Name:</label>
+    <input type="text" id="name"><br>
+    <span id="nameError" style="color:red"></span><br>
+
+    <label>Email:</label>
+    <input type="text" id="email"><br>
+    <span id="emailError" style="color:red"></span><br>
+
+    <label>Password:</label>
+    <input type="password" id="password"><br>
+    <span id="passError" style="color:red"></span><br>
+
+    <input type="submit" value="Register">
+  </form>
+
+JavaScript:
+  function validateForm() {
+    let isValid = true;    // assume valid until proven wrong
+
+    // Get values from form
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    // Clear previous errors
+    document.getElementById("nameError").textContent = "";
+    document.getElementById("emailError").textContent = "";
+    document.getElementById("passError").textContent = "";
+
+    // Check name (must not be empty)
+    if (name === "") {
+      document.getElementById("nameError").textContent = "Name is required!";
+      isValid = false;
+    }
+
+    // Check email (must contain @)
+    if (!email.includes("@")) {
+      document.getElementById("emailError").textContent = "Email must contain @";
+      isValid = false;
+    }
+
+    // Check password (minimum 6 characters)
+    if (password.length < 6) {
+      document.getElementById("passError").textContent = "Password must be at least 6 characters";
+      isValid = false;
+    }
+
+    return isValid;   // false = form doesn't submit, true = it does
+  }
+
+
+================================================================================
+  QUESTION 7: MIXED PRACTICAL  (Estimated: 10-15 marks)
+================================================================================
+
+Q7: Write a counter app with HTML, CSS and JavaScript.
+    Buttons: +, -, Reset
+    Display shows current count.
+    Count cannot go below 0.
+    Step value is read from the page (not hardcoded).
+
+SOLUTION:
+---------
+HTML:
+  <div id="step">5</div>              <!-- step value stored here -->
+  <input type="text" id="display" value="0" readonly>
+  <button onclick="increment()">+</button>
+  <button onclick="decrement()">-</button>
+  <button onclick="reset()">Reset</button>
+
+JavaScript:
+  function increment() {
+    // Read step value FROM the div (not hardcoded!)
+    let step = parseInt(document.getElementById("step").textContent);
+    let display = document.getElementById("display");
+    let current = parseInt(display.value);   // get current value
+    display.value = current + step;          // add step
+  }
+
+  function decrement() {
+    let step = parseInt(document.getElementById("step").textContent);
+    let display = document.getElementById("display");
+    let current = parseInt(display.value);
+    // Only subtract if result won't go below 0
+    if (current - step >= 0) {
+      display.value = current - step;
+    } else {
+      display.value = 0;   // don't go below 0
+    }
+  }
+
+  function reset() {
+    document.getElementById("display").value = 0;
+  }
+
+  WHY:
+  - parseInt() converts string to number
+  - .textContent reads text from a div
+  - .value reads/sets value of an input
+  - return false or check prevents negative values
+
+
+================================================================================
+  QUESTION 8: INHERITANCE + CONSTRUCTOR  (Estimated: 10 marks)
+================================================================================
+
+Q8: Create a class hierarchy:
+    - Base class: Shape (with property: color)
+    - Child class: Rectangle (with properties: width, height)
+    - Method: getArea() returns width * height
+    - Method: describe() returns "A {color} rectangle of area {area}"
+
+SOLUTION:
+---------
+  // Parent class
+  class Shape {
+    constructor(color) {
+      this.color = color;    // every shape has a color
+    }
+  }
+
+  // Child class extends Shape
+  class Rectangle extends Shape {
+    constructor(color, width, height) {
+      super(color);           // call parent constructor (sets this.color)
+      this.width = width;
+      this.height = height;
+    }
+
+    // Calculate area
+    getArea() {
+      return this.width * this.height;
+    }
+
+    // Describe the rectangle
+    describe() {
+      return `A ${this.color} rectangle of area ${this.getArea()}`;
+    }
+  }
+
+  // Usage:
+  let rect = new Rectangle("blue", 10, 5);
+  console.log(rect.getArea());      // 50
+  console.log(rect.describe());     // "A blue rectangle of area 50"
+  console.log(rect.color);          // "blue" (inherited from Shape!)
+
+  KEY POINTS:
+  - "extends" = Rectangle inherits from Shape
+  - "super(color)" = calls Shape's constructor and passes color
+  - Rectangle has its OWN methods + INHERITED color property
+
+
+================================================================================
+  BONUS: QUICK REVISION SNIPPETS (Common Exam Patterns)
+================================================================================
+
+  -- Change image on button click --
+  <img id="myImg" src="image1.gif">
+  <button onclick="document.getElementById('myImg').src='image2.gif'">
+    Show Image 2
+  </button>
+  <button onclick="document.getElementById('myImg').src='image1.gif'">
+    Show Image 1
+  </button>
+
+  -- Get text from one element, put in another --
+  let text = document.getElementById("intro").textContent;
+  document.getElementById("demo").textContent = text;
+
+  -- Create element + insert before --
+  let newP = document.createElement("p");
+  newP.textContent = "New paragraph";
+  let div = document.getElementById("div1");
+  let existing = document.getElementById("p1");
+  div.insertBefore(newP, existing);
+  div.removeChild(existing);     // then remove old one
+
+  -- Event loop output pattern --
+  console.log("1");                    // immediate
+  setTimeout(() => console.log("2"), 0);  // callback queue
+  Promise.resolve().then(() => console.log("3")); // microtask
+  console.log("4");                    // immediate
+  // OUTPUT: 1, 4, 3, 2
+
+================================================================================
+  END OF PREDICTED PAPER
+  
+  EXAM TIPS:
+  1. Always explain WHY, not just WHAT
+  2. Comment your code generously
+  3. For specificity questions: inline(1000) > id(100) > class(10) > element(1)
+  4. For async output: Microtasks (Promises) before Callbacks (setTimeout)
+  5. For DOM: createElement → add content → appendChild
+  6. For Flexbox: display:flex on PARENT, flex properties on CHILDREN
+  7. For classes: constructor(), super(), extends
+  8. const objects: can't reassign object, CAN change properties
+================================================================================

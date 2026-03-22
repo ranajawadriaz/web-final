@@ -1,0 +1,549 @@
+================================================================================
+   LECTURE 5 & 6 - JAVASCRIPT (EASY VERSION)
+   *** JAVASCRIPT (FUNCTIONS + CLASSES) IS IN YOUR SYLLABUS ***
+   *** TypeScript is NOT in syllabus - skip that section ***
+================================================================================
+
+
+────────────────────────────────────────
+  WHAT IS JAVASCRIPT?
+────────────────────────────────────────
+
+  JavaScript (JS) = The BRAIN of a webpage.
+  
+  HTML  = Structure (skeleton)
+  CSS   = Style (clothes)
+  JS    = Behavior (actions, logic, interactivity)
+
+  JS can:
+  - Validate forms (is email correct?)
+  - Create animations
+  - Change the page dynamically (without reload)
+  - Runs in the browser AND on servers (Node.js)
+
+
+────────────────────────────────────────
+  3 WAYS TO ADD JS TO HTML
+────────────────────────────────────────
+
+  1. INLINE (on the element):
+     <button onclick="alert('Hello!')">Click</button>
+
+  2. INTERNAL (in <script> tag):
+     <script>
+       alert("Hello!");
+     </script>
+
+  3. EXTERNAL (separate .js file):
+     <script src="script.js"></script>
+
+  ** Best practice: put <script> before </body> **
+
+
+────────────────────────────────────────
+  VARIABLES: var, let, const
+────────────────────────────────────────
+
+  var age = 25;         // OLD way, FUNCTION scoped
+  let name = "Ali";     // NEW way, BLOCK scoped
+  const PI = 3.14;      // CONSTANT, can't be reassigned
+
+  DIFFERENCE:
+
+  var = FUNCTION scope (accessible anywhere in the function)
+  let = BLOCK scope (only inside the { } where it's declared)
+  const = BLOCK scope + can't change the value
+
+  EXAMPLE showing the difference:
+
+  // var - FUNCTION scope (leaks out of if block!)
+  if (true) {
+    var x = 10;
+  }
+  console.log(x);  // 10 (works! var leaks out)
+
+  // let - BLOCK scope (stays inside if block)
+  if (true) {
+    let y = 10;
+  }
+  console.log(y);  // ERROR! y is not defined
+
+  CONST with objects (TRICKY!):
+  const person = { name: "Ali" };
+  person.name = "Ahmed";        // ALLOWED! (changing property)
+  person = { name: "New" };     // ERROR! (can't reassign the whole object)
+
+
+────────────────────────────────────────
+  DATA TYPES
+────────────────────────────────────────
+
+  7 types to know:
+
+  let num = 42;                    // Number
+  let text = "Hello";              // String
+  let isTrue = true;               // Boolean (true/false)
+  let nothing = null;              // Null (intentionally empty)
+  let notSet;                      // Undefined (not yet assigned)
+  let obj = { name: "Ali" };      // Object
+  let arr = [1, 2, 3];            // Array (list of items)
+
+  ** null vs undefined (TRICK QUESTION): **
+    null      = "I deliberately set this to NOTHING"
+    undefined = "This variable exists but has NO value yet"
+
+
+────────────────────────────────────────
+  OPERATORS
+────────────────────────────────────────
+
+  ARITHMETIC:
+  +   addition        (also joins strings!)
+  -   subtraction
+  *   multiplication
+  /   division
+  %   remainder/modulo (10 % 3 = 1)
+  **  power           (2 ** 3 = 8)
+  ++  increment       (x++ adds 1)
+  --  decrement       (x-- subtracts 1)
+
+  COMPARISON:
+  ==    equals (doesn't check type)    5 == "5"  → true
+  ===   strict equals (checks type)    5 === "5" → false
+  !=    not equal
+  !==   strict not equal
+  >     greater than
+  <     less than
+  >=    greater than or equal
+  <=    less than or equal
+
+  LOGICAL:
+  &&    AND (both must be true)
+  ||    OR (at least one true)
+  !     NOT (flips true/false)
+
+  ** ALWAYS USE === instead of == in your code! **
+
+
+────────────────────────────────────────
+  TYPE COERCION  ***COMMON EXAM QUESTION***
+────────────────────────────────────────
+
+  JavaScript auto-converts types in weird ways:
+
+  // STRING + NUMBER = STRING (concatenation)
+  console.log(2 + "2");        // "22"  (number becomes string)
+  console.log("Hello" + 5);    // "Hello5"
+
+  // STRING - NUMBER = NUMBER (math)
+  console.log("10" - 5);       // 5  (string becomes number)
+  console.log("10" * 2);       // 20 (string becomes number)
+
+  TRICKY EXAM QUESTION:
+  var x = 2 + 2 + "Hello" + 0 + 4;
+  // Step by step:
+  // 2 + 2 = 4          (both numbers, so math)
+  // 4 + "Hello" = "4Hello"  (number + string = string)
+  // "4Hello" + 0 = "4Hello0" (string + number = string)
+  // "4Hello0" + 4 = "4Hello04"  (string + number = string)
+  // ANSWER: "4Hello04"
+
+
+────────────────────────────────────────
+  STRING METHODS
+────────────────────────────────────────
+
+  let str = "Hello World";
+
+  str.length              // 11 (number of characters)
+  str.toUpperCase()       // "HELLO WORLD"
+  str.toLowerCase()       // "hello world"
+  str.indexOf("World")    // 6 (position where "World" starts)
+  str.slice(0, 5)         // "Hello" (cut from index 0 to 4)
+  str.includes("World")   // true
+  str.replace("World", "JS")  // "Hello JS"
+  str.split(" ")          // ["Hello", "World"] (splits into array)
+  str.at(-1)              // "d" (last character, supports negative!)
+  str[0]                  // "H" (first character)
+
+  ** slice() and at() support NEGATIVE indexes **
+  ** [] does NOT support negative (returns undefined) **
+  ** substring() makes negative values 0 or swaps them **
+
+
+────────────────────────────────────────
+  ARRAY METHODS
+────────────────────────────────────────
+
+  let fruits = ["Apple", "Banana", "Cherry"];
+
+  fruits.length                 // 3
+  fruits.push("Date")           // adds to END → ["Apple","Banana","Cherry","Date"]
+  fruits.pop()                  // removes from END → returns "Date"
+  fruits.unshift("Avocado")     // adds to START
+  fruits.shift()                // removes from START
+  fruits.indexOf("Banana")      // 1 (position)
+  fruits.includes("Cherry")     // true
+  fruits.slice(0, 2)            // ["Apple", "Banana"] (doesn't change original)
+  fruits.splice(1, 1)           // removes 1 item at index 1
+  fruits.join(", ")             // "Apple, Banana, Cherry" (array to string)
+
+  // MAP - transforms each item (returns NEW array)
+  let nums = [1, 2, 3];
+  let doubled = nums.map(n => n * 2);  // [2, 4, 6]
+
+  // FOREACH - loop through items (returns nothing)
+  nums.forEach(function(item, index) {
+    console.log(item, index);
+  });
+  // 1 0
+  // 2 1
+  // 3 2
+
+
+────────────────────────────────────────
+  OBJECTS  ***VERY IMPORTANT***
+────────────────────────────────────────
+
+  Objects = a collection of KEY:VALUE pairs.
+  Like a real-world thing with properties.
+
+  // Creating an object
+  const person = {
+    firstName: "Ali",
+    lastName: "Khan",
+    age: 20,
+    isStudent: true
+  };
+
+  // Accessing values (2 ways):
+  person.firstName        // "Ali" (dot notation)
+  person["age"]           // 20 (bracket notation)
+
+  // Adding new property:
+  person.country = "Pakistan";
+
+  // Deleting a property:
+  delete person.age;
+
+  // Object with a FUNCTION (method):
+  const car = {
+    brand: "Toyota",
+    start: function() {
+      console.log("Vroom!");
+    }
+  };
+  car.start();  // "Vroom!"
+
+
+────────────────────────────────────────
+  OBJECT CONSTRUCTORS (Old Way)
+────────────────────────────────────────
+
+  // Constructor function (creates reusable objects)
+  function Person(name, age) {
+    this.name = name;      // 'this' refers to the new object
+    this.age = age;
+    this.greet = function() {
+      return "Hi, I'm " + this.name;
+    };
+  }
+
+  // Creating objects from constructor
+  let p1 = new Person("Ali", 20);
+  let p2 = new Person("Sara", 22);
+
+  console.log(p1.name);    // "Ali"
+  console.log(p2.greet()); // "Hi, I'm Sara"
+
+  // Adding methods via PROTOTYPE (better for memory)
+  Person.prototype.sayAge = function() {
+    return "I am " + this.age;
+  };
+
+
+────────────────────────────────────────
+  CLASSES (Modern Way)  ***IN SYLLABUS***
+────────────────────────────────────────
+
+  // Class = a BLUEPRINT for creating objects
+  class Animal {
+    // Constructor runs when you create a new Animal
+    constructor(name, sound) {
+      this.name = name;      // this.name is auto-created
+      this.sound = sound;
+    }
+
+    // Method (function inside a class)
+    speak() {
+      return this.name + " says " + this.sound;
+    }
+  }
+
+  // Create objects from the class
+  let cat = new Animal("Cat", "Meow");
+  let dog = new Animal("Dog", "Woof");
+
+  console.log(cat.speak());   // "Cat says Meow"
+  console.log(dog.speak());   // "Dog says Woof"
+
+
+  ** IMPORTANT RULES INSIDE A CLASS { }: **
+  - You CANNOT use let, var, const for properties
+  - You CANNOT write normal statements
+  - You CAN ONLY have: constructor, methods, class fields
+
+
+────────────────────────────────────────
+  INHERITANCE (extends)
+────────────────────────────────────────
+
+  // Parent class
+  class Animal {
+    constructor(name) {
+      this.name = name;
+    }
+    speak() {
+      return this.name + " makes a sound";
+    }
+  }
+
+  // Child class INHERITS from Animal
+  class Dog extends Animal {
+    constructor(name, breed) {
+      super(name);           // calls parent's constructor
+      this.breed = breed;
+    }
+    bark() {
+      return this.name + " barks!";
+    }
+  }
+
+  let myDog = new Dog("Rex", "Labrador");
+  console.log(myDog.speak());  // "Rex makes a sound" (inherited!)
+  console.log(myDog.bark());   // "Rex barks!" (own method)
+
+  ** super() = calls the PARENT class constructor **
+
+
+────────────────────────────────────────
+  CONTROL STATEMENTS
+────────────────────────────────────────
+
+  IF-ELSE:
+  let age = 18;
+  if (age >= 18) {
+    console.log("Adult");
+  } else if (age >= 13) {
+    console.log("Teen");
+  } else {
+    console.log("Child");
+  }
+
+  SWITCH:
+  let color = "red";
+  switch (color) {
+    case "red":
+      console.log("Stop");
+      break;                  // DON'T FORGET break!
+    case "green":
+      console.log("Go");
+      break;
+    default:
+      console.log("Unknown");
+  }
+
+  ** switch uses STRICT comparison (===) **
+  ** So: switch("0") ... case 0: WON'T match! (string vs number) **
+
+
+────────────────────────────────────────
+  LOOPS
+────────────────────────────────────────
+
+  // FOR loop
+  for (let i = 0; i < 5; i++) {
+    console.log(i);            // prints 0, 1, 2, 3, 4
+  }
+
+  // Loop through an array
+  const cars = ["BMW", "Toyota", "Honda"];
+  for (let i = 0; i < cars.length; i++) {
+    console.log(cars[i]);
+  }
+
+  // FOREACH (easier way to loop arrays)
+  cars.forEach(function(car, index) {
+    console.log(index + ": " + car);
+  });
+
+  // WHILE loop
+  let count = 0;
+  while (count < 3) {
+    console.log(count);
+    count++;
+  }
+
+
+────────────────────────────────────────
+  FUNCTIONS  ***IN SYLLABUS***
+────────────────────────────────────────
+
+  // Regular function
+  function greet(name) {
+    return "Hello " + name;
+  }
+  console.log(greet("Ali"));  // "Hello Ali"
+
+  // Function stored in variable
+  let add = function(a, b) {
+    return a + b;
+  };
+
+  // DEFAULT PARAMETERS (if no value given, use default)
+  function add(a = 10, b = 5) {
+    return a + b;
+  }
+  add(11, 12);         // 23  (uses 11 and 12)
+  add(3);              // 8   (a=3, b=default 5)
+  add(undefined, 20);  // 30  (a=default 10, b=20)
+  add();               // 15  (a=default 10, b=default 5)
+
+
+────────────────────────────────────────
+  ARROW FUNCTIONS (ES6)
+────────────────────────────────────────
+
+  // Normal function:
+  function add(a, b) {
+    return a + b;
+  }
+
+  // Arrow function (shorter!):
+  const add = (a, b) => a + b;
+
+  // Arrow function with body:
+  const greet = (name) => {
+    let msg = "Hello " + name;
+    return msg;
+  };
+
+  // Single parameter - no parentheses needed:
+  const double = n => n * 2;
+
+
+────────────────────────────────────────
+  CALLBACKS
+────────────────────────────────────────
+
+  A callback = a function passed AS AN ARGUMENT to another function.
+
+  // Example:
+  function calculate(a, b, callback) {
+    let result = callback(a, b);     // calls the passed function
+    console.log("Result:", result);
+  }
+
+  function add(x, y) {
+    return x + y;
+  }
+
+  function multiply(x, y) {
+    return x * y;
+  }
+
+  calculate(5, 3, add);          // Result: 8
+  calculate(5, 3, multiply);     // Result: 15
+
+  Think of it like: "Here's a function, call it LATER when you need it"
+
+
+────────────────────────────────────────
+  TEMPLATE LITERALS (ES6)
+────────────────────────────────────────
+
+  OLD WAY:
+  let msg = "My name is " + name + " and I am " + age;
+
+  NEW WAY (use backticks `` and ${}):
+  let msg = `My name is ${name} and I am ${age}`;
+
+  ** Much cleaner! Use backticks (`) not regular quotes! **
+
+
+────────────────────────────────────────
+  DESTRUCTURING (ES6)
+────────────────────────────────────────
+
+  // OBJECT destructuring - unpack properties into variables
+  const person = { firstName: "Ali", lastName: "Khan", age: 20 };
+
+  // Old way:
+  let firstName = person.firstName;
+  let lastName = person.lastName;
+
+  // New way (destructuring):
+  let { firstName, lastName, country = "Pakistan" } = person;
+  // firstName = "Ali"
+  // lastName = "Khan"
+  // country = "Pakistan" (default value since it wasn't in object)
+
+  // ARRAY destructuring:
+  let [a, b, c] = [1, 2, 3];
+  // a = 1, b = 2, c = 3
+
+
+────────────────────────────────────────
+  SCOPE (Where can you use a variable?)
+────────────────────────────────────────
+
+  // GLOBAL scope - accessible everywhere
+  let globalVar = "I'm everywhere";
+
+  function test() {
+    // FUNCTION scope
+    var innerVar = "I'm only in this function";
+    
+    if (true) {
+      // BLOCK scope
+      let blockVar = "I'm only in this if block";
+    }
+    // blockVar is NOT accessible here (let is block-scoped)
+    // innerVar IS accessible here (var is function-scoped)
+  }
+  // innerVar is NOT accessible here
+
+  EXAMPLE (common exam question):
+  var firstName = "Ali";
+  var addSurname = function() {
+    var surname = "Khan";
+    console.log(firstName + " " + surname);  // "Ali Khan" (works!)
+  };
+  addSurname();
+  console.log(firstName + " " + surname);  // ERROR! surname not defined
+
+
+────────────────────────────────────────
+  DATES & MATH
+────────────────────────────────────────
+
+  const now = new Date();                    // current date/time
+  const d = new Date("2022-03-25");          // specific date
+  const d2 = new Date(2022, 2, 25);         // year, month(0-based), day
+
+  Math.random()           // random number between 0 and 1
+  Math.floor(4.7)         // 4 (rounds DOWN)
+  Math.ceil(4.1)          // 5 (rounds UP)
+  Math.round(4.5)         // 5 (normal rounding)
+
+
+════════════════════════════════════════
+  TYPESCRIPT (NOT IN YOUR SYLLABUS - SKIP)
+════════════════════════════════════════
+
+  TypeScript = JavaScript + Types. Made by Microsoft.
+  NOT in your exam. Don't worry about it.
+
+================================================================================
+  END OF LECTURE 5 & 6 EASY NOTES
+================================================================================

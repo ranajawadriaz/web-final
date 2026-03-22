@@ -1,0 +1,274 @@
+Web Programming
+Lecture 3
+
+
+
+CSS
+Mahhek Tahir
+.
+1
+
+Grading Criteria
+Assignments - 8%
+Project - 10% (5% each phase)
+Quiz - 9%
+Class Participation - 3% (includes answering questions, being attentive, doing small home tasks and being silent in class)
+Midterms - 30% 
+Final Exam - 40%
+
+SE: 5y3xobp2
+CS: 5x3qpyoo
+DS: dljfyqep
+2
+
+CSS - Cascade Style Sheet
+
+
+
+
+CSS Selector
+The CSS element Selector
+
+The element selector selects HTML elements based on the element name.
+Here, all <p> elements on the page will be center-aligned, with a red text color: 
+p {
+  text-align: center;
+  color: red;
+}
+
+7
+
+CSS Selector
+The CSS element Selector
+
+To select an element with a specific id, write a hash (#) character, followed by the id of the element.
+The CSS rule below will be applied to the HTML element with id="para1": 
+#para1 {
+  text-align: center;
+  color: red;
+}
+
+
+8
+
+CSS Selector
+HTML elements can also refer to more than one class.
+<p class="center large">This paragraph refers to two classes.</p>
+
+9
+
+CSS Universal Selector
+
+
+* {
+  text-align: center;
+  color: blue;
+}
+CSS Grouping Selector
+h1, h2, p {
+  text-align: center;
+  color: red;
+}
+
+
+10
+
+Properties and Values - Text
+<h1 style="background-color:DodgerBlue;">Hello World</h1>
+
+
+<p style="background-color:#FFFFFF;color:#DodgerBlue;">Lorem ipsum...</p>
+
+
+<h1 style="border:2px solid Tomato;">Hello World</h1>
+
+11
+
+Properties and Values
+
+body {
+  background-image: url("paper.gif");
+}
+12
+
+Height x Width
+https://www.w3schools.com/css/css_dimension.asp
+13
+
+Font
+font-size: 40px; / 2.5em; / 100%;
+font-family: Arial, “Times New Roman”’
+font-style: normal/italics/bold;
+font-weight: normal/bold/900;
+14
+
+CSS Borders
+p.dotted {border-style: dotted;}
+p.dashed {border-style: dashed;}
+p.solid {border-style: solid;}
+p.double {border-style: double;}
+p.groove {border-style: groove;}
+p.ridge {border-style: ridge;}
+p.inset {border-style: inset;}
+p.outset {border-style: outset;}
+p.none {border-style: none;}
+p.hidden {border-style: hidden;}
+p.mix {border-style: dotted dashed solid double;}
+15
+
+CSS Borders
+border-width: 5px;
+border-color: red;
+
+
+border-bottom: 1px solid #ccc;
+border-top: 1px solid #ccc !important;
+border-right: 1px solid #ccc;
+border-left: 1px solid #ccc !important;
+
+16
+
+Align
+float: left (default in english)/right
+text-align: center/left/right
+
+Different: "text-align" applies to the content of a box, while "float" applies to the box itself.
+
+
+17
+
+Margins and Paddings
+Margins are used to create space around elements, outside of any defined borders.
+margin: 25px;
+margin-top: 10px;
+margin: 25px 50px 75px 100px;
+top margin is 25px - right margin is 50px - bottom margin is 75px - left margin is 100px
+Padding is used to create space around an element's content, inside of any defined borders.
+padding: 25px;
+padding-top: 10px;
+padding: 25px 50px 75px 100px;
+top padding is 25px - right padding is 50px - bottom padding is 75px - left padding is 100px
+
+
+
+https://www.w3schools.com/css/css_padding.asp
+18
+
+MARGIN - PADDING 
+div {
+  padding: 10px 20px;
+}
+This means:
+Top = 10px
+Bottom = 10px
+Left = 20px
+Right = 20px
+
+div {
+  padding: 10px 20px 30px;
+}
+This means:
+Top = 10px
+Left = 20px
+Right = 20px
+Bottom = 30px
+
+19
+
+Anchor style
+a:link - a normal, unvisited link
+a:visited - a link the user has visited
+a:hover - a link when the user mouses over it
+a:active - a link the moment it is clicked
+
+a:link {
+  background-color: white;
+  color: black;
+  border: 2px solid green;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
+20
+
+Specificity
+
+Specificity measure which css rule to apply when multiple css rules target the same styling property of an element, i.e.,
+
+21
+
+Specificity
+The more specific the selector, the higher the priority. The order of priority is as follows (first one has the highest priority)
+html style attribute
+id
+class
+element selector
+22
+
+CSS Cascade
+If two CSS rules have the same specificity, the browser determines which rule to apply using the following criteria:
+Internal vs. External CSS: Rules defined in internal (embedded) CSS take precedence over rules in external CSS if they have the same specificity.
+Order of Appearance: When two rules are in the same location (both in internal CSS or both in external CSS), the rule that appears later in the code will be applied.
+23
+
+Precedence	
+If the same css rule is being applied in more than one way, then the following order of precedence is followed:
+inline css ( html style attribute)
+internal/embedded css
+external css
+Note: A css rule with !important always takes precedence.
+
+EXAMPLE CODE:
+ background-color: red !important;
+
+24
+
+BOX MODEL
+The box model defines the different parts of that shape, which are broken up into four pieces, or sub-boxes:
+Content: the inner content of your HTML element.
+Padding: a box that surrounds an HTML element's inner content. In the image below, it's the extra space around the content that also shares the background;.
+
+Border: a box that surrounds an HTML element's padding. In the image below, it's the darker space around the padding: 
+
+Margin: a functionally invisible box that surrounds an HTML element's border. The margin is meant to act as white space to separate HTML elements from each other. In the image below, it's the white spaces between and around the two paragraphs:
+25
+
+Primarily two types of display: block and inline
+Block level elements are formatted visually as blocks / boxes (e.g. Paragraphs) – vertically stacked
+Blocks may further contain other blocks or inline elements
+Inline content is distributed in form of lines and does not introduce a new block content – horizontally aligned
+display:none doesn't display element at all
+display: block
+display: list-item
+display: table
+
+display: inline
+display: inline-block
+display: inline-table
+
+Block level
+Inline level
+Display
+
+Class Test
+HTML & CSS Test
+Part 1: HTML
+Create an HTML page that includes the following elements:
+A big header text with a title (e.g., "My Simple Web Page").
+A main section with at least one paragraph and an image.
+Another section that includes your name and the current year.
+Part 2: CSS
+Write a CSS stylesheet that styles your HTML page. Include the following styles:
+Use a font size and color for the header.
+Change the background color of the page.
+Style the main content section, giving the paragraph some padding and margin.
+Style the second section with a different background color.
+
+
+27
+
+Study
+https://www.w3schools.com/css/default.asp
+
+28

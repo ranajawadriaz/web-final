@@ -1,0 +1,218 @@
+================================================================================
+   LECTURE 1 - THE INTERNET & WORLD WIDE WEB (EASY VERSION)
+   ** NOT directly in your mid syllabus but gives background knowledge **
+================================================================================
+
+────────────────────────────────────────
+  WHAT IS THE INTERNET?
+────────────────────────────────────────
+
+Think of the Internet like a GIANT ROAD SYSTEM connecting computers worldwide.
+
+  - It's a global network = millions of computers talking to each other
+  - Uses cables, wifi, satellites etc. to connect
+  - Fun fact: Web got 50 million users in 4 years
+    (Radio took 38 years, TV took 13 years!)
+
+
+────────────────────────────────────────
+  INTERNET vs WORLD WIDE WEB (WWW)
+────────────────────────────────────────
+
+  ** THIS IS A COMMON TRICK QUESTION **
+
+  INTERNET = The physical network (cables, routers, computers)
+             Like the ROAD system
+
+  WWW      = The websites/content you see in your browser
+             Like the CARS and SHOPS on the road
+
+  So: Internet is the HIGHWAY, WWW is the STUFF on it.
+  
+  Tim Berners-Lee invented the WWW (not the internet!)
+
+
+────────────────────────────────────────
+  IP ADDRESS
+────────────────────────────────────────
+
+  Every computer on the internet has a UNIQUE address
+  Like your HOME ADDRESS but for computers.
+
+  Example: 194.27.254.189
+
+  Think of it like a phone number - no two are the same.
+
+
+────────────────────────────────────────
+  PORT NUMBERS
+────────────────────────────────────────
+
+  Imagine your computer is a BIG APARTMENT BUILDING.
+  The IP address = the building address
+  The port number = the APARTMENT NUMBER inside
+
+  Common ports:
+    80  = HTTP (websites)
+    21  = FTP (file transfer)
+    443 = HTTPS (secure websites)
+
+
+────────────────────────────────────────
+  URL (Uniform Resource Locator)
+────────────────────────────────────────
+
+  A URL is basically a WEB ADDRESS. Like:
+  https://www.facebook.com/login
+
+  Breaking it down:
+  
+  https://  www.facebook.com  /login
+  ───────   ────────────────  ──────
+  Protocol   Machine/Server    Path (which page)
+
+  Protocol = HOW to connect (http, https, ftp)
+  Machine  = WHICH server to connect to
+  Path     = WHAT page/file you want
+
+
+────────────────────────────────────────
+  DNS (Domain Name System)
+────────────────────────────────────────
+
+  Problem: Humans can't remember numbers like 172.217.14.206
+  Solution: DNS converts names to numbers!
+
+  You type:    www.google.com
+  DNS converts: 172.217.14.206
+
+  DNS = The PHONE BOOK of the internet
+        You give a NAME, it gives back a NUMBER
+
+
+────────────────────────────────────────
+  WEB ARCHITECTURE (How websites work)
+────────────────────────────────────────
+
+  A website has these LAYERS:
+
+  1. FRONTEND = What you SEE (buttons, text, images)
+     - Built with HTML, CSS, JavaScript
+
+  2. BACKEND = The BRAIN (processes your requests)
+     - Runs on the server
+
+  3. DATABASE = The STORAGE (saves all the data)
+     - Like a filing cabinet
+
+  4. APIs = The MESSENGER between frontend and backend
+     - Frontend says "give me data" -> API delivers it
+
+  5. COMMUNICATION = How they talk (HTTP/HTTPS)
+
+
+────────────────────────────────────────
+  CLIENT-SERVER MODEL
+────────────────────────────────────────
+
+  CLIENT = Your browser (Chrome, Firefox)
+           The one who ASKS for stuff
+           "Hey server, give me this webpage!"
+
+  SERVER = A powerful computer somewhere
+           The one who GIVES stuff back
+           "Here's the webpage you wanted!"
+
+  Simple flow:
+    YOU (client) --> request --> SERVER
+    SERVER --> response --> YOU (client)
+
+
+────────────────────────────────────────
+  SYSTEM ARCHITECTURE TIERS
+────────────────────────────────────────
+
+  2-TIER: Client talks DIRECTLY to Database
+    Client <---> Database
+    Simple but not scalable.
+
+  3-TIER: Client talks to App Server, App Server talks to Database
+    Client <---> App Server <---> Database
+    Better! More organized.
+
+  MULTI-TIER: Many layers between client and database
+    Client <---> Web Server <---> App Server <---> Database
+    Best for big applications.
+
+
+────────────────────────────────────────
+  SCALABILITY
+────────────────────────────────────────
+
+  When more users come, you need MORE POWER.
+
+  HORIZONTAL SCALING = Add MORE servers (like hiring more workers)
+  VERTICAL SCALING   = Make ONE server STRONGER (like giving one worker steroids)
+
+
+────────────────────────────────────────
+  MICROSERVICES
+────────────────────────────────────────
+
+  Instead of ONE big program doing everything,
+  break it into SMALL independent programs.
+
+  Example - Amazon:
+    Service 1: Handles LOGIN
+    Service 2: Handles PRODUCTS
+    Service 3: Handles PAYMENTS
+
+  If payments break, login still works!
+
+
+────────────────────────────────────────
+  REST (RESTful Design)
+────────────────────────────────────────
+
+  REST = A set of RULES for how client and server talk.
+
+  KEY RULES:
+  - Stateless = Server doesn't remember previous requests
+  - Uses standard HTTP methods:
+
+  METHOD    WHAT IT DOES              EXAMPLE
+  ──────    ────────────              ───────
+  GET       Get/Read data             GET /students
+  POST      Create new data           POST /students
+  PUT       Update ALL data           PUT /students/2
+  PATCH     Update ONE field          PATCH /students/2
+  DELETE    Remove data               DELETE /students/2
+
+
+────────────────────────────────────────
+  RESPONSIVE DESIGN
+────────────────────────────────────────
+
+  Making websites look GOOD on ALL devices
+  (phone, tablet, laptop, desktop)
+
+  Tools:
+  - CSS Media Queries (change layout based on screen size)
+  - Flexible Grid Layouts (content adjusts automatically)
+
+
+────────────────────────────────────────
+  SECURITY BASICS
+────────────────────────────────────────
+
+  HTTPS = Encrypted version of HTTP (the "S" = Secure)
+  - Protects passwords, credit cards etc.
+
+  Common attacks to know:
+  - XSS (Cross-Site Scripting) = injecting bad scripts
+  - CSRF = tricking users into unwanted actions
+  - SQL Injection = injecting bad database commands
+
+================================================================================
+  END OF LECTURE 1 EASY NOTES
+================================================================================

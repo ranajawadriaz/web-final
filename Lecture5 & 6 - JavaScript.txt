@@ -1,0 +1,357 @@
+
+Web Programming
+Lecture 5 & 6
+
+
+JavaScript & objects, ES6 extensions and TypeScript
+Mahhek Tahir
+.
+1
+
+What is javascript?
+A lightweight, interpreted programming language.
+Used for creating dynamic and interactive web content.
+Runs in the browser (client-side) and on servers (Node.js).
+Example Uses:
+Form validations.
+Animations.
+Updating DOM dynamically.
+
+
+
+2
+
+Way to add
+
+JavaScript’s Reputation
+• Everything is type sensitive, including function, class, and variable names.
+• The scope of variables in blocks is not supported. This means variables declared inside a loop may be accessible outside of the loop, counter to what one would expect.
+• There is a === operator, which tests not only for equality but type equivalence.
+• Null and undefined are two distinctly different states for a variable. Null Means no value / empty value intentionally. undefined means Variable declared but not initialized
+• Semicolons are not required, but are permitted (and encouraged).
+
+4
+
+Javascript Basic Syntax
+Variables:name = "John";
+let name = "John";
+const pi = 3.14;
+var age = 25;
+Data Types: String, Number, Boolean, Object, Array, Undefined, null
+Operators: +, -, *, /, %, ++, - - ,  ==, ===, !=, !==, >, <, >=, <=, &&, ||.
+
+
+5
+
+Data Types
+// Numbers:
+let length = 16;
+let weight = 7.5;
+// Strings:
+let color = "Yellow";
+let lastName = "Johnson";
+// Booleans
+let x = true;
+let y = false;
+// Object:
+const person = {firstName:"John", lastName:"Doe"};
+// Array object:
+const cars = ["Saab", "Volvo", "BMW"];
+// Date object: const date = new Date("2022-03-25");
+6
+
+Difference: var, let and const 
+var - Function scope (will print)
+
+
+let - Block scope (ReferenceError: y is not defined)
+
+
+7
+
+Arithmetic operators
+JavaScript performs implicit type coercion
+String Coercion (Number → String) 
+When a number is added to a string, JavaScript converts the number into a string and performs concatenation. console.log(2 + "2"); // "22"
+Number Coercion (String → Number)
+When a string contains a number and is used with mathematical operators (-, *, /), JavaScript converts it into a number. console.log("10" - 5); // 5
+8
+
+JS Assignment operators
+
+
+
+
+
+
+
+
+
+
+
+
+** means power
+9
+
+JS Comparison Operators
+10
+
+String methods
+Slice and at supports negative value whereas [] (undefined) and substring (makes it 0 or swap) doesn't
+11
+
+Number methods
+12
+
+Array Methods
+13
+
+JS Dates 
+const d = new Date(); //current date and time
+const d = new Date("2022-03-25");
+new Date(year,month,day,hours,minutes,seconds,ms)
+Math.random();
+
+14
+
+JS Objects
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  eyeColor: "blue"};
+let firstName = person.firstName
+let age = person[“age”]
+Add new property: person.nationality = "English";
+Delete a property: delete person.age;
+Important: const here means that 
+person = { firstName = “def” } // error
+but person.firstName = “Ali” // allowed
+15
+
+var item = new Object();
+item.title = "HTML Specification";
+item.status = "available";
+item.isAvailable = function (){
+	return this.status == "available";
+}
+alert(item.title); // HTML Specification
+alert(item.isAvailable()); // true
+Objects
+
+function Item(t){
+
+  this.title = t;
+  this.status = "available";
+  this.isAvailable = function (){
+	return this.status == "available"; 
+  }
+
+}
+var item1 = new Item("HTML Specification");
+alert(item1.title); // HTML Specification
+alert(item1.isAvailable()); // true
+Using Object Constructors
+var item2 = new Item("Javascript Specification");
+alert(item2.title); // Javascript Specification
+alert(item2.isAvailable()); // true
+
+Extending Objects
+var item1 = new Item("HTML Specification");
+alert(item1.title); // HTML Specification
+alert(item1.isAvailable()); // true
+
+item1.issue = function(){
+  this.status = "issued"; 
+}
+
+alert( item1.isAvailable() ); // true
+
+item1.issue();
+
+alert( item1.isAvailable() ); // false
+
+Constructors - recommended
+Properties are defined in the constructor, while functions are defined on Item.prototype
+
+Inheritance
+
+class based syntax
+
+Class
+Inside a class { ... }, you are NOT allowed to write:
+let
+var
+const
+normal statements
+A class body can contain ONLY: constructor, methods, class fields (special syntax)
+
+
+
+
+
+
+
+This automatically becomes this.abc
+
+22
+
+JS Control Statements
+If-else Statements:if (age > 18 || cond) {
+  console.log("You are an adult.");
+} else {
+  console.log("You are a minor.");
+}
+Loops:for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+
+Switch Case.
+let x = "0";
+switch (x) {
+  case 0:
+    text = "Off";
+    break;
+  case 1:
+	text = "On";
+    break;
+  default:
+    text = "No value found";
+}
+23
+
+JS Loops
+for (expression 1; expression 2; expression 3) {
+  // code block to be executed
+}
+Expression 1 is executed (one time) before the execution of the code block.
+Expression 2 defines the condition for executing the code block.
+Expression 3 is executed (every time) after the code block has been executed.
+
+24
+
+JS Loops
+const cars = ["BMW", "Volvo", "Saab", "Ford"];
+
+let len = cars.length;
+let text = "";
+
+for (let i=0; i < len; i++) {
+  text += cars[i] + "<br>";
+}
+
+BMW
+Volvo
+Saab
+Ford
+25
+
+JS Loops
+const array = ["one", "two", "three"]; 
+array.forEach(function (item, index) 
+{ 
+console.log(item, index); 
+});
+
+one 0
+two 1
+three 2
+
+26
+
+JS Functions
+What are Functions?
+Reusable blocks of code.
+function greet(name) {
+  return `Hello, ’ + name;
+}
+console.log(greet("Alice")); // Hello, Alice!
+—--------------------------------------------------
+// Function is called, the return value will end up in x
+let x = myFunction(4, 3);
+
+function myFunction(a, b) {
+// Function returns the product of a and b
+  return a * b;
+}
+
+27
+
+Callbacks
+A callback is a function passed as an argument to another function. This technique allows a function to call another function
+function calculate(a, b, callback) {
+    let result = callback(a, b);
+    console.log("Result:", result);
+}
+function add(x, y) {
+    return x + y;
+}
+calculate(5, 3, add);
+
+
+
+28
+
+ES6 extensions
+modern JavaScript features that make code shorter, cleaner, and easier to read. 
+let age = 20; let msg = `My age is ${age}`; //string literals
+29
+
+Destructuring
+The destructuring assignment syntax unpack object properties into variables:
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50
+};
+// Destructuring
+let {firstName, lastName, country = "US"} = person;
+
+
+30
+
+Typescripting
+TypeScript is a superset of JavaScript
+Developed by Microsoft
+Adds types to JavaScript
+Helps catch errors before running code
+31
+
+Types in TypeScript
+Basic Types
+
+
+
+
+Arrays
+
+
+Function with types
+32
+
+33
+
+Correct use
+34
+
+Incorrect use of typescript
+35
+
+Research task
+Explore Promises and Async/Await in JavaScript.
+Write a short explanation of each
+Include one example each, using the same scenario
+Use handwritten notes only on A4 size paper
+No printouts allowed
+Bring the completed work to the next class.
+
+36
+
+Resources to Learn
+Slide 15: Resources to Learn More
+Websites:
+MDN Web Docs.
+JavaScript.info.
+Platforms:
+FreeCodeCamp, Codecademy, or W3Schools.
+

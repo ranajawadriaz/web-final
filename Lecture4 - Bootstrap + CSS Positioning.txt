@@ -1,0 +1,250 @@
+
+Web Programming
+Lecture 4
+
+Bootstrap + CSS Positioning
+Mahhek Tahir
+.
+1
+
+Responsive Design.
+Grid System (Bootstrap, tailwind)
+CSS Media Queries
+
+
+
+
+2
+
+Media Queries
+What are Media Queries?
+CSS rules that apply styles based on device characteristics such as screen width, height, or orientation.
+Common Use Cases:
+Adjusting layouts for different screen sizes.
+Changing font sizes on smaller screens.
+Hiding or showing elements.
+3
+
+@media (max-width: 600px) {
+  body {
+background-color: lightblue;
+  }
+}
+@media (min-width: 601px) and (max-width: 900px) {
+  body {
+    background-color: purple;
+  }
+}
+@media (orientation: portrait) {
+  img {
+    width: 100%;
+  }
+}
+
+
+4
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {...}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {...}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {...}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {...}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {...}
+5
+
+CSS Layout – Position
+The position is CSS sets how an element is positioned in a document.
+Static: Default positioning; elements are placed in the normal flow. (default)
+Relative: Positioned relative to its normal position.
+Absolute: Positioned relative to the nearest positioned ancestor.
+Fixed: Positioned relative to the viewport; does not move on scroll.
+Sticky: Switches between relative and fixed based on scroll position.
+6
+
+Static
+The element is positioned according to the Normal Flow of the document. The top, right, bottom, left, and z-index properties have no effect. This is the default value.
+7
+
+Relative
+The element is positioned according to the normal flow of the document, and then offset relative to itself based on the values of top, right, bottom, and left. The offset does not affect the position of any other elements; thus, the space given for the element in the page layout is the same as if position were static.
+
+position: relative;
+top: 40px; left: 40px;
+
+8
+
+Absolute
+An element with position: absolute; is positioned relative to the nearest positioned ancestor, Any ancestor with position NOT equal to static: If not ancestor is relative? The absolutely positioned element is positioned relative to the initial containing block (usually the page)
+
+
+9
+
+Fixed & Sticky
+position: fixed: The element is removed from the normal document flow. Its final position is determined by the values of top, right, bottom, and left. For instance a website with a header and navigation that always stays visible when you are scrolling is a good example of fixed positioning.
+position: sticky basically acts like position: relative until an element is scrolled beyond a specific offset, in which case it turns into position: fixed
+
+https://www.w3schools.com/css/tryit.asp?filename=trycss_position_sticky
+
+10
+
+11
+
+What is bootstrap?
+Bootstrap is a powerful, open-source front-end framework used for designing responsive and mobile-first websites.
+Why use bootstrap?
+Speeds up development.
+Pre-styled components.
+Easy to create responsive designs.
+
+
+
+
+12
+
+Key Features of Bootstrap
+Responsive Grid System
+Pre-designed Components
+Buttons, Modals, Alerts, etc.
+Customizable
+Built with Sass and a theming system.
+Cross-Browser Compatibility
+Extensive Documentation
+
+
+
+13
+
+Bootstrap 5
+<!-- Bootstrap CSS --> <link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/
+bootstrap.min.css" rel="stylesheet"
+integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFs
+pd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<!-- Bootstrap JS Bundle with Popper --> <script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bo
+otstrap.bundle.min.js"
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YL
+EuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+14
+
+Bootstrap Container
+Containers are used to pad the content inside of them, and there are two container classes available:
+The .container class provides a responsive fixed width container
+The .container-fluid class provides a full width container, spanning the entire width of the viewport
+
+
+15
+
+Bootstrap Grid System
+
+What is the Grid System?
+Divides the page into a 12-column layout.
+Core Concepts:
+Containers (fixed and fluid).
+Rows and Columns.
+Breakpoints for responsiveness.
+
+
+16
+
+<div class="container">
+<div class="row">
+  <div class="col-md-6"></div>
+  <div class="col-md-6"></div>
+</div>
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4"></div>
+  <div class="col-md-4"></div>
+</div>
+</div>
+17
+
+Typography and Components
+
+Typography
+Predefined styles for headings, paragraphs, and text utilities.
+Common Components:
+Buttons
+Alerts
+Navigation Bars
+Modals
+Example:
+<button class="btn btn-primary">Click Me!</button>
+
+
+
+18
+
+Bootstrap Buttons
+19
+
+Bootstrap Alerts
+20
+
+Bootstrap Navigation Bar
+.nav uses display: flex
+flex-column class on nav makes it vertical
+
+21
+
+Bootstrap Tabs
+22
+
+Bootstrap Dropdown Menu
+23
+
+Bootstrap Form
+24
+
+Bootstrap Responsive
+Breakpoints:
+sm, md, lg, xl, xxl
+Adapt layout based on screen size.
+Mobile-First Approach:
+Prioritize small screens and scale up.
+Example:
+<div class="col-sm-12 col-md-6 col-lg-4">Column 1</div>
+<div class="col-sm-12 col-md-6 col-lg-4">Column 2</div>
+<div class="col-sm-12 col-md-6 col-lg-4">Column 3</div>
+<div class="col-sm-12 col-md-6 col-lg-4">Column 4</div>
+25
+
+Resources to Learn
+Slide 15: Resources to Learn More
+Websites:
+https://getbootstrap.com/docs/4.0/
+Platforms:
+FreeCodeCamp, Codecademy, or W3Schools.
+
+
+Test
+Question:
+Write complete HTML code using Bootstrap to create a responsive grid layout with 12 boxes that behaves as follows:
+Requirements
+On mobile phones (small screens) → show 1 column per row
+On small screens (phones in landscape / medium devices) → show 2 columns per row
+On laptops → show 6 columns per row
+
+27
+
+Solution
+<div class=”container”>
+  <div class=”row”>
+	<div class=”col-sm-12 col-md-6 col-lg-2”>1 </div>
+	<div class=”col-sm-12 col-md-6 col-lg-2”>2</div>
+	<div class=”col-sm-12 col-md-6 col-lg-2”>3</div>
+	<div class=”col-sm-12 col-md-6 col-lg-2”>4</div>
+…
+	<div class=”col-sm-12 col-md-6 col-lg-2”>12</div>
+  </div>
+</div>
+28

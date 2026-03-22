@@ -1,0 +1,329 @@
+================================================================================
+   LECTURE 2 - HTML (EASY VERSION)
+   ** HTML IS IN YOUR SYLLABUS - STUDY THIS WELL! **
+   (HTTP parts are NOT in syllabus but included briefly for context)
+================================================================================
+
+
+════════════════════════════════════════
+  PART A: HTTP (NOT in syllabus - quick overview)
+════════════════════════════════════════
+
+  HTTP = How your browser TALKS to a server
+  
+  Your browser sends a REQUEST --> Server sends back a RESPONSE
+  That's it. That's the whole thing.
+
+  HTTP is STATELESS = server forgets you after each request
+  (like a goldfish - no memory of past conversations)
+
+  Status Codes (just know these):
+    200 = OK, everything worked!
+    404 = Page not found (you've seen this one!)
+    500 = Server broke
+    301 = Page moved permanently
+    403 = You're not allowed
+
+
+════════════════════════════════════════════════════════════════════════════════
+  PART B: HTML  *** THIS IS IN YOUR SYLLABUS - FOCUS HERE ***
+════════════════════════════════════════════════════════════════════════════════
+
+
+────────────────────────────────────────
+  WHAT IS HTML?
+────────────────────────────────────────
+
+  HTML = HyperText Markup Language
+  It's the SKELETON of every webpage.
+
+  Think of building a house:
+    HTML = The walls, rooms, structure (WHAT is on the page)
+    CSS  = The paint, furniture, decoration (HOW it looks)
+    JS   = The electricity, plumbing (WHAT it does)
+
+
+────────────────────────────────────────
+  BASIC HTML PAGE STRUCTURE
+────────────────────────────────────────
+
+  Every HTML page looks like this:
+
+  <!DOCTYPE html>              <!-- tells browser: "this is HTML5" -->
+  <html lang="en">             <!-- everything goes inside html -->
+    <head>                     <!-- invisible stuff (title, settings) -->
+      <meta charset="UTF-8">  <!-- character encoding -->
+      <title>My Page</title>  <!-- tab title in browser -->
+    </head>
+    <body>                     <!-- visible stuff goes here -->
+      <h1>Hello!</h1>         <!-- big heading -->
+      <p>Some text</p>        <!-- paragraph -->
+    </body>
+  </html>
+
+  REMEMBER:
+  - <head> = stuff user DOESN'T see (metadata, title, links to CSS)
+  - <body> = stuff user SEES (text, images, buttons)
+
+
+────────────────────────────────────────
+  HTML ELEMENTS = TAGS
+────────────────────────────────────────
+
+  An element has:
+    <openingTag attribute="value"> content </closingTag>
+
+  Example:
+    <a href="https://google.com">Click me</a>
+    ─── ────────────────────────  ────────  ────
+    tag      attribute             content   closing tag
+
+
+────────────────────────────────────────
+  ENCLOSING vs SELF-CLOSING TAGS
+────────────────────────────────────────
+
+  ENCLOSING TAGS (have opening + closing):
+    <p>Hello</p>
+    <h1>Title</h1>
+    <div>stuff</div>
+
+  SELF-CLOSING TAGS (no closing tag needed):
+    <img src="photo.jpg" />
+    <input type="text" />
+    <br />    (line break)
+    <hr />    (horizontal line)
+
+  Easy trick: If a tag CAN'T have children inside it = self-closing
+
+
+────────────────────────────────────────
+  HEADINGS (h1 to h6)
+────────────────────────────────────────
+
+  <h1>Biggest heading</h1>     (like a book title)
+  <h2>Second biggest</h2>      (like a chapter)
+  <h3>Third biggest</h3>       (like a section)
+  ...
+  <h6>Smallest heading</h6>    (tiny heading)
+
+  ** h1 is the BIGGEST, h6 is the SMALLEST **
+
+
+────────────────────────────────────────
+  PARAGRAPH
+────────────────────────────────────────
+
+  <p>This is a paragraph of text.</p>
+
+  That's it. Simple.
+
+
+────────────────────────────────────────
+  LINKS (Anchor Tag)
+────────────────────────────────────────
+
+  <a href="https://google.com">Go to Google</a>
+
+  href = WHERE the link goes
+
+  ABSOLUTE URL = full address:    https://www.google.com
+  RELATIVE URL = just the file:   page2.html (same website)
+
+  Open in NEW TAB:
+    <a href="https://google.com" target="_blank">Google</a>
+                                 ───────────────
+                                 THIS opens a new window/tab
+
+
+────────────────────────────────────────
+  IMAGES
+────────────────────────────────────────
+
+  <img src="cat.jpg" width="200" height="150">
+
+  src = WHERE the image is (can be relative or absolute URL)
+  width/height = size in pixels
+
+  ** img is SELF-CLOSING (no </img> needed) **
+
+
+────────────────────────────────────────
+  BUTTONS
+────────────────────────────────────────
+
+  <button>Click me!</button>
+
+  That's literally it.
+
+
+────────────────────────────────────────
+  LISTS
+────────────────────────────────────────
+
+  UNORDERED LIST (bullet points):       ORDERED LIST (numbered):
+  
+  <ul>                                  <ol>
+    <li>Apples</li>                       <li>First</li>
+    <li>Bananas</li>                      <li>Second</li>
+    <li>Oranges</li>                      <li>Third</li>
+  </ul>                                 </ol>
+
+  Shows as:                             Shows as:
+  - Apples                              1. First
+  - Bananas                             2. Second
+  - Oranges                             3. Third
+
+  NESTED LISTS (list inside a list):
+  <ul>
+    <li>Pakistan
+      <ol>
+        <li>Lahore</li>
+        <li>Karachi</li>
+      </ol>
+    </li>
+  </ul>
+
+
+────────────────────────────────────────
+  HTML FORMS  ***VERY IMPORTANT FOR EXAM***
+────────────────────────────────────────
+
+  Forms let users SEND DATA to a server.
+
+  <form action="/submit" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name">
+    <input type="submit" value="Send">
+  </form>
+
+  KEY PARTS:
+    action = WHERE to send the data (the URL)
+    method = HOW to send it (GET or POST)
+
+  GET method:
+    - Data shows in URL bar (like ?name=Ali&age=20)
+    - Can be bookmarked
+    - NOT safe for passwords!
+    - Has length limit
+
+  POST method:
+    - Data is HIDDEN (not in URL)
+    - Can't be bookmarked
+    - SAFE for passwords
+    - No length limit
+
+
+────────────────────────────────────────
+  INPUT TYPES  ***MUST KNOW***
+────────────────────────────────────────
+
+  <input type="text">          Plain text box
+  <input type="password">      Hidden text (dots/stars)
+  <input type="checkbox">      Tick box (can select many)
+  <input type="radio">         Circle (can select ONE from group)
+  <input type="file">          Upload a file
+  <input type="date">          Date picker
+  <input type="submit">        Submit button
+
+  RADIO BUTTONS - same "name" = same group (only ONE can be picked):
+    <input type="radio" name="gender" value="male"> Male
+    <input type="radio" name="gender" value="female"> Female
+    Both have name="gender" so only ONE can be selected!
+
+
+────────────────────────────────────────
+  HTML TABLES  ***EXAM FAVORITE***
+────────────────────────────────────────
+
+  <table>
+    <tr>                      <!-- tr = table ROW -->
+      <th>Name</th>           <!-- th = table HEADER (bold) -->
+      <th>Age</th>
+    </tr>
+    <tr>
+      <td>Ali</td>            <!-- td = table DATA (normal cell) -->
+      <td>20</td>
+    </tr>
+  </table>
+
+  Shows as:
+  ┌──────┬─────┐
+  │ Name │ Age │   <-- header row (bold)
+  ├──────┼─────┤
+  │ Ali  │ 20  │   <-- data row
+  └──────┴─────┘
+
+  MERGING CELLS:
+    colspan="2" = merge 2 cells HORIZONTALLY (side by side)
+    rowspan="3" = merge 3 cells VERTICALLY (stacked)
+
+  Example - colspan:
+  <td colspan="2">This takes up 2 columns</td>
+
+  Example - rowspan:
+  <td rowspan="3">This takes up 3 rows</td>
+
+
+────────────────────────────────────────
+  BLOCK vs INLINE ELEMENTS  ***IMPORTANT***
+────────────────────────────────────────
+
+  BLOCK ELEMENTS:
+    - Take FULL WIDTH of the page
+    - Start on a NEW LINE
+    - Stack VERTICALLY (one below another)
+    - Examples: <div>, <p>, <h1>, <h2>, <ul>, <table>, <form>
+
+    Think of blocks like BOXES stacked on top of each other.
+
+  INLINE ELEMENTS:
+    - Take ONLY the space they need
+    - Do NOT start on a new line
+    - Sit SIDE BY SIDE (horizontally)
+    - Examples: <span>, <a>, <img>, <label>, <input>
+
+    Think of inline like WORDS in a sentence - they flow together.
+
+
+────────────────────────────────────────
+  DIV and SPAN
+────────────────────────────────────────
+
+  <div> = Generic BLOCK container (takes full width)
+          Used to GROUP other elements
+          
+  <span> = Generic INLINE container (takes only needed space)
+           Used to style a PIECE of text
+
+  Example:
+  <div>This is a block container</div>        <!-- takes full line -->
+  <span>This is inline</span> and so is this  <!-- stays on same line -->
+
+
+────────────────────────────────────────
+  HTML COMMENTS
+────────────────────────────────────────
+
+  <!-- This is a comment, browser ignores it -->
+
+  Used for notes in your code. Users can't see them on the page.
+
+
+────────────────────────────────────────
+  HTML5 SEMANTIC ELEMENTS
+────────────────────────────────────────
+
+  These are like <div> but with MEANING:
+
+  <article>   = A self-contained piece of content (blog post)
+  <section>   = A section of the page
+  <nav>       = Navigation links
+  <header>    = Header area
+  <footer>    = Footer area
+  <video>     = Embed a video
+  <audio>     = Embed audio
+
+================================================================================
+  END OF LECTURE 2 EASY NOTES
+================================================================================
