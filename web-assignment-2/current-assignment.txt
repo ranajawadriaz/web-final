@@ -1,0 +1,79 @@
+Assignment 3: Campus Ride Sharing Board CLO 3 
+Create a React application that allows students to offer rides, request rides, search rides, and manage their bookings within a campus community. The system should simulate a mini ride-sharing platform for campus transportation. 
+Core Features 
+Users should be able to: 
+● Register a new account 
+● Login and logout from the system 
+● Change their password after logging in 
+● View a list of available rides 
+● Post a new ride offer 
+● Request a ride 
+● Book a seat on a ride 
+● Search and filter rides using parameters in the URL 
+● View full details of a specific ride 
+● View rides they have booked 
+● View the profile information of the user who offered a ride 
+After login, the user should be redirected to the main dashboard. 
+Note: Certain actions such as posting a ride or booking a ride should require login. Pages (Suggested but Not Limited To) 
+Students may structure pages differently, but the system should include multiple pages such as: 
+● Login page 
+● Register page 
+● Dashboard / Home page 
+● All rides page 
+● Ride details page 
+● Post ride page 
+● Request ride page 
+● My bookings page 
+● Change password page 
+● User profile page (showing information about the ride provider)
+Ride Information 
+Each ride should include fields such as: 
+● Driver name 
+● Pickup location 
+● Destination 
+● Departure time 
+● Available seats 
+● Vehicle type 
+● Contact information 
+● Notes or description 
+From the ride details page, users should be able to view information about the user who posted the ride. 
+State Management 
+Application data must be managed using Redux Toolkit. 
+Students must: 
+● Create a Redux store 
+● Create slices to manage application data 
+Example slices may include: 
+User Slice 
+● register user 
+● login 
+● logout 
+● change password 
+● store logged-in user 
+● store user profiles 
+Ride Slice 
+● store rides 
+● add new ride 
+● book a ride 
+● update seat availability 
+● store ride requests
+Technical Requirements 
+The project must demonstrate the use of: 
+● Component state 
+● React Hooks 
+● Routing with multiple routes 
+● Redux Toolkit for state management 
+UI Requirement 
+● The interface must have a clean, organized, and user-friendly design. ● Layout, spacing, alignment, and readability should be properly handled. ● Poor or messy UI may result in loss of marks. 
+Academic Integrity 
+● Use of AI tools (such as ChatGPT, Copilot, etc.) is strictly not allowed. ● The project must be your own original work. 
+● Any submission suspected of AI-generated or copied code may receive zero marks. 
+Submission Details 
+● The assignment must be submitted on Google Classroom. 
+● Deadline: March 16th 
+● Weightage: 3% of the total course grade 
+● Late submissions may not be accepted. 
+Submission and Evaluation Rules 
+● The project must be completed individually. 
+● Each student may be asked to explain their implementation during evaluation. ● Students who cannot explain their own code may receive zero marks. ● Identical or highly similar submissions will be considered academic misconduct. ● The instructor may ask students to modify or extend their project during the viva/demo. 
+● Projects that do not run during the demo may receive significant deduction in marks. 
+● During evaluation, students may be asked to implement a small modification to their project on the spot to verify understanding.
